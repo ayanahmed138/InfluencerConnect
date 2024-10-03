@@ -3,41 +3,449 @@
     ViewBag.Title = "Register";
 }
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+@*<main aria-labelledby="title">
+        <h2 id="title">@ViewBag.Title.</h2>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Create a new account.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="row">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            <div class="row">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            <div class="row">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
+                    <input type="submit" value="Register" class="btn btn-outline-dark" />
+                </div>
             </div>
-        </div>
+        }
+    </main>
+
+*@
+
+@*<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Influencer Connect Signup</title>
+        <link rel="stylesheet" type="text/css" href="signup_style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </head>*@
+
+
+
+<style>
+    a {
+        color: #0b312a;
     }
-</main>
+
+    .step-wizard {
+        
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .step-wizard-list {
+     
+        list-style-type: none;
+        border-radius: 10px;
+        display: flex;
+        padding: 20px 10px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .step-wizard-item {
+        padding: 0 20px;
+        flex-basis: 0;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        min-width: 170px;
+        position: relative;
+    }
+
+        .step-wizard-item + .step-wizard-item:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 19px;
+            background: #0b312a;
+            width: 100%;
+            height: 2px;
+            transform: translateX(-50%);
+            z-index: -10;
+        }
+
+    .progress-count {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: 600;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+        color: transparent;
+    }
+
+        .progress-count:after {
+            content: "";
+            height: 40px;
+            width: 40px;
+            background: #0b312a;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -10;
+        }
+
+        .progress-count:before {
+            content: "";
+            height: 10px;
+            width: 20px;
+            border-left: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -60%) rotate(-45deg);
+            transform-origin: center center;
+        }
+
+    .progress-label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .current-item .progress-count:before,
+    .current-item ~ .step-wizard-item .progress-count:before {
+        display: none;
+    }
+
+    .current-item ~ .step-wizard-item .progress-count:after {
+        height: 10px;
+        width: 10px;
+    }
+
+    .current-item ~ .step-wizard-item .progress-label {
+        opacity: 0.5;
+    }
+
+    .current-item .progress-count:after {
+        background: #fff;
+        border: 2px solid #0b312a;
+    }
+
+    .current-item .progress-count {
+        color: #0b312a;
+    }
+
+    .drop-down {
+        padding: 4px 0 0 30px !important;
+    }
+</style>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+{
+    
+        <div class="sign-up-form">
+            @Html.AntiForgeryToken()
+            <!-- Logo Section -->
+            <h1 class="text-center mb-4 sign-up-heading">Sign Up</h1>
+            <ul class="step-wizard-list auto-container">
+                <li class="step-wizard-item current-item">
+                    <span class="progress-count">1</span>
+
+                </li>
+                <li class="step-wizard-item ">
+                    <span class="progress-count">2</span>
+
+                </li>
+                <li class="step-wizard-item for-influencer ">
+                    <span class="progress-count ">3</span>
+
+                </li>
+
+            </ul>
+
+            <div class="mb-3">
+                <input class="signup-form-input" type="text" name="FirstName" placeholder="First Name">
+            </div>
+            <div class="mb-3">
+                <input class="signup-form-input" type="text" name="LastName" placeholder="Last name">
+            </div>
+            <div class="mb-3">
+                <input class="signup-form-input" type="email" name="Email" placeholder="Email Address">
+            </div>
+            <div class="mb-3">
+                <input class="signup-form-input" type="text" name="PhoneNumber" placeholder="Contact no.">
+            </div>
+            <div class="mb-3">
+                <input class="signup-form-input" type="password" name="Password" id="Password" placeholder="Password">
+            </div>
+            <div class="mb-3">
+                <input class="signup-form-input" type="password" name="ConfirmPassword" id="Password" placeholder="Confirm Password">
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <p>Are u a Influencer?</p>
+                    @Html.CheckBoxFor(m => m.IsInfluencer, new { @id = "IsInfluencer", @class = "singup-checkbox signup-form-input" })
+                </div>
+            </div>
+
+
+            <div class="mb-3 for-influencer">
+                <input class="signup-form-input" type="text" name="Category" placeholder="Field/ Category">
+
+            </div><div class="mb-3 for-agent">
+                <input class="signup-form-input" type="text" name=CompanyName placeholder="Company Name">
+            </div>
+
+
+
+            <div class="mb-3">
+                <button type="submit">
+                    NEXT
+                </button>
+                </div>
+
+
+                <div class="footer">
+                    <p>
+                        By clicking Create, you agree to our
+                        <a href="#" target="_blank">Terms of Use</a> and
+                        <a href="#" target="_blank">Privacy Policy</a>.
+                    </p>
+                </div>
+
+            </div>
+        
+
+}
+
+
+
+
+<style>
+
+    .singup-checkbox{
+        height:50px;
+
+    }
+
+    /*.sign-up-heading {
+        color: #333;*/ /* Subtle dark gray color */
+    /*font-weight: 600;*/ /* Slightly bold */
+    /*font-size: 2.5rem;*/ /* Adjust font size */
+    /*letter-spacing: 1px;*/ /* Minimal letter spacing */
+    /*}
+
+
+
+    .sign-up-form {
+        position: relative;
+        z-index: 1;
+        background: #48c9b0;
+        max-width: 55%;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+        .sign-up-form input {
+            font-family: FontAwesome, "Roboto", sans-serif;
+            width: 85%;
+            outline: 0;
+            background: #f2f2f2;
+            border: 0;
+            margin: 0 0 1rem;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        .sign-up-form button {
+            max-width: 15rem;
+            font-family: "Titillium Web", sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: .1em;
+            outline: 0;
+            background: #17a589;
+            width: 100%;
+            border: 0;
+            border-radius: 30px;
+            margin: 0px 0px 8px;
+            padding: 15px;
+            color: #FFFFFF;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .sign-up-form button:hover,
+            .sign-up-form button:focus {
+                background: #148f77;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                transform: translateY(-4px);
+            }
+
+            .sign-up-form button:active {
+                transform: translateY(2px);
+                box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.2);
+            }
+
+        .sign-up-form .message {
+            margin: 6px 6px;
+            color: #808080;
+            font-size: 11px;
+            text-align: center;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+            .sign-up-form .message a {
+                color: #FFFFFF;
+                text-decoration: none;
+                font-size: 13px;
+            }
+
+
+
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }*/
+
+
+
+    /* Style all input fields */
+
+
+    /* Style the container for inputs */
+    /* The message box is shown when the user clicks on the password field */
+    /*#message {
+        display: none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+        #message p {
+            padding: 10px 35px;
+            font-size: 18px;
+        }*/
+
+    /* Add a green text color and a checkmark when the requirements are right */
+    /*.valid {
+        color: green;
+    }
+
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "✔";
+        }*/
+
+    /* Add a red text color and an "x" icon when the requirements are wrong */
+    /*.invalid {
+        color: red;
+    }
+
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "✖";
+        }*/
+    /* Style for the footer */
+    /*.footer {
+        text-align: center;*/ /* Center the text */
+    /*font-size: 12px;*/ /* Smaller font size */
+    /*color: #555;*/ /* Gray text color */
+    /*margin-top: 20px;*/ /* Space above the footer */
+    /*padding: 10px 0;*/ /* Padding on top and bottom */
+    /*}*/
+
+    /* Style for the links in the footer */
+    /*.footer a {
+            color: #f3fcfa;*/ /* Link color (match with your theme) */
+    /*text-decoration: none;*/ /* Remove underline */
+    /*font-weight: bold;*/ /* Make the links bold */
+    /*}*/
+
+    /* Hover effect for the links */
+    /*.footer a:hover {
+                text-decoration: underline;*/ /* Add underline on hover */
+    /*}*/
+</style>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+
+            $("#IsInfluencer").click(function () {
+                if (!$("#IsInfluencer").is(':checked')) {
+                    $(".for-agent").removeClass("d-none");
+                    $(".for-influencer").addClass("d-none");
+                } else {
+                    $(".for-agent").addClass("d-none");
+                    $(".for-influencer").removeClass("d-none");
+                }
+            });
+
+            // Trigger the click event to set the initial state
+            $("#IsInfluencer").trigger('click');
+        });
+    </script>
 }

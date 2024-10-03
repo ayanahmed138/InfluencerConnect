@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using InfluencerConnect.Models;
+using System.Collections.Generic;
 
 namespace InfluencerConnect.Controllers
 {
@@ -17,6 +18,7 @@ namespace InfluencerConnect.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -151,19 +153,54 @@ namespace InfluencerConnect.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { UserName = model.Email,
+                  Email = model.Email,
+                  PhoneNumber = model.PhoneNumber,
+                  FirstName = model.FirstName,
+                  LastName = model.LastName,
+                  JoinedOn = DateTime.Now,
+                };
+                if (model.IsInfluencer)
+                {
+                    user.IsInfluencer = true;
+                    var newInfluencer = new Influencer()
+                    {
+                        UserId = user.Id,
+                        Name = model.FirstName + " " + model.LastName,
+                        ContactInfo = model.PhoneNumber,
+                        IsDeleted = false,
+                        
+                    };
+                    db.Influencer.Add(newInfluencer);
+                }
+                else
+                {
+                    var newAgent = new MarketingAgents()
+                    {
+                        UserId = user.Id,
+                        Name = model.FirstName + " " + model.LastName,
+                        ContactInfo = model.PhoneNumber,
+                        IsDeleted = false,
+                        Company = model.CompanyName,
+
+                    };
+                    db.MarketingAgents.Add(newAgent);
+                }
+                    db.SaveChanges();
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Register2");
                 }
                 AddErrors(result);
             }
@@ -171,6 +208,64 @@ namespace InfluencerConnect.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //Register 2
+        [AllowAnonymous]
+        public ActionResult Register2()
+        {
+            // var currentUserId = User.Identity.GetUserId();
+            //var user = db.Users.Where(x=>x.Id== currentUserId).FirstOrDefault();
+            ViewBag.ContentType = db.ContentType.Where(x => !x.IsDeleted).ToList();
+           // if (user.IsInfluencer)
+                ViewBag.IsInfluencer = true;
+           // else
+                //ViewBag.IsInfluencer = false;
+            
+
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult InfluencerRegister2(List<int> ContentType, int minCharge, int maxCharge, int limit)
+        {
+             var currentUserId = User.Identity.GetUserId();
+            if (ContentType!=null && ContentType.Count > 0)
+            {
+               
+                foreach(int contentType in ContentType)
+                {
+                    var influencerContentType = new InfluencerContentType()
+                    {
+                        InfluencerId = currentUserId,
+                        ContentTypeId = contentType,
+                        IsDeleted = false,
+
+                    };
+
+                    db.InfluencerContentType.Add(influencerContentType);
+                   
+                }
+
+                var influencer = db.Influencer.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                influencer.MinCharge = minCharge;
+                influencer.MaxCharge = maxCharge;
+                influencer.Limit = limit;
+                db.SaveChanges();
+                return RedirectToAction("Register3");
+            }
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Register3()
+        {
+          
+
+            return View();
+        }
+
+
 
         //
         // GET: /Account/ConfirmEmail

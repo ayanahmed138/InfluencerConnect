@@ -1,4 +1,6 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
@@ -13,8 +15,341 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+
 select,
 textarea {
     max-width: 280px;
 }
+.body {
+    
+    background-image: url('images/gray-plain-website-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.sign-up-heading {
+    color: #333; /* Subtle dark gray color */
+    font-weight: 600; /* Slightly bold */
+    font-size: 2.5rem; /* Adjust font size */
+    letter-spacing: 1px; /* Minimal letter spacing */
+}
+
+.signup-form-input {
+    font-family: FontAwesome, "Roboto", sans-serif;
+    width: 85%;
+    outline: 0;
+    background: #f2f2f2;
+    border: 0;
+    margin: 0 0 1rem;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.sign-up-form {
+    position: relative;
+    z-index: 1;
+    background: #48c9b0;
+    max-width: 55%;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+    .sign-up-form input {
+        /*font-family: FontAwesome, "Roboto", sans-serif;
+        width: 85%;
+        outline: 0;
+        background: #f2f2f2;
+        border: 0;
+        margin: 0 0 1rem;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 10px;*/
+    }
+
+    .sign-up-form button {
+        max-width: 15rem;
+        font-family: "Titillium Web", sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: .1em;
+        outline: 0;
+        background: #17a589;
+        width: 100%;
+        border: 0;
+        border-radius: 30px;
+        margin: 0px 0px 8px;
+        padding: 15px;
+        color: #FFFFFF;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+        .sign-up-form button:hover,
+        .sign-up-form button:focus {
+            background: #148f77;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .sign-up-form button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.2);
+        }
+
+    .sign-up-form .message {
+        margin: 6px 6px;
+        color: #808080;
+        font-size: 11px;
+        text-align: center;
+        font-weight: bold;
+        font-style: normal;
+    }
+
+        .sign-up-form .message a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+
+
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+
+
+/* Style all input fields */
+
+
+/* Style the container for inputs */
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display: none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+    #message p {
+        padding: 10px 35px;
+        font-size: 18px;
+    }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+    .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+    }
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+    .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+    }
+/* Style for the footer */
+.footer {
+    text-align: center; /* Center the text */
+    font-size: 12px; /* Smaller font size */
+    color: #555; /* Gray text color */
+    margin-top: 20px; /* Space above the footer */
+    padding: 10px 0; /* Padding on top and bottom */
+}
+
+    /* Style for the links in the footer */
+    .footer a {
+        color: #f3fcfa; /* Link color (match with your theme) */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make the links bold */
+    }
+
+        /* Hover effect for the links */
+        .footer a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+
+/*Login Page*/
+.login-page {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-signup-contain {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Adjusted width for centering */
+
+    background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent background */
+    padding: 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+.login-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%; /* Adjust width of left column */
+    background-color: #5ec3b8; /* Keep the same background color for the left column */
+    padding: 50px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    height: 70vh;
+}
+
+.signup-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%; /* Adjust width of right column */
+    background-color: #2e4e4d;
+    text-align: center;
+    padding: 50px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.login-title {
+    font-size: 34px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.login-input-wrapper {
+    margin-bottom: 16px;
+}
+
+    .login-input-wrapper label {
+        display: block;
+        font-size: 14px;
+        color: #000;
+        margin-bottom: 6px;
+    }
+
+    .login-input-wrapper input {
+        width: 90%;
+        padding: 18px;
+        border: 1px solid #000;
+        border-radius: 15px;
+        font-size: 14px;
+        color: #333;
+        background-color: #fff;
+    }
+
+.sign-in-btn {
+    background-color: #3c5961;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    margin: 20px auto 0;
+}
+
+.forgot-password-btn {
+    background-color: transparent;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    color: #3c5961;
+    font-size: 12px;
+    text-decoration: underline;
+    display: block;
+    text-align: center;
+}
+
+.signup-title {
+    font-size: 36px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.signup-description {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.signup-btn {
+    background-color: #fff; /* Keep your desired background */
+    color: #3c5961; /* Button text color */
+    border: none;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    text-decoration: none; /* No underline */
+    text-align: center;
+    display: inline-block; /* Ensure it behaves like a button */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+    .signup-btn:hover {
+        background-color: #f0f0f0; /* Slight background change on hover */
+        color: #2f4f4f; /* Adjust the text color on hover if desired */
+        text-decoration: none; /* Ensure no underline on hover */
+    }
+
+
+@media (max-width: 768px) {
+    .login-signup-container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .login-column, .signup-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .signup-title {
+        font-size: 24px;
+    }
+}
+
+/* Progress Bar */
+
+

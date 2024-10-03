@@ -1,0 +1,232 @@
+﻿
+
+
+
+<div class="sign-up-form">
+
+    <!-- Logo Section -->
+    <h1 class="text-center mb-4 sign-up-heading">Complete Your Registeration</h1>
+    <ul class="step-wizard-list auto-container">
+        <li class="step-wizard-item ">
+            <span class="progress-count">1</span>
+
+        </li>
+        <li class="step-wizard-item">
+            <span class="progress-count">2</span>
+
+        </li>
+        <li class="step-wizard-item for-influencer current-item">
+            <span class="progress-count ">3</span>
+
+        </li>
+
+    </ul>
+
+    <!-- Social Media Buttons -->
+    <div class="social-buttons mb-3">
+        <a href="https://www.instagram.com" target="_blank" class="social-button instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Instagram.svg/1024px-Instagram.svg.png" alt="Instagram Logo" class="icon" />
+            Connect with Instagram
+        </a>
+        <a href="https://www.youtube.com" target="_blank" class="social-button youtube">
+            <img src="https://www.citypng.com/public/uploads/preview/red-youtube-logo-symbol-701751694792489qxkccchok1.png" alt="YouTube Logo" class="icon" />
+            Connect with YouTube
+        </a>
+        <a href="https://www.tiktok.com" target="_blank" class="social-button tiktok">
+            <img src="https://banner2.cleanpng.com/20231123/xjc/transparent-tiktok-logo-black-and-white-logo-tiktok-app-minima-minimalist-black-and-white-tiktok-app-1711004158896.webp" alt="TikTok Logo" class="icon" />
+            Connect with TikTok
+        </a>
+    </div>
+
+
+    <br />
+    <div class="mb-3">
+        <button type="submit">
+            Done
+        </button>
+    </div>
+
+
+    <div class="footer">
+        <p>
+            By clicking Create, you agree to our
+            <a href="#" target="_blank">Terms of Use</a> and
+            <a href="#" target="_blank">Privacy Policy</a>.
+        </p>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<style>
+
+    .social-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Space between buttons */
+        align-items: center; /* Center the buttons */
+    }
+
+    .social-button {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 15px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #333; /* Subtle dark gray text */
+        font-weight: 500; /* Slightly bold */
+        font-size: 14px;
+        background-color: #fff; /* White background */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        width: 90%; /* Make it full width */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+
+        .social-button:hover {
+            background-color: #f0f0f0; /* Light gray background on hover */
+            border-color: #ccc; /* Border color on hover */
+            color: #3c5961;
+            text-decoration: none;
+        }
+
+    .icon {
+        width: 20px; /* Size of the logos */
+        height: 20px;
+        margin-right: 8px; /* Space between logo and text */
+    }
+
+    .p-set {
+        padding-left: 3rem;
+        text-align: left;
+    }
+
+    a {
+        color: #0b312a;
+    }
+
+    .step-wizard {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .step-wizard-list {
+        list-style-type: none;
+        border-radius: 10px;
+        display: flex;
+        padding: 20px 10px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .step-wizard-item {
+        padding: 0 20px;
+        flex-basis: 0;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        min-width: 170px;
+        position: relative;
+    }
+
+        .step-wizard-item + .step-wizard-item:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 19px;
+            background: #0b312a;
+            width: 100%;
+            height: 2px;
+            transform: translateX(-50%);
+            z-index: -10;
+        }
+
+    .progress-count {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: 600;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+        color: transparent;
+    }
+
+        .progress-count:after {
+            content: "";
+            height: 40px;
+            width: 40px;
+            background: #0b312a;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -10;
+        }
+
+        .progress-count:before {
+            content: "";
+            height: 10px;
+            width: 20px;
+            border-left: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -60%) rotate(-45deg);
+            transform-origin: center center;
+        }
+
+    .progress-label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .current-item .progress-count:before,
+    .current-item ~ .step-wizard-item .progress-count:before {
+        display: none;
+    }
+
+    .current-item ~ .step-wizard-item .progress-count:after {
+        height: 10px;
+        width: 10px;
+    }
+
+    .current-item ~ .step-wizard-item .progress-label {
+        opacity: 0.5;
+    }
+
+    .current-item .progress-count:after {
+        background: #fff;
+        border: 2px solid #0b312a;
+    }
+
+    .current-item .progress-count {
+        color: #0b312a;
+    }
+
+    .drop-down {
+        padding: 4px 0 0 30px !important;
+    }
+</style>
+
