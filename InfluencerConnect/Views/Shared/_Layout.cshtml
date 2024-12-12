@@ -7,6 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/output.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600"
@@ -15,28 +18,55 @@
     <script src="https://unpkg.com/lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
-<body style="background-image: url('../../content/images/gray-plain-website-background.jpg'); background-repeat: no-repeat; background-size: cover; ">
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @*@Html.ActionLink("Influencer Connect", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            <div class="logo-box">
-                <figure class="logo"><a href="/">
-                <img style="width:50px;" src="~/Content/Images/IC logo white.png" /></a></figure>
+<body>
+    @*@<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                Html.ActionLink("Influencer Connect", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="logo-box">
+                    <figure class="logo"><a href="/">
+                    <img style="width:50px;" src="~/Content/Images/IC logo white.png" /></a></figure>
+                </div>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Create Campaign", "Create", "CampaignMessages", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+        </nav>
+    *@
+    <nav class="flex items-center bg-slate-950 w-full px-4 sm:px-6 lg:px-8">
+        <img src="~/Content/Images/IC logo white.png" class="w-20 cursor-pointer">
+
+        <ul class="flex-1 text-center">
+            <li class="list-none inline-block px-5">
+                <a href="#" class="no-underline text-green-500 px-2 py-4 border-b-2 border-green-500 ">Home</a>
+            </li>
+            <li class="list-none inline-block px-5">
+                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Search</a>
+            </li>
+            <li class="list-none inline-block px-5">
+                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Messages</a>
+            </li>
+            <li class="list-none inline-block px-5">
+                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Community</a>
+            </li>
+            <li class="list-none inline-block px-5">
+                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Resources</a>
+            </li>
+        </ul>
+        @Html.Partial("_LoginPartial")
     </nav>
+
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -50,3 +80,22 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    
+    // Toggle notification modal visibility
+    const notificationBell = document.getElementById('notification-bell');
+    const notificationModal = document.getElementById('notification-modal');
+
+    notificationBell.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        notificationModal.classList.toggle('hidden'); // Toggle hidden class
+    });
+
+    // Click outside the modal to close it
+    window.addEventListener('click', (e) => {
+        if (e.target === notificationModal) {
+            notificationModal.classList.add('hidden'); // Close the modal if clicked outside
+        }
+    });
+</script>

@@ -169,8 +169,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CampaignController.cs" />
+    <Compile Include="Controllers\CampaignMessagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +215,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Images\Gray-plain-website-background.jpg" />
     <Content Include="Content\Images\IC logo white.png" />
+    <Content Include="Content\input.css" />
+    <Content Include="Content\output.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -221,6 +226,8 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="package.json" />
+    <Content Include="package-lock.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -232,6 +239,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="tailwind.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -268,6 +276,21 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Account\Register3.cshtml" />
+    <Content Include="Views\CampaignMessages\Create.cshtml" />
+    <Content Include="Views\CampaignMessages\Delete.cshtml" />
+    <Content Include="Views\CampaignMessages\Details.cshtml" />
+    <Content Include="Views\CampaignMessages\Edit.cshtml" />
+    <Content Include="Views\CampaignMessages\Index.cshtml" />
+    <Content Include="Views\Campaign\Create.cshtml" />
+    <Content Include="Views\Campaign\Delete.cshtml" />
+    <Content Include="Views\Campaign\Details.cshtml" />
+    <Content Include="Views\Campaign\Edit.cshtml" />
+    <Content Include="Views\Campaign\Index.cshtml" />
+    <Content Include="Views\Notifications\Create.cshtml" />
+    <Content Include="Views\Notifications\Delete.cshtml" />
+    <Content Include="Views\Notifications\Details.cshtml" />
+    <Content Include="Views\Notifications\Edit.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

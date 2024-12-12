@@ -1,0 +1,63 @@
+﻿@model IEnumerable<InfluencerConnect.Models.Notification>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CampaignMsgId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfluencerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAccepted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isDeleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CampaignMsgId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InfluencerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAccepted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isDeleted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

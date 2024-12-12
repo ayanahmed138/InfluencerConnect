@@ -15,7 +15,8 @@ namespace InfluencerConnect.Models
         public int CatagoryId { get; set; }
         public Category Category { get; set; }
         public int CampaignMessageId { get; set; }
-        public CampaignMessage CampaignMessage { get; set; } 
+        public CampaignMessage CampaignMessage { get; set; }
+        public bool IsPrivate { get; set; }
 
 
         public bool IsDeleted { get; set; }
