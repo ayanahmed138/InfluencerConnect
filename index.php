@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ZXX">
+	
+<head>
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="keywords" content="Site keywords here">
+		<meta name="description" content="#">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Site Title -->
+		<title>Influencer Connect</title>
+		
+		<!-- Fav Icon -->
+		<link rel="icon" href="img/favicon.ico">
+		
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet"> 
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- Jquery UI CSS -->
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+		<!-- Animate CSS -->
+		<link rel="stylesheet" href="css/animate.min.css">
+		<!-- AOS CSS -->
+		<link rel="stylesheet" href="css/aos.min.css">
+		<!-- Fontawesome -->
+		<link rel="stylesheet" href="css/font-awesome-all.min.css">
+		<!-- Swiper Slider CSS -->
+		<link rel="stylesheet" href="css/swiper-slider.min.css">
+		<!-- Select2 CSS -->
+		<link rel="stylesheet" href="css/select2-min.css">
+		<!-- Data Tables -->
+		<link rel="stylesheet" href="css/datatables.min.css">
+		<!-- Video Popup -->
+		<link rel="stylesheet" href="css/video-popup.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="css/theme-default.css">
+		<link rel="stylesheet" href="style.css">
+		
+	</head>
+
+	<body>
+		<div id="loading">
+			<div id="loading-center">
+			   <div id="loading-center-absolute">
+				  <div class="object" id="object_one"></div>
+				  <div class="object" id="object_two"></div>
+				  <div class="object" id="object_three"></div>
+				  <div class="object" id="object_four"></div>
+				  <div class="object" id="object_five"></div>
+			   </div>
+			</div>  
+		 </div>
+		<!-- End Preloader -->
+		
+		<!-- Mobile Menu Modal -->
+		<?php include 'navbar.php'; ?>
+		<!-- End Header -->
+
+		<!-- inflanar Hero -->
+		<section id="hero" class="inflanar-hero inflanar-hero--v3 inflanar-section-shape10 inflanar-bg-cover p-relative">
+			<div class="inflanar-hero-mixed"><img src="img/in-hero-mixed-card.png"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="inflanar-hero__inside">
+								<div class="inflanar-hero__inner">
+									<!-- Hero Content -->
+									<div class="inflanar-hero__content" data-aos="fade-up" data-aos-delay="200">
+										<!--<span class="inflanar-hero__sub inflanar-gradient-color inflanar-regular-font">GO TO YOUR INFLUENCER PLATFROM</span>-->
+										<h1 class="inflanar-hero__title m-0">Connecting Influencers with Marketing Agents for Seamless Campaigns</h1>
+									</div>
+                                    <ul class="inflanar-list-style inflanar-list-style--v3 inflanar-list-style__grey list-style-normal list-none mg-top-20"  data-aos="fade-up" data-aos-delay="400">
+                                        <li><img src="img/in-green-check.svg">Connect with Brands</li>
+                                        <li><img src="img/in-green-check.svg">Trusted by Over 25,000 Creators</li>
+                                    </ul>
+									<div class="inflanar-hero__button" data-aos="fade-up" data-aos-delay="500">
+                                        <a href="contact.html" class="inflanar-btn inflanar-btn__big inflanar-btn__fifth">Contact Us</a>
+                                    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End inflanar Hero -->
+
+		<!-- Category List -->
+		<section class="pd-btm-120">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Section TItle -->
+						<div class="inflanar-section__head inflanar-section__center mg-btm-20">
+							<span class="inflanar-section__badge  m-0" data-aos="fade-in" data-aos-delay="300">
+								<span>Categories</span>  <img src="img/in-section-vector3.svg">
+							</span>
+							<h2 class="inflanar-section__title"  data-aos="fade-in" data-aos-delay="400">Influencer in Different Categories</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 mg-top-30" data-aos="fade-up" data-aos-delay="200">
+						<div class="inflanar-category">
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon1.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Fashion</h4>
+									<span class="inflanar-category__label">34+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon2.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Sport & Fitness</h4>
+									<span class="inflanar-category__label">20+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon3.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Parenting</h4>
+									<span class="inflanar-category__label">40+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon4.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Life Style</h4>
+									<span class="inflanar-category__label">22+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon5.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Beauty</h4>
+									<span class="inflanar-category__label">32+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon6.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Vloggers</h4>
+									<span class="inflanar-category__label">50+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon7.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Pet Care</h4>
+									<span class="inflanar-category__label">12+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon8.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Photography</h4>
+									<span class="inflanar-category__label">56+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/in-cat-icon9.svg" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Games</h4>
+									<span class="inflanar-category__label">18+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+							<!-- Single Category -->
+							<a href="influencers.html" class="inflanar-category__single inflanar-category__single--v2">
+								<div class="inflanar-category__icon">
+									<img src="img/electrical-circuit.png" alt="#">
+								</div>
+								<div class="inflanar-category__content">
+									<h4 class="inflanar-category__title">Technology</h4>
+									<span class="inflanar-category__label">18+</span>
+								</div>
+							</a>
+							<!-- End Single Category -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Features -->
+
+		<!-- Influencers -->
+		<section class="pd-top-120 pd-btm-120">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Section TItle -->
+						<div class="inflanar-section__head inflanar-section__center mg-btm-20">
+							<span class="inflanar-section__badge inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+								<span>Top Influencer</span> <img src="img/in-section-vector.svg">
+							</span>
+							<h2 class="inflanar-section__title"  data-aos="fade-in" data-aos-delay="400">Talented Influencer Member</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+						<!-- Single Influencer -->
+						<div class="inflanar-influencer">
+							<!-- Influencer Head-->
+							<div class="inflanar-influencer__head inflanar-influencer__head--v3">
+								<img src="img/in-agent3.png" alt="#">
+								<h4 class="inflanar-influencer__title">
+									<a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+								</h4>
+							</div>
+							<!-- Influencer Body -->
+							<div class="inflanar-influencer__body">
+								<div class="inflanar-influencer__follower">
+									
+									
+									<div class="inflanar-influencer__follower--single in-right">
+										<ul class="influencers-pinfo__ssocial-card list-none">
+	                                    <li><a href="#"><img src="img/youtube.png"></a></li>
+	                                    <li><a href="#"><img src="img/in-social2.svg"></a></li>
+	                                    <li><a href="#"><img src="img/in-social4.svg"></a></li>
+	                                </ul>
+									</div>
+									<div class="inflancer-hborder"></div>
+									<div class="inflanar-influencer__follower--single">
+										<b>890K</b><span>Followers</span>
+									</div>
+								</div>
+								<a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+							</div>
+							<!-- End Influencer Body -->
+						</div>
+						<!-- End Single Influencer -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+						<!-- Single Influencer -->
+						<div class="inflanar-influencer">
+							<!-- Influencer Head-->
+							<div class="inflanar-influencer__head inflanar-influencer__head--v3">
+								<img src="img/in-agent3.png" alt="#">
+								<h4 class="inflanar-influencer__title">
+									<a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+								</h4>
+							</div>
+							<!-- Influencer Body -->
+							<div class="inflanar-influencer__body">
+								<div class="inflanar-influencer__follower">
+									
+									
+									<div class="inflanar-influencer__follower--single in-right">
+										<ul class="influencers-pinfo__ssocial-card list-none">
+	                                    <li><a href="#"><img src="img/youtube.png"></a></li>
+	                                    <li><a href="#"><img src="img/in-social2.svg"></a></li>
+	                                    <li><a href="#"><img src="img/in-social4.svg"></a></li>
+	                                </ul>
+									</div>
+									<div class="inflancer-hborder"></div>
+									<div class="inflanar-influencer__follower--single">
+										<b>890K</b><span>Followers</span>
+									</div>
+								</div>
+								<a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+							</div>
+							<!-- End Influencer Body -->
+						</div>
+						<!-- End Single Influencer -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+						<!-- Single Influencer -->
+						<div class="inflanar-influencer">
+							<!-- Influencer Head-->
+							<div class="inflanar-influencer__head inflanar-influencer__head--v3">
+								<img src="img/in-agent3.png" alt="#">
+								<h4 class="inflanar-influencer__title">
+									<a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+								</h4>
+							</div>
+							<!-- Influencer Body -->
+							<div class="inflanar-influencer__body">
+								<div class="inflanar-influencer__follower">
+									
+									
+									<div class="inflanar-influencer__follower--single in-right">
+										<ul class="influencers-pinfo__ssocial-card list-none">
+	                                    <li><a href="#"><img src="img/youtube.png"></a></li>
+	                                    <li><a href="#"><img src="img/in-social2.svg"></a></li>
+	                                    <li><a href="#"><img src="img/in-social4.svg"></a></li>
+	                                </ul>
+									</div>
+									<div class="inflancer-hborder"></div>
+									<div class="inflanar-influencer__follower--single">
+										<b>890K</b><span>Followers</span>
+									</div>
+								</div>
+								<a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+							</div>
+							<!-- End Influencer Body -->
+						</div>
+						<!-- End Single Influencer -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+						<!-- Single Influencer -->
+						<div class="inflanar-influencer">
+							<!-- Influencer Head-->
+							<div class="inflanar-influencer__head inflanar-influencer__head--v3">
+								<img src="img/in-agent3.png" alt="#">
+								<h4 class="inflanar-influencer__title">
+									<a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+								</h4>
+							</div>
+							<!-- Influencer Body -->
+							<div class="inflanar-influencer__body">
+								<div class="inflanar-influencer__follower">
+									
+									
+									<div class="inflanar-influencer__follower--single in-right">
+										<ul class="influencers-pinfo__ssocial-card list-none">
+	                                    <li><a href="#"><img src="img/youtube.png"></a></li>
+	                                    <li><a href="#"><img src="img/in-social2.svg"></a></li>
+	                                    <li><a href="#"><img src="img/in-social4.svg"></a></li>
+	                                </ul>
+									</div>
+									<div class="inflancer-hborder"></div>
+									<div class="inflanar-influencer__follower--single">
+										<b>890K</b><span>Followers</span>
+									</div>
+								</div>
+								<a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+							</div>
+							<!-- End Influencer Body -->
+						</div>
+						<!-- End Single Influencer -->
+					</div>
+				</div>
+				<div class="row mg-top-40" data-aos="fade-up" data-aos-delay="600">
+					<div class="col-12 d-flex justify-content-center">
+						<a href="influencers.html" class="inflanar-btn inflanar-btn__big"><span>View All</span></a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Influencers -->
+
+		<!-- Services -->
+		<section class="inflanar-section-shape inflanar-bg-cover pd-top-120 pd-btm-120">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Section TItle -->
+						<div class="inflanar-section__head inflanar-section__center text-center mg-btm-20">
+							<span class="inflanar-section__badge inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+								<span>Our Services</span> <img src="img/in-section-vector.svg">
+							</span>
+							<h2 class="inflanar-section__title"  data-aos="fade-in" data-aos-delay="400">Influencer Latest Services</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service1.jpg" alt="#">
+								<div class="inflanar-service__wishlist active">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Vloggers</a>
+									<div class="inflanar-service__price">$120</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Electricia in workwear open conditioner</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author1.png">Nawyanton</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(12)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service2.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Games</a>
+									<div class="inflanar-service__price">$90</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Happy lady in as sltylish skirt boater</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author2.png">Sownabia</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(18)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service3.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Travels</a>
+									<div class="inflanar-service__price">$90</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Standing in at astemple gates at lem</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author3.png">Ratanjhon</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(22)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service4.jpg" alt="#">
+								<div class="inflanar-service__wishlist active">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Travels</a>
+									<div class="inflanar-service__price">$150</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Standing in at astemple gates at lem</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author4.png">Bairantan</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(44)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service5.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Beauty</a>
+									<div class="inflanar-service__price">$120</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Two girls are our doing make-up in</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author5.png">Jangpanko</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(54)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service6.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Fitness</a>
+									<div class="inflanar-service__price">$120</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Strong man the training black man</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author6.png">Thomashko</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(35)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service7.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Video</a>
+									<div class="inflanar-service__price">$110</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Standing in at astemple gates at lem</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author7.png">Nairamash</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(67)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+						<!-- Single property-->
+						<div class="inflanar-service">
+							<!-- Property Head-->
+							<div class="inflanar-service__head">
+								<img src="img/in-service8.jpg" alt="#">
+								<div class="inflanar-service__wishlist">
+									<a href="#"><i class="fas fa-heart"></i></a>
+								</div>
+							</div>
+							<!-- Property Body-->
+							<div class="inflanar-service__body">
+								<div class="inflanar-service__top">
+									<a href="influencers.html" class="inflanar-service__cat"><img src="img/in-cat-label.svg">Lifestyle</a>
+									<div class="inflanar-service__price">$130</div>
+								</div>
+								<h3 class="inflanar-service__title"><a href="service-single.html">Strong man the training black man</a></h3>
+								<div class="inflanar-service__author">
+									<div class="inflanar-service__author--info">
+										<a href="influencer-profile.html"><img src="img/in-author8.png">Nawyanto</a>
+									</div>
+									<div class="inflanar-service__author--rating">
+										<div class="inflanar-service__author--star">
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+											<span><img src="img/in-rating.svg"></span>
+										</div>
+										<div class="inflanar-service__author--label">(33)</div>
+										
+									</div>
+								</div>
+								<a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Book Now</a>
+							</div>
+						</div>
+						<!-- End Single property-->
+					</div>
+				</div>
+				<div class="row mg-top-40" data-aos="fade-up" data-aos-delay="600">
+					<div class="col-12 d-flex justify-content-center">
+						<a href="services.html" class="inflanar-btn inflanar-btn__big"><span>View All</span></a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Services -->
+
+		<!-- Services -->
+		<section class="pd-top-120 pd-btm-120">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Section TItle -->
+						<div class="inflanar-section__head inflanar-section__center text-center mg-btm-20">
+							<span class="inflanar-section__badge  inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+								<span>Working Process</span> <img src="img/in-section-vector.svg">
+							</span>
+							<h2 class="inflanar-section__title" data-aos="fade-in" data-aos-delay="400">How Dose It Work?</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="200">
+						<!-- Single Card-->
+						<div class="inflanar-hcard inflanar-hcard--one">
+							<div class="inflanar-hcard__img">
+								<img src="img/in-howcard1.jpg" alt="#">
+							</div>
+							<div class="inflanar-hcard__content">
+								<div class="inflanar-hcard__line"><img src="img/in-line-shape1.svg"></div>
+								<h4 class="inflanar-hcard__label">
+									<span>Step</span>
+									<b>1</b>
+								</h4>
+								<h4 class="inflanar-hcard__title">Create Camping</h4>
+								<p class="inflanar-hcard__text">Curabitur a pretium orci, a venenatis diam phasellus id mi velit. Vestibulum et tincid unt sem, id sagittis nibh.</p>
+							</div>
+						</div>
+						<!-- End Single Card-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="400">
+						<!-- Single Card-->
+						<div class="inflanar-hcard inflanar-hcard--two">
+							<div class="inflanar-hcard__content inflanar-hcard__content__two">
+								<h4 class="inflanar-hcard__label">
+									<span>Step</span>
+									<b>2</b>
+								</h4>
+								<h4 class="inflanar-hcard__title">Choose Influencer</h4>
+								<p class="inflanar-hcard__text">Curabitur a pretium orci, a venenatis diam phasellus id mi velit. Vestibulum et tincid unt sem, id sagittis nibh.</p>
+								<div class="inflanar-hcard__line"><img src="img/in-line-shape2.svg"></div>
+							</div>
+							<div class="inflanar-hcard__img">
+								<img src="img/in-howcard2.jpg" alt="#">
+							</div>
+						</div>
+						<!-- End Single Card-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="600">
+						<!-- Single Card-->
+						<div class="inflanar-hcard inflanar-hcard--one">
+							<div class="inflanar-hcard__img">
+								<img src="img/in-howcard3.jpg" alt="#">
+							</div>
+							<div class="inflanar-hcard__content">
+								<div class="inflanar-hcard__line inflanar-hcard__line--v2"><img src="img/in-line-shape3.svg"></div>
+								<h4 class="inflanar-hcard__label">
+									<span>Step</span>
+									<b>3</b>
+								</h4>
+								<h4 class="inflanar-hcard__title">Monitor Your Campaign</h4>
+								<p class="inflanar-hcard__text">Curabitur a pretium orci, a venenatis diam phasellus id mi velit. Vestibulum et tincid unt sem, id sagittis nibh.</p>
+							</div>
+						</div>
+						<!-- End Single Card-->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+						<!-- Single Card-->
+						<div class="inflanar-hcard inflanar-hcard--two">
+							<div class="inflanar-hcard__content inflanar-hcard__content__two">
+								<h4 class="inflanar-hcard__label">
+									<span>Step</span>
+									<b>4</b>
+								</h4>
+								<h4 class="inflanar-hcard__title">Check Your Report</h4>
+								<p class="inflanar-hcard__text">Curabitur a pretium orci, a venenatis diam phasellus id mi velit. Vestibulum et tincid unt sem, id sagittis nibh.</p>
+								<div class="inflanar-hcard__line inflanar-hcard__line--v3"><img src="img/in-line-shape2.svg"></div>
+							</div>
+							<div class="inflanar-hcard__img">
+								<img src="img/in-howcard4.jpg" alt="#">
+							</div>
+						</div>
+						<!-- End Single Card-->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Services -->
+
+		<!-- Viideo CTA -->
+		<section class="video-cta inflanar-section-shape3 inflanar-ohidden inflanar-bg-cover pd-top-90 pd-btm-120 inflanar-section-shape2">
+			<div class="container inflanar-container-medium">
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="200">
+						<div class="video-cta__content">
+							<h3 class="video-cta__title mg-btm-20">Manage all your creator relation ships in one place.</h3>
+							<p  class="video-cta__text">Suspendisse non leo lobortis, fermentum magna vitae, viverra nisi. Quisque tristique preti odio eget ullamcorper. Sed quis mi pulvinar Integer vitae lorem tortor. Integer tempus as nulla massa, eu blandit risus euismod non. Aenean vitae nunc ets orci suscipit hendrerit. Aenean et facilisis dolor. Aliquam vulputate facilisis neque.</p>
+							<ul class="inflanar-list-style list-none mg-top-20">
+								<li><img src="img/in-sign-red.svg">Page Load (time, size, number of requests).</li>
+								<li><img src="img/in-sign-red.svg">Adance Data analysis operation.</li>
+							</ul>
+							<a href="about.html" class="inflanar-btn mg-top-40"><span>Discover More</span></a>
+						</div>
+					</div>
+					<div class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="400">
+						<div class="video-cta__card">
+							<img src="img/in-video-card.png">
+							<div class="video-cta__button">
+								<a href="#" class="js-video-btn" data-video-id="FzcfZyEhOoI"><i class="fas fa-play"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Viideo CTA -->
+
+		<!-- Viideo CTA -->
+		<section class="pd-top-90 pd-btm-120 ">
+			<div class="container inflanar-container-medium">
+				<div class="row ">
+					<div class="col-12">
+						<div class="funfacts inflanar-row-gap">
+							<!-- FunFact Box -->
+							<div class="funfacts__box inflanar-section-shape5 inflanar-bg-cover" data-aos="fade-up" data-aos-delay="200">
+								<div class="funfacts__column">
+									<!-- Fun Fact Sinlge -->
+									<div class="funfacts__card mg-top-30">
+										<div class="funfacts__icon">
+											<img src="img/youtube-icon.svg">
+										</div>
+										<div class="funfacts__number">
+											<h4 class="funfacts__title"><b class="in-counter">7</b><b>M+ </b><span>Subscribers</span></h4>
+										</div>
+									</div>
+									<!-- End Fun Fact Sinlge -->
+									<!-- Fun Fact Sinlge -->
+									<div class="funfacts__card mg-top-30">
+										<div class="funfacts__icon">
+											<img src="img/twitter-icon.svg">
+										</div>
+										<div class="funfacts__number">
+											<h4 class="funfacts__title"><b class="in-counter">5</b><b>M+ </b><span>Followers</span></h4>
+										</div>
+									</div>
+									<!-- End Fun Fact Sinlge -->
+								</div>
+								<div class="funfacts__column funfacts__column__last">
+									<!-- Fun Fact Sinlge -->
+									<div class="funfacts__card mg-top-30">
+										<div class="funfacts__icon">
+											<img src="img/tiktok-icon.svg">
+										</div>
+										<div class="funfacts__number">
+											<h4 class="funfacts__title"><b class="in-counter">3</b><b>M+ </b><span>Followers</span></h4>
+										</div>
+									</div>
+									<!-- End Fun Fact Sinlge -->
+									<!-- Fun Fact Sinlge -->
+									<div class="funfacts__card mg-top-30">
+										<div class="funfacts__icon">
+											<img src="img/instagram-icon.svg">
+										</div>
+										<div class="funfacts__number">
+											<h4 class="funfacts__title"><b class="in-counter">2</b><b>M+ </b><span>Followers</span></h4>
+										</div>
+									</div>
+									<!-- End Fun Fact Sinlge -->
+								</div>
+							</div>
+							<!-- End FunFact Box -->
+							
+							<!-- Brands -->
+							<div class="brands" data-aos="fade-up" data-aos-delay="400">
+								<h2 class="inflanar-section__title mg-btm-20">We Work with Brands that Influence <span>1000+ Clients</span></h2>
+								<div class="row">
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand1.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand2.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand3.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand4.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand5.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand6.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand7.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand8.svg"></a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-6 mg-top-30">
+										<div class="brands__single">
+											<a href="#"><img src="img/in-brand9.svg"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End Brands -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Viideo CTA -->
+
+		<!-- Faq Area -->
+		<section class="inflanar-bg-cover pd-top-90 pd-btm-120 inflanar-section-shape2  inflanar-ohidden">
+			<div class="container inflanar-container-medium">
+				<div class="row inflanar-container-medium__row align-items-center">
+					<div class="col-lg-5 col-12 mg-top-30">
+						<!-- Section TItle -->
+						<div class="inflanar-section__head mg-btm-50">
+							<span class="inflanar-section__badge inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+								<span>Our Faq’s</span> <img src="img/in-section-vector.svg">
+							</span>
+							<h2 class="inflanar-section__title mg-btm-20" data-aos="fade-in" data-aos-delay="400">Frequently Faq’s</h2>
+							<p>Curabitur a pretium orci, a venenatis diam phasell mi velit. Vestibulum et tincidunt.</p>
+						</div>
+						<!-- Support Img -->
+						<div class="inflanar-support-img" data-aos="fade-up" data-aos-delay="200">
+							<img src="img/in-faq-img.png" alt="#">
+						</div>
+						<!-- End Support Img -->
+					</div>
+					<div class="col-lg-7 col-12 mg-top-30">
+						<div class="inflanar-accordion accordion accordion-flush" id="inflanar-accordion">
+							<!-- End Single Accordion -->
+							<div class="accordion-item inflanar-accordion__single mg-top-20">
+								<h2 class="accordion-header" id="inflanart-1">
+									<button class="accordion-button collapsed inflanar-accordion__heading" type="button" data-bs-toggle="collapse" data-bs-target="#ac-collapse1">What is the average number of influencers for the campaign?</button>
+								</h2>
+								<div id="ac-collapse1" class="accordion-collapse collapse"  data-bs-parent="#inflanar-accordion">
+									<div class="accordion-body inflanar-accordion__body">Vestibulum quis neque nunc. Maecenas pharetra libero id efficitur gravida. Aenean risus enim, coin quam in, consequat nec lacus. Aenean faucibus venenatis aliquet. Sed nulla quam, vehicula ut libe tpat quam. Phasellus semper vitae tellus sit amet scelerisque</div>
+								</div>
+							</div>
+							<!-- End Single Accordion -->
+
+							<!-- Single Accordion -->
+							<div class="accordion-item inflanar-accordion__single active mg-top-20">
+								<h2 class="accordion-header" id="inflanart-3">
+									<button class="accordion-button   inflanar-accordion__heading" type="button" data-bs-toggle="collapse" data-bs-target="#ac-collapse2" >Why is influencer marketing critical for social commerce?</button>
+								</h2>
+								<div id="ac-collapse2" class="accordion-collapse collapse show"  data-bs-parent="#inflanar-accordion">
+									<div class="accordion-body inflanar-accordion__body">Vestibulum quis neque nunc. Maecenas pharetra libero id efficitur gravida. Aenean risus enim, coin quam in, consequat nec lacus. Aenean faucibus venenatis aliquet. Sed nulla quam, vehicula ut libe tpat quam. Phasellus semper vitae tellus sit amet scelerisque</div>
+								</div>
+							</div>
+							<!-- End Single Accordion -->
+
+							<!-- Single Accordion -->
+							<div class="accordion-item inflanar-accordion__single mg-top-20">
+								<h2 class="accordion-header" id="inflanart-2">
+									<button class="accordion-button collapsed  inflanar-accordion__heading" type="button" data-bs-toggle="collapse" data-bs-target="#ac-collapse3" aria-expanded="false">What is an influencer marketing software?</button>
+								</h2>
+								<div id="ac-collapse3" class="accordion-collapse collapse" data-bs-parent="#inflanar-accordion">
+									<div class="accordion-body inflanar-accordion__body">Vestibulum quis neque nunc. Maecenas pharetra libero id efficitur gravida. Aenean risus enim, coin quam in, consequat nec lacus. Aenean faucibus venenatis aliquet. Sed nulla quam, vehicula ut libe tpat quam. Phasellus semper vitae tellus sit amet scelerisque</div>
+								</div>
+							</div>
+							<!-- End Single Accordion -->
+							<!-- Single Accordion -->
+							<div class="accordion-item inflanar-accordion__single mg-top-20">
+								<h2 class="accordion-header" id="inflanart-4">
+									<button class="accordion-button collapsed inflanar-accordion__heading" type="button" data-bs-toggle="collapse" data-bs-target="#ac-collapse4" >What is an influencer marketing tool?</button>
+								</h2>
+								<div id="ac-collapse4" class="accordion-collapse collapse" data-bs-parent="#inflanar-accordion">
+									<div class="accordion-body inflanar-accordion__body">Vestibulum quis neque nunc. Maecenas pharetra libero id efficitur gravida. Aenean risus enim, coin quam in, consequat nec lacus. Aenean faucibus venenatis aliquet. Sed nulla quam, vehicula ut libe tpat quam. Phasellus semper vitae tellus sit amet scelerisque</div>
+								</div>
+							</div>
+							<!-- End Single Accordion -->
+							<!-- Single Accordion -->
+							<div class="accordion-item inflanar-accordion__single mg-top-20">
+								<h2 class="accordion-header" id="inflanart-5">
+									<button class="accordion-button collapsed inflanar-accordion__heading" type="button" data-bs-toggle="collapse" data-bs-target="#ac-collapse5" >Can you rovide documentation to implement?</button>
+								</h2>
+								<div id="ac-collapse5" class="accordion-collapse collapse" data-bs-parent="#inflanar-accordion">
+									<div class="accordion-body inflanar-accordion__body">Vestibulum quis neque nunc. Maecenas pharetra libero id efficitur gravida. Aenean risus enim, coin quam in, consequat nec lacus. Aenean faucibus venenatis aliquet. Sed nulla quam, vehicula ut libe tpat quam. Phasellus semper vitae tellus sit amet scelerisque</div>
+								</div>
+							</div>
+							<!-- End Single Accordion -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Faq Area -->
+
+		<!-- Blog Area -->
+		<section id="blog" class="blog-area inflanar-bg-cover section-padding">
+			<div class="blog-bg-pattern">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<!-- Section TItle -->
+							<div class="inflanar-section__head inflanar-section__center text-center mg-btm-20">
+								<span class="inflanar-section__badge  inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+									<span>Latest News</span> <img src="img/in-section-vector.svg">
+								</span>
+								<h2 class="inflanar-section__title" data-aos="fade-in" data-aos-delay="400">Latest Blog & Articles</h2>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+							<!-- Single Blog -->
+							<div class="inflanar-blog">
+								<div class="inflanar-blog__head">
+									<a href="blog-single.html"><img src="img/blog-1.jpg" alt="#"></a>
+								</div>
+								<!-- Blog Content -->
+								<div class="inflanar-blog__content">
+									<ul class="inflanar-blog__meta list-none">
+										<li class="active"><img src="img/in-author-icon.svg"><a href="#"> By <span>Influencer</span></a></li>
+										<li><img src="img/in-calendar-icon.svg"> 04 June 2023</li>
+									</ul>
+									<h3 class="inflanar-blog__title"><a href="blog-single.html">How Brands Can Break Barriers Empo</a></h3>
+								</div>
+							</div>
+							<!-- End Single Blog -->
+						</div>	
+						<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+							<!-- Single Blog -->
+							<div class="inflanar-blog">
+								<div class="inflanar-blog__head">
+									<a href="blog-single.html"><img src="img/blog-2.jpg" alt="#"></a>
+									<!-- Blog Content -->
+									<div class="inflanar-blog__content">
+										<ul class="inflanar-blog__meta list-none">
+											<li class="active"><img src="img/in-author-icon.svg"><a href="#"> By <span>Influencer</span></a></li>
+											<li><img src="img/in-calendar-icon.svg"> 04 June 2023</li>
+										</ul>
+										<h3 class="inflanar-blog__title"><a href="blog-single.html">Influencer Is a Real the Job It's Time to Act</a></h3>
+									</div>
+								</div>
+							</div>
+							<!-- End Single Blog -->
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+							<!-- Single Blog -->
+							<div class="inflanar-blog">
+								<div class="inflanar-blog__head">
+									<a href="blog-single.html"><img src="img/blog-3.jpg" alt="#"></a>
+									<!-- Blog Content -->
+									<div class="inflanar-blog__content">
+										<ul class="inflanar-blog__meta list-none">
+											<li class="active"><img src="img/in-author-icon.svg"><a href="#"> By <span>Influencer</span></a></li>
+											<li><img src="img/in-calendar-icon.svg"> 04 June 2023</li>
+										</ul>
+										<h3 class="inflanar-blog__title"><a href="blog-single.html">90% Social as Media Influencers</a></h3>
+									</div>
+								</div>
+							</div>
+							<!-- End Single Blog -->
+						</div>
+						<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+							<!-- Single Blog -->
+							<div class="inflanar-blog">
+								<div class="inflanar-blog__head">
+									<a href="blog-single.html"><img src="img/blog-4.jpg" alt="#"></a>
+									<!-- Blog Content -->
+									<div class="inflanar-blog__content">
+										<ul class="inflanar-blog__meta list-none">
+											<li class="active"><img src="img/in-author-icon.svg"><a href="#"> By <span>Influencer</span></a></li>
+											<li><img src="img/in-calendar-icon.svg"> 04 June 2023</li>
+										</ul>
+										<h3 class="inflanar-blog__title"><a href="blog-single.html">Excited and audience watching confetti</a></h3>
+									</div>
+								</div>
+							</div>
+							<!-- End Single Blog -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Blog Area -->
+
+		<!-- Footer CTA -->
+		<section  class="footer-cta inflanar-bg-cover section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="footer-cta__inner inflanar-bg-cover  inflanar-section-shape3">
+							<div class="footer-cta__content">
+								<h3 class="footer-cta__title">Let influencers do the heavy lifting for your marketing campaign</h3>
+								<a href="contact.html" class="inflanar-btn inflanar-btn__big"><span>Signup Now!</span></a>
+							</div>
+							<div class="footer-cta__img">
+								<img src="img/in-footer-cta.png">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Footer CTA -->
+
+		<?php include'footer.php'; ?>
+
+		<!-- Scrool Top -->
+		<a href="#" class="scrollToTop"><img src="img/in-scroll-up.svg"></a>
+		
+		<!-- Jquery JS -->
+		<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery.min.js"></script>
+		<script src="js/jquery-migrate.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Aos JS -->
+		<script src="js/aos.min.js"></script>
+		<!-- CK Editor JS -->
+		<script src="js/ckeditor.min.js"></script>
+		<!-- Full Calendar JS -->
+		<script src="js/fullcalendar.min.js"></script>
+		<!-- Select2 JS-->
+		<script src="js/select2-js.min.js"></script>
+		<!-- Video Popup JS -->
+		<script src="js/video-popup.min.js"></script>
+		<!-- Swiper SLider JS -->
+		<script src="js/swiper-slider.min.js"></script>
+		<!-- Waypoints JS -->
+		<script src="js/waypoints.min.js"></script>
+		<!-- Counterup JS -->
+		<script src="js/jquery.counterup.min.js"></script>
+		<!-- Main JS -->
+		<script src="js/active.js"></script>
+	</body>
+
+
+</html>
