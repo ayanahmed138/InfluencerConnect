@@ -3,35 +3,144 @@
 @{
     ViewBag.Title = "Create";
 }
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Create Campaign</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="/home">Home</a></li>
+                            <li class="active"><a href="/CampaignMessage/Create">Create Campaign</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
 
-<h2>Create</h2>
+<section class="inflanar-signin pd-top-120 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="inflanar-signin__body">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="inflanar-signin__logins">
+                                <!-- Login header -->
+                                <div class="inflanar-signin__header mg-btm-10">
+                                    <div class="inflanar-signin__heading">
+                                        <h4 class="inflanar-signin__title">Campaign Message</h4>
+                                        <p class="inflanar-signin__tag">Create New Campaign Message</p>
+                                    </div>
+                                    
+                                </div>
+                                <!-- End Login header -->
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>CampaignMessage</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDeleted)
-                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- Single Tab Influencer -->
+                                    <div class="tab-pane fade active show" id="in-tab11" role="tabpanel">
+                                        <div class="inflanar-signin__inner">
+                                            <form action="#">
+                                                <div class="row">
+                                                    <div class=" col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Content</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="FirstName" placeholder="content (header)" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>TagLine</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="LastName" placeholder="Tag Line (short description)" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Start Date</label>
+                                                            <input class="ecom-wc__form-input" type="date" name="PhoneNumber"  required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>End Date</label>
+                                                            <input class="ecom-wc__form-input" type="date" name="password" placeholder="Password" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Long Description</label>
+                                                            <textarea class="ecom-wc__form-input" name="Email" placeholder="Give some detail explaination about your campaign" required="required"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group inflanar-form-input mg-top-20">
+                                                                    <label>Content Type</label>
+                                                                    <select class="property-sidebar__group inflanar-border" >
+                                                                        <option data-display="Reels">ManHattan</option>
+                                                                        <option value="2">Shorts</option>
+                                                                        <option value="3">Stories</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="col-12">
+                                                                <div class="form-group inflanar-form-input mg-top-20">
+                                                                    <label>Category*</label>
+                                                                    <select class="property-sidebar__group inflanar-border">
+                                                                        <option data-display="Gaming">Gaming</option>
+                                                                        <option value="2">Tech</option>
+                                                                        <option value="3">Life Style</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        
+                                                        <!-- Login Button Group -->
+                                                        <div class="form-group mg-top-40">
+                                                            <button type="submit" class="inflanar-btn"><span>Next</span></button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Tab -->
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 d-none d-lg-block">
+                            <div class="inflanar-signin__welcome inflanar-bg-cover inflanar-section-shape18">
+                                <img src="~/Content/Images/Social media-cuate.svg" alt="#">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+    </div>
+</section>

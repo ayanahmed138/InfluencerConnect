@@ -21,6 +21,10 @@ namespace InfluencerConnect.Controllers
             return View(campaigns.ToList());
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
         // GET: Campaign/Details/5
         public ActionResult Details(int? id)
         {

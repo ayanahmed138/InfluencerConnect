@@ -1,294 +1,66 @@
-﻿
+﻿<!-- Sign In -->
+<section class="inflanar-signin pd-top-120 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="inflanar-signin__body">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="inflanar-signin__logins">
+                                <!-- Login header -->
+                                <div class="inflanar-signin__header mg-btm-10">
+                                    <div class="inflanar-signin__heading">
+                                        <h4 class="inflanar-signin__title">SignUp</h4>
+                                        <p class="inflanar-signin__tag">Welcome to Influencer Connect</p>
+                                    </div>
+                                    <div class="inflanar-signin__heading__options">
+                                        <!--Tab Nav -->
+                                        <div class="list-group inflanar-signin__options" id="list-tab" role="tablist">
+                                            <a class="list-group-item active" data-bs-toggle="list" href="#in-tab11" role="tab">
+                                                <span> Influencer</span>
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Login header -->
 
-
-
-@if (ViewBag.IsInfluencer == true)
-{
-    <form method="post" action="/Account/InfluencerRegister2">
-        <div class="sign-up-form">
-
-            <!-- Logo Section -->
-            <h1 class="text-center mb-4 sign-up-heading">Complete Your Registeration</h1>
-            <ul class="step-wizard-list auto-container">
-                <li class="step-wizard-item ">
-                    <span class="progress-count">1</span>
-
-                </li>
-                <li class="step-wizard-item current-item">
-                    <span class="progress-count">2</span>
-
-                </li>
-                <li class="step-wizard-item for-influencer ">
-                    <span class="progress-count ">3</span>
-
-                </li>
-
-            </ul>
-
-            <div class="mb-3">
-                <input class="signup-form-input" type="text" name="minCharge" placeholder="Min Charge">
-            </div>
-            <div class="mb-3">
-                <input class="signup-form-input" type="text" name="maxCharge" placeholder="Max Charge">
-            </div>
-            <div class="md-3">
-                <p style="font-size: 1.4rem; text-align: left; padding-left: 3rem"><b>Select Your Content Type</b></p>
-
-            </div>
-            @foreach (var contentType in ViewBag.ContentType)
-            {
-
-                <div class="mb-3">
-                    <div class="p-set">
-                        <input class="form-check-input" type="checkbox" value="@contentType.Id" id="@contentType.Name" name="ContentType">
-                        <label class="form-check-label">@contentType.Name</label>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- Single Tab Influencer -->
+                                    <div class="tab-pane fade active show" id="in-tab11" role="tabpanel">
+                                        <div class="form-group mg-top-40">
+                                            <button type="submit" style="background: #E1306C " class="inflanar-btn"><span>Connect with Instagram <i class="fa-brands fa-instagram"></i></span></button>
+                                        </div>
+                                        <div class="form-group mg-top-40">
+                                            <button type="submit" style="background: #FF0000" class="inflanar-btn"><span>Connect with Youtube <i class="fa-brands fa-youtube"></i></span></button>
+                                        </div>
+                                        <div class="form-group mg-top-40">
+                                            <button type="submit" style="background:#000000" class="inflanar-btn"><span>Connect with TikTok <i class="fa-brands fa-tiktok"></i></span></button>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div class="form-group mg-top-40">
+                                            <button type="submit" class="inflanar-btn"><span>Done</span></button>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Tab -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 d-none d-lg-block">
+                            <div class="inflanar-signin__welcome inflanar-bg-cover inflanar-section-shape18">
+                                <img src="~/Content/Images/in-account-cover.png" alt="#">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            }
-
-            <div class="mb-3">
-                <input class="signup-form-input" type="text" name="limit" placeholder="Limit (for collab invites)">
             </div>
-
-
-
-
-            <div class="mb-3">
-                <button type="submit">
-                    NEXT
-                </button>
-            </div>
-
-
-            <div class="footer">
-                <p>
-                    By clicking Create, you agree to our
-                    <a href="#" target="_blank">Terms of Use</a> and
-                    <a href="#" target="_blank">Privacy Policy</a>.
-                </p>
-            </div>
-
         </div>
-
-
-
-    </form>
-}
-else
-{
-    <h1>Marketing Agent</h1>
-    <div class="sign-up-form">
-
-        <!-- Logo Section -->
-        <h1 class="text-center mb-4 sign-up-heading">Complete Your Registeration</h1>
-        <ul class="step-wizard-list auto-container">
-            <li class="step-wizard-item ">
-                <span class="progress-count">1</span>
-
-            </li>
-            <li class="step-wizard-item current-item">
-                <span class="progress-count">2</span>
-
-            </li>
-
-
-        </ul>
-
-
-        <div class="md-3">
-            <p class="p-set"  style="font-size: 1.4rem";><b>Please provide Proof of Employment:</b></p>
-
-        </div>
-        <div class="form-group mb-3 p-set">
-            <input type="file" id="employment-letter" accept=".pdf">
-        </div>
-
-
-        <br />
-
-
-        <div class="mb-3">
-            <button type="submit">
-                Done
-            </button>
-        </div>
-
-
-        <div class="footer">
-            <p>
-                By clicking Create, you agree to our
-                <a href="#" target="_blank">Terms of Use</a> and
-                <a href="#" target="_blank">Privacy Policy</a>.
-            </p>
-        </div>
-
     </div>
+</section>
+<!-- End Sign In -->
 
-
-}
-
-
-
-<style>
-    input[type="file"] {
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #ffffff;
-        width: 100%;
-        border: 1px solid #ccc;
-    }
-
-    .step-indicator {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-    }
-
-    .step {
-        width: 25px;
-        height: 25px;
-        background-color: #ffffff;
-        border: 2px solid #333;
-        border-radius: 50%;
-        margin: 0 5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-        .step.active {
-            background-color: #2dc4a6;
-            color: white;
-        }
-    .registration-container {
-        background-color: #2dc4a6;
-        padding: 40px;
-        border-radius: 10px;
-        width: 400px;
-        margin: auto;
-    }
-    .p-set {
-        padding-left: 3rem;
-        text-align: left;
-    }
-
-    a {
-        color: #0b312a;
-    }
-
-    .step-wizard {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .step-wizard-list {
-        list-style-type: none;
-        border-radius: 10px;
-        display: flex;
-        padding: 20px 10px;
-        position: relative;
-        z-index: 10;
-    }
-
-    .step-wizard-item {
-        padding: 0 20px;
-        flex-basis: 0;
-        -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        min-width: 170px;
-        position: relative;
-    }
-
-        .step-wizard-item + .step-wizard-item:after {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 19px;
-            background: #0b312a;
-            width: 100%;
-            height: 2px;
-            transform: translateX(-50%);
-            z-index: -10;
-        }
-
-    .progress-count {
-        height: 40px;
-        width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-weight: 600;
-        margin: 0 auto;
-        position: relative;
-        z-index: 10;
-        color: transparent;
-    }
-
-        .progress-count:after {
-            content: "";
-            height: 40px;
-            width: 40px;
-            background: #0b312a;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: -10;
-        }
-
-        .progress-count:before {
-            content: "";
-            height: 10px;
-            width: 20px;
-            border-left: 3px solid #fff;
-            border-bottom: 3px solid #fff;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -60%) rotate(-45deg);
-            transform-origin: center center;
-        }
-
-    .progress-label {
-        font-size: 14px;
-        font-weight: 600;
-        margin-top: 10px;
-    }
-
-    .current-item .progress-count:before,
-    .current-item ~ .step-wizard-item .progress-count:before {
-        display: none;
-    }
-
-    .current-item ~ .step-wizard-item .progress-count:after {
-        height: 10px;
-        width: 10px;
-    }
-
-    .current-item ~ .step-wizard-item .progress-label {
-        opacity: 0.5;
-    }
-
-    .current-item .progress-count:after {
-        background: #fff;
-        border: 2px solid #0b312a;
-    }
-
-    .current-item .progress-count {
-        color: #0b312a;
-    }
-
-    .drop-down {
-        padding: 4px 0 0 30px !important;
-    }
-</style>

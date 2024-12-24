@@ -1,20 +1,34 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    <div class="relative">
-        <a href="#" class="text-white text-xl px-5">
-            <i class="fas fa-bell"></i>
-        </a>
-    </div>
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        <!-- Notification Bell (right-hand side) -->
+        <ul class="nav-menu menu navigation list-none" style="display: flex; align-items: center; padding: 0; margin: 0;">
+            <li>
+                <a href="#" class="text-black text-xl px-5" style="display: flex; align-items: center;">
+                    <i style="font-size:1.3rem" class="fas fa-bell"></i>
+                </a>
+            </li>
+            <li>
+                <a class="hover-effect" href="#" style="border: 2px solid black; border-radius: 2rem; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                    Ayan Ahmed
+                    <img src="https://placehold.co/400" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer" style="width: 40px; height: 40px; border-radius: 50%;">
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="Manage/ManageYourProfile">Manage Profile</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+            </li>
+        </ul>
 
-        <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/40" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer">
-            <a href="javascript:document.getElementById('logoutForm').submit()" class="text-white text-sm ">@User.Identity.GetUserName()</a>
-        </div>
+
+        <!-- Notification Bell (right-hand side) -->
+        @*<div class="flex items-center space-x-4">
+                <img src="https://via.placeholder.com/40" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer">
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="text-black text-sm ">@User.Identity.GetUserName()</a>
+            </div>*@
 
         @*<ul class="navbar-nav navbar-right">
                 <li>
@@ -22,6 +36,7 @@
                 </li>
                 <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
             </ul>*@
+
     }
 }
 else
@@ -32,23 +47,26 @@ else
         </ul>*@
 
     <!-- Login/Signup links and Profile Image -->
-    <div class="flex items-center space-x-4">
+    <!--<div class="flex items-center space-x-4">
         <a href="/Account/Login" class="text-white text-sm hover:text-green-500">Login</a>
         <span class="text-white">/</span>
-        <a href="/Account/Register" class="text-white text-sm hover:underline">Signup</a>
+        <a href="/Account/Register" class="text-white text-sm hover:underline">Signup</a>-->
+    <!-- Profile Image (placeholder image) -->
+    @*<img src="https://via.placeholder.com/40" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer">*@
+    @*</div>*@
 
-        <!-- Profile Image (placeholder image) -->
-        @*<img src="https://via.placeholder.com/40" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer">*@
-    </div>
-
-    <div id="notification-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
-        <div class="absolute top-20 right-10 bg-white p-4 w-80 rounded-lg shadow-lg">
-            <h2 class="text-xl font-bold mb-4">Notifications</h2>
-            <ul>
-                <li class="mb-2">You have a new message from John.</li>
-                <li class="mb-2">Your post has received 5 likes.</li>
-                <li class="mb-2">Someone commented on your profile.</li>
-            </ul>
-        </div>
+    @*<div id="notification-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
+            <div class="absolute top-20 right-10 bg-white p-4 w-80 rounded-lg shadow-lg">
+                <h2 class="text-xl font-bold mb-4">Notifications</h2>
+                <ul>
+                    <li class="mb-2">You have a new message from John.</li>
+                    <li class="mb-2">Your post has received 5 likes.</li>
+                    <li class="mb-2">Someone commented on your profile.</li>
+                </ul>
+            </div>
+        </div>*@
+    <div class="inflanar-header__button">
+        <a href="/Account/Login" class="inflanar-btn inflanar-btn__nbg">Login</a>
+        <a href="/Account/Register" class="inflanar-btn inflanar-btn--header"><span>Sign Up</span></a>
     </div>
 }

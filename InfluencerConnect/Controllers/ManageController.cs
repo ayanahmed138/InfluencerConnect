@@ -50,6 +50,11 @@ namespace InfluencerConnect.Controllers
             }
         }
 
+        public ActionResult ManageYourProfile()
+        {
+
+            return View();
+        }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

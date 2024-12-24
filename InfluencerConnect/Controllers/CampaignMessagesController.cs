@@ -58,6 +58,11 @@ namespace InfluencerConnect.Controllers
             return View(campaignMessage);
         }
 
+        public ActionResult Create2()
+        {
+            return View();
+        }
+
         // GET: CampaignMessages/Edit/5
         public ActionResult Edit(int? id)
         {

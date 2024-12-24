@@ -7,8 +7,20 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/output.css" rel="stylesheet" />
+    <link href="~/Content/css/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/css/aos.min.css" rel="stylesheet" />
+    <link href="~/Content/css/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome-all.min.css" rel="stylesheet" />
+    <link href="~/Content/css/select2-min.css" rel="stylesheet" />
+    <link href="~/Content/css/swiper-slider.min.css" rel="stylesheet" />
+    <link href="~/Content/css/theme-default.css" rel="stylesheet" />
+    <link href="~/Content/css/video-popup.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 JS (Ensure Bootstrap's JS is included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -19,6 +31,18 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
 <body>
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="object" id="object_one"></div>
+                <div class="object" id="object_two"></div>
+                <div class="object" id="object_three"></div>
+                <div class="object" id="object_four"></div>
+                <div class="object" id="object_five"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader -->
     @*@<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 Html.ActionLink("Influencer Connect", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -42,38 +66,201 @@
             </div>
         </nav>
     *@
-    <nav class="flex items-center bg-slate-950 w-full px-4 sm:px-6 lg:px-8">
-        <img src="~/Content/Images/IC logo white.png" class="w-20 cursor-pointer">
+    @*<nav class="flex items-center bg-slate-950 w-full px-4 sm:px-6 lg:px-8">
+            <img src="~/Content/Images/IC logo white.png" class="w-20 cursor-pointer">
 
-        <ul class="flex-1 text-center">
-            <li class="list-none inline-block px-5">
-                <a href="#" class="no-underline text-green-500 px-2 py-4 border-b-2 border-green-500 ">Home</a>
-            </li>
-            <li class="list-none inline-block px-5">
-                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Search</a>
-            </li>
-            <li class="list-none inline-block px-5">
-                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Messages</a>
-            </li>
-            <li class="list-none inline-block px-5">
-                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Community</a>
-            </li>
-            <li class="list-none inline-block px-5">
-                <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Resources</a>
-            </li>
-        </ul>
-        @Html.Partial("_LoginPartial")
-    </nav>
+            <ul class="flex-1 text-center">
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-green-500 px-2 py-4 border-b-2 border-green-500 ">Home</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Search</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Messages</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Community</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-white px-2 py-4 border-b-2 border-transparent hover:border-green-500">Resources</a>
+                </li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </nav>*@
 
+
+    <!-- Header -->
+    <header id="active-sticky" class="inflanar-header inflanar-header__v2">
+        <div class="inflanar-header__middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="inflanar-header__inside">
+                            <div class="inflanar-header__group">
+                                <div class="inflanar-header__logo">
+                                    <a href="/home"><img src="~/Content/Images/IClogo.png" alt="#"></a>
+                                </div>
+                                <div class="inflanar-header__menu">
+                                    <div class="navbar">
+                                        <div class="nav-item">
+                                            <!-- Main Menu -->
+                                            <ul class="nav-menu menu navigation list-none">
+                                                <li><a href="#">Dashboard</a></li>
+                                                <li><a href="/Home">Home</a></li>
+                                                <li><a href="/home/InfluencerSearch">Search</a></li>
+                                                <li><a href="/Chat">Messages</a></li>
+                                                <li class="menu-item-has-children">
+                                                    <a href="/campaign">Campaign</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="/CampaignMessages/Create">Create Campaign</a></li>
+                                                    </ul>
+                                                </li>
+                                               
+                                                
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                            <!-- End Main Menu -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="offcanvas-toggler" data-bs-toggle="modal" data-bs-target="#offcanvas-modal">
+                                <span class="line"></span><span class="line"></span><span class="line"></span>
+                            </button>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
 
 
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
+
     </div>
+    <!-- Footer -->
+    <footer class="footer-area p-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-top-inner pd-top-30 pd-btm-100">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <!-- Footer Widget -->
+                                <div class="footer-about-widget">
+                                    <div class="footer-logo inflanar-header__logo">
+                                        <a class="logo" href="~/Home/index.html"><img src="~/Content/Images/IClogo-footer.png" alt="#"></a>
+                                    </div>
+                                    <h4 class="footer-about-widget__title">Want to Create Something <span>Great Together?</span></h4>
+                                    <div class="footer-get-touch">
+                                        <p>Get in Touch.. <a href="https://quomodothemes.website/cdn-cgi/l/email-protection#036b666f6f6c4372766c6e6c676c6a6d656c2d606c6e"><span class="__cf_email__" data-cfemail="432b262f2f2c0332362c2e2c272c2a2d252c6d202c2e">[email&#160;protected]</span></a></p>
+                                    </div>
+                                </div>
+                                <!-- End Footer Widget -->
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <!-- Footer Widget -->
+                                <div class="single-widget footer-useful-links">
+                                    <h3 class="widget-title">Quick Links</h3>
+                                    <ul class="footer__list list-none">
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="services.html">Our Services</a></li>
+                                        <li><a href="influencers.html">Our Influencers</a></li>
+                                        <li><a href="about.html">Our Portfolio</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="blog.html">News</a></li>
+                                        <li><a href="book-now.html">Book Now</a></li>
+                                        <li><a href="about.html">Our Partner</a></li>
+                                        <li><a href="faq.html">Faq's</a></li>
+                                        <li><a href="about.html">Our Awards</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Footer Widget -->
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <!-- Footer Widget -->
+                                <div class="single-widget footer-contact">
+                                    <h3 class="widget-title">Working Hour</h3>
+                                    <div class="f-contact__form-top">
+                                        <ul class="f-contact-list list-none">
+                                            <li>Mon - Fri: 7.00am - 6.00pm</li>
+                                            <li>Sat: 7.00am - 6.00pm</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- End Footer Widget -->
+                                <!-- Footer Widget -->
+                                <div class="single-widget footer-contact mg-top-30">
+                                    <h3 class="widget-title">Our Location</h3>
+                                    <div class="f-contact__form-top">
+                                        <p>27 NW New Vexmont, 3 No Tejturi Bazar West, <br> Panthapath North, Dhaka 1215</p>
+                                    </div>
+                                </div>
+                                <!-- End Footer Widget -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="copyright__inner">
+                            <!-- Copyright Text -->
+                            <p class="copyright-text">Copyright 2023 All rights reserved <a href="#" target="_blank">QuomodoTheme</a></p>
+                            <!-- Social -->
+                            <ul class="inflanar-social inflanar-social__v2">
+                                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            </ul>
+                            <!-- End Social -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright -->
+    </footer>
+    <!-- End Footer -->
+    <!-- Scrool Top -->
+    <a href="#" class="scrollToTop"><img src="~/Content/Images/in-scroll-up.svg"></a>
+    <!-- Jquery JS -->
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/jquery-migrate.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <!-- Aos JS -->
+    <script src="~/Content/js/aos.min.js"></script>
+    <!-- CK Editor JS -->
+    <script src="~/Content/js/ckeditor.min.js"></script>
+    <!-- Full Calendar JS -->
+    <script src="~/Content/js/fullcalendar.min.js"></script>
+    <!-- Select2 JS-->
+    <script src="~/Content/js/select2-js.min.js"></script>
+    <!-- Video Popup JS -->
+    <script src="~/Content/js/video-popup.min.js"></script>
+    <!-- Swiper SLider JS -->
+    <script src="~/Content/js/swiper-slider.min.js"></script>
+    <!-- Waypoints JS -->
+    <script src="~/Content/js/waypoints.min.js"></script>
+    <!-- Counterup JS -->
+    <script src="~/Content/js/jquery.counterup.min.js"></script>
+    <!-- Main JS -->
+    <script src="~/Content/js/active.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -82,7 +269,7 @@
 </html>
 
 <script>
-    
+
     // Toggle notification modal visibility
     const notificationBell = document.getElementById('notification-bell');
     const notificationModal = document.getElementById('notification-modal');

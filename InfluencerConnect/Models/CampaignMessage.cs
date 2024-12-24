@@ -15,7 +15,7 @@ namespace InfluencerConnect.Models
         public string LongDiscription { get; set; }
         public bool IsDeleted { get; set; }
         public int CampaignId { get; set; }
-        public Campaign Campaign { get; set; }
+        
        
        
     }
