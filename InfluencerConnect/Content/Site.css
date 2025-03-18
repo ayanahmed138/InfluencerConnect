@@ -1545,6 +1545,7 @@ input[type="submit"] {
 }
 
 .inflanar-service {
+    margin: 1rem;
     border-radius: 4px;
     overflow: hidden;
     background: #fff;

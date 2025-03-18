@@ -14,9 +14,11 @@ namespace InfluencerConnect.Models
         public string ShortDiscription { get; set; }
         public string LongDiscription { get; set; }
         public bool IsDeleted { get; set; }
-        public int CampaignId { get; set; }
-        
-       
-       
+        public int TargetAudienceId { get; set; }
+        public virtual TargetAudience TargetAudience { get; set; }
+        public int ContentTypeId { get; set; }
+        public virtual ContentType ContentType { get; set; }
+
+
     }
 }

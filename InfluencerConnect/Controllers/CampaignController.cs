@@ -7,18 +7,34 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InfluencerConnect.Models;
+using Microsoft.AspNet.Identity;
 
 namespace InfluencerConnect.Controllers
 {
     public class CampaignController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public CampaignViewHelper campaignViewHelper = new CampaignViewHelper();
 
         // GET: Campaign
         public ActionResult Index()
         {
-            var campaigns = db.Campaigns.Include(c => c.CampaignMessage).Include(c => c.TargetAudience);
+            var campaigns = db.Campaigns.Include(c => c.CampaignMessage);
             return View(campaigns.ToList());
+        }
+
+        [Authorize]
+        public ActionResult MyCampaigns()
+        {
+            var userId = User.Identity.GetUserId();
+            var userCampaigns = new List<CampaignViewHelper>();
+            var myCampaigns = db.Campaigns.Where(x => x.CreatedBy == userId).ToList();
+            foreach(var myCampaign in myCampaigns)
+            {
+                userCampaigns.Add(campaignViewHelper.ToCampaignViewModel(myCampaign));
+            }
+
+            return View(userCampaigns);
         }
 
         public ActionResult Search()
@@ -33,11 +49,15 @@ namespace InfluencerConnect.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Campaign campaign = db.Campaigns.Find(id);
+            
             if (campaign == null)
             {
                 return HttpNotFound();
             }
-            return View(campaign);
+            
+            var campaignsToSend = campaignViewHelper.ToCampaignViewModel(campaign);
+            
+            return View(campaignsToSend);
         }
 
         // GET: Campaign/Create
@@ -63,7 +83,7 @@ namespace InfluencerConnect.Controllers
             }
 
             ViewBag.CampaignMessageId = new SelectList(db.CampaignMessages, "Id", "Id", campaign.CampaignMessageId);
-            ViewBag.TargetAudienceId = new SelectList(db.TargetAudience, "Id", "Name", campaign.TargetAudienceId);
+            
             return View(campaign);
         }
 
@@ -80,7 +100,7 @@ namespace InfluencerConnect.Controllers
                 return HttpNotFound();
             }
             ViewBag.CampaignMessageId = new SelectList(db.CampaignMessages, "Id", "Id", campaign.CampaignMessageId);
-            ViewBag.TargetAudienceId = new SelectList(db.TargetAudience, "Id", "Name", campaign.TargetAudienceId);
+          
             return View(campaign);
         }
 
@@ -98,7 +118,7 @@ namespace InfluencerConnect.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CampaignMessageId = new SelectList(db.CampaignMessages, "Id", "Id", campaign.CampaignMessageId);
-            ViewBag.TargetAudienceId = new SelectList(db.TargetAudience, "Id", "Name", campaign.TargetAudienceId);
+           
             return View(campaign);
         }
 

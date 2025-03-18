@@ -1,0 +1,435 @@
+﻿
+@{
+    @model List<InfluencerConnect.Models.CampaignViewHelper>
+
+    ViewBag.Title = "MyCampaigns";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">My Campaigns</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active"><a href="services.html">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Features -->
+<section class="inflaner-inner-page pd-top-90 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 mg-top-30">
+                <div class="inflanar-service-sidebar">
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single">
+                        <h4 class="inflanar-service-sidebar__title m-0">Search</h4>
+                        <!-- Inflanar Search -->
+                        <div class="inflanar-search-form inflanar-search-form__service mg-top-10">
+                            <form class="inflanar-search-form__form" action="#">
+                                <input type="text" placeholder="Search">
+                                <button type="submit" class="inflanar-btn inflanar-btn--search"><img src="/Content/Images/in-search-white.svg"></button>
+                            </form>
+                        </div>
+                        <!-- End Inflanar Search -->
+                    </div>
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Category</h4>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat1" name="cat1" value="room">
+                                <label class="inflanar-form-label" for="cat1">Fashion <span>(12)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat2" name="cat2" value="room">
+                                <label class="inflanar-form-label" for="cat2">Sport & Fitness <span>(51)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat3" name="cat3" value="room">
+                                <label class="inflanar-form-label" for="cat3">Parenting <span>(10)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat4" name="cat4" value="room">
+                                <label class="inflanar-form-label" for="cat4">Life Style <span>(24)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat5" name="cat5" value="room">
+                                <label class="inflanar-form-label" for="cat5">Beauty <span>(31)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat6" name="cat6" value="room">
+                                <label class="inflanar-form-label" for="cat6">Vloggers <span>(25)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat7" name="cat7" value="room">
+                                <label class="inflanar-form-label" for="cat7">Photography <span>(11)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat8" name="cat8" value="room">
+                                <label class="inflanar-form-label" for="cat8">Travel <span>(22)</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-9 col-12">
+                <div class="row">
+                    @foreach (var campaign in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                            <!-- Single property-->
+                            <div class="inflanar-service">
+                                <!-- Property Head-->
+                                <div class="inflanar-service__head">
+                                    <img src="@campaign.Images.First().FilePath" alt="#">
+                                    <div class="inflanar-service__wishlist active">
+
+                                    </div>
+                                </div>
+                                <!-- Property Body-->
+                                <div class="inflanar-service__body">
+                                    <div class="inflanar-service__top">
+                                        <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">@campaign.Category</a>
+
+                                    </div>
+                                    <h3 class="inflanar-service__title"><a href="service-single.html">@campaign.Content</a></h3>
+                                    <div class="inflanar-service__author">
+                                        <div class="inflanar-service__author--info">
+                                            <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                                        </div>
+                                        <div class="inflanar-service__author--rating">
+                                            <div class="inflanar-service__author--star">
+                                                <span><a style="color: #FE2C55;" href="/Campaign/Edit/@campaign.CampaignId"><i class="fas fa-edit"></i></a></span>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="/Campaign/Details/@campaign.CampaignId">Details</a>
+                                </div>
+                            </div>
+                            <!-- End Single property-->
+
+                        </div>
+                        <!--<div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>
+        <div class="col-lg-4 col-md-6 col-12 mg-top-30">-->
+                        <!-- Single property-->
+                        <!--<div class="inflanar-service">-->
+                        <!-- Property Head-->
+                        <!--<div class="inflanar-service__head">
+            <img src="~/Content/Images/in-service1.jpg" alt="#">
+            <div class="inflanar-service__wishlist active">
+
+            </div>
+        </div>-->
+                        <!-- Property Body-->
+                        <!--<div class="inflanar-service__body">
+                <div class="inflanar-service__top">
+                    <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">Tech</a>
+
+                </div>
+                <h3 class="inflanar-service__title"><a href="service-single.html">New Phone Launch</a></h3>
+                <div class="inflanar-service__author">
+                    <div class="inflanar-service__author--info">
+                        <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">Nawyanton</a>
+                    </div>
+                    <div class="inflanar-service__author--rating">
+                        <div class="inflanar-service__author--star">
+                            <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-edit"></i></a></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="service-single.html">Details</a>
+            </div>
+        </div>-->
+                        <!-- End Single property-->
+                        <!--</div>-->
+                    }
+                    </div>
+                <div class="row mg-top-50">
+                    <div class="inflanar-pagination">
+                        <ul class="inflanar-pagination__list list-none">
+                            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
+                            <li><a href="#">01</a></li>
+                            <li class="active"><a href="#">02</a></li>
+                            <li><a href="#">03</a></li>
+                            <li><a href="#">04</a></li>
+                            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Features -->

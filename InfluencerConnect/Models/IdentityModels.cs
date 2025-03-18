@@ -50,9 +50,9 @@ namespace InfluencerConnect.Models
         public DbSet<TargetAudience> TargetAudience { get; set; }
         //public DbSet<Transactions> Transactions { get; set; }
         public DbSet<ContentType> ContentType { get; set; }
+        public DbSet<CampaignImages> CampaignImages { get; set; }
 
 
-        
-        
+        public System.Data.Entity.DbSet<InfluencerConnect.Models.Chat> Chats { get; set; }
     }
 }

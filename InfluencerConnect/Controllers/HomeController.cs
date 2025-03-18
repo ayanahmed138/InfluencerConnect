@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InfluencerConnect.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,27 @@ namespace InfluencerConnect.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            if (userId != null)
+            {
+                var user = db.Users.Find(userId);
+                if (user.IsInfluencer)
+                {
+                    ViewBag.IsInfluencer = true;
+                }
+                else
+                {
+                    ViewBag.IsInfluencer = false;
+                }
+            }
+            else
+            {
+                ViewBag.IsInfluencer = null;
+            }
+                return View();
         }
 
         public ActionResult About()
@@ -22,8 +42,22 @@ namespace InfluencerConnect.Controllers
 
         public ActionResult InfluencerSearch() { 
         
+
+
             return View();
         }
+        
+       public PartialViewResult _InfluencerDashboard()
+        {
+
+            return PartialView();
+        }
+        public PartialViewResult _MarketingAgentDashboard()
+        {
+
+            return PartialView();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

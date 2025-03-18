@@ -1,19 +1,140 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Contact Us</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="~/home">Home</a></li>
+                            <li class="active"><a href="~/home/Contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="~/Content/images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="~/Content/images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Blog Single Sidebar -->
+<section class="inflanar-contact inflaner-inner-page pd-top-90 pd-btm-120">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 col-12 mg-top-30">
+                <div class="inflanar-contact__box inflanar-bg-cover inflanar-section-shape17">
+                    <!-- Contact heading -->
+                    <div class="inflanar-contact__heading">
+                        <h2 class="inflanar-contact-form__title m-0">Contact Info</h2>
+                        <p class="inflanar-contact__htext">Our Contact Info and we' ll respond as soon as possible</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-12 col-md-6 col-12 mg-top-30">
+                            <!-- Single Contact -->
+                            <div class="inflanar-contact__single">
+                                <div class="inflanar-contact__icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="inflanar-contact__content">
+                                    <p class="inflanar-contact__title">
+                                        <a href="tel:+88 234 567 8991">+88 234 567 8991</a>
+                                        <a href="tel:+88 562 987 3214">+88 562 987 3214</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Single Contact -->
+                        </div>
+                        <div class="col-xl-6 col-lg-12 col-md-6 col-12 mg-top-30">
+                            <!-- Single Contact -->
+                            <div class="inflanar-contact__single">
+                                <div class="inflanar-contact__icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="inflanar-contact__content">
+                                    <p class="inflanar-contact__title">
+                                        <a href="https://quomodothemes.website/cdn-cgi/l/email-protection#7618170c171d171e170436111b171f1a5815191b"><span class="__cf_email__" data-cfemail="ff919e859e949e979e8dbf98929e9693d19c9092">[email&#160;protected]</span></a>
+                                        <a href="https://quomodothemes.website/cdn-cgi/l/email-protection#7e1710181107110b0c3e19131f1712501d1113"><span class="__cf_email__" data-cfemail="167f7870796f79636456717b777f7a3875797b">[email&#160;protected]</span></a>
+                                    </p>
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+                                </div>
+                            </div>
+                            <!-- End Single Contact -->
+                        </div>
+                        <div class="col-12 mg-top-30">
+                            <!-- Single Contact -->
+                            <div class="inflanar-contact__single">
+                                <div class="inflanar-contact__icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="inflanar-contact__content">
+                                    <p class="inflanar-contact__title">
+                                        27 NW New Vexmont, 3 No Tejturi Bazar West, Panthapath North, Dhaka 1215
+                                    </p>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-</main>
+                                </div>
+                            </div>
+                            <!-- End Single Contact -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-12 mg-top-30">
+                <!-- Comments Form -->
+                <div class="inflanar-comments-form inflanar-comments-form--reviews">
+                    <h3 class="inflanar-contact-form__title m-0">Feel Free to Get in Touch</h3>
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group inflanar-form-input">
+                                    <label>Name*</label>
+                                    <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Garikoka Thomash" required="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group inflanar-form-input">
+                                    <label>Phone*</label>
+                                    <input class="ecom-wc__form-input" type="text" name="f_phone" placeholder="Phone Number" required="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group inflanar-form-input">
+                                    <label>Email*</label>
+                                    <input class="ecom-wc__form-input" type="text" name="email" placeholder="infoyour@gmail.com" required="required">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group inflanar-form-input">
+                                    <label>Subject*</label>
+                                    <input class="ecom-wc__form-input" type="text" name="subject" placeholder="Your Subject" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group inflanar-form-input">
+                                    <label>Message*</label>
+                                    <textarea class="ecom-wc__form-input" name="f_name" placeholder="Write your message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 mg-top-20">
+                                <button type="submit" class="inflanar-btn"><span>Contact Us</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Comments Form -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Blog Single Sidebar -->
