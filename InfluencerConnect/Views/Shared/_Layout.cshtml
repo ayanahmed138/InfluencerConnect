@@ -108,7 +108,7 @@
                                             <ul class="nav-menu menu navigation list-none">
                                                 <li><a href="~/Home">Dashboard</a></li>
                                                 <li><a href="~/Home">Home</a></li>
-                                                <li><a href="~/home/InfluencerSearch">Search</a></li>
+                                                <li><a href="~/Influencers">Search</a></li>
                                                 <li><a href="~/Chats">Messages</a></li>
                                                 <li class="menu-item-has-children">
                                                     <a href="~/campaign">Campaign</a>
@@ -138,12 +138,12 @@
     <!-- End Header -->
 
 
-    <div class="container body-content">
+    
         @RenderBody()
         <hr />
 
 
-    </div>
+    
     <!-- Footer -->
     @if (ViewBag.ShowFooter == null || ViewBag.ShowFooter == true)
     {

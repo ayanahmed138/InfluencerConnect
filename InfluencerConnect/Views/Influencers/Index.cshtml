@@ -1,0 +1,166 @@
+﻿@model IEnumerable<InfluencerConnect.Models.Influencer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Search Influencers to Collab</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="~/home">Home</a></li>
+                            <li class="active"><a href="">Influencers</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Features -->
+<section class="inflaner-inner-page pd-top-90 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 mg-top-30">
+                <div class="inflanar-service-sidebar">
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single">
+                        <h4 class="inflanar-service-sidebar__title m-0">Search</h4>
+                        <!-- Inflanar Search -->
+                        <div class="inflanar-search-form inflanar-search-form__service mg-top-10">
+                            <form class="inflanar-search-form__form" action="#">
+                                <input type="text" id="searchKeyword" placeholder="Search">
+                                <button id="searchButton" class="inflanar-btn inflanar-btn--search"><img src="/Content/Images/in-search-white.svg"></button>
+                            </form>
+                        </div>
+                        <!-- End Inflanar Search -->
+                    </div>
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Category</h4>
+                            @foreach (var item in (List<InfluencerConnect.Models.CategoryCountViewModel>)ViewBag.CategoryCounts)
+                            {
+                                <div class="form-group inflanar-form-checkbox mg-top-15">
+                                    <input type="checkbox" id="cat1" class="influencer-cat-filter" value="@item.CategoryId">
+                                    <label class="inflanar-form-label" for="cat1">@item.CategoryName <span>(@item.Count)</span></label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-20">
+                        <h4 class="inflanar-service-sidebar__title">Price </h4>
+                        <div class="price-filter pd-top-20">
+                            <div class="price-filter-inner">
+                                <div class="price_slider_amount">
+                                    <div class="form-group inflanar-form-checkbox mg-top-15">
+                                        <input style="width: 100%; border: 1px solid #C1C1C1; height: 50px; padding: 0 25px; border-radius: 4px; display: flex; align-items: center; resize: none;" type="text" placeholder="Min Price" id="minPrice" value="" />
+                                    </div>
+                                    <div class="form-group inflanar-form-checkbox mg-top-15">
+                                        <input style="width: 100%; border: 1px solid #C1C1C1; height: 50px; padding: 0 25px; border-radius: 4px; display: flex; align-items: center; resize: none;" type="text" placeholder="Max Price" id="maxPrice" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Content Type</h4>
+                            @foreach (var item in (List<InfluencerConnect.Models.ContentTypeCountViewModel>)ViewBag.ContentTypeCounts)
+                            {
+                                <div class="form-group inflanar-form-checkbox mg-top-15">
+                                    <input type="checkbox" id="cat1" class="influencer-content-type-filter" value="@item.ContentTypeId">
+                                    <label class="inflanar-form-label" for="cat1">@item.ContentTypeName <span>(@item.Count)</span></label>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+
+                </div>
+            </div>
+            <div class="col-lg-9 col-12" id="influencerResults">
+                @Html.Action("_SearchInfluencer", "Influencers")
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Features -->
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        
+        function getSelectedValues(className) {
+            return $('.' + className + ':checked').map(function () {
+                return this.value;
+            }).get();
+        }
+        function fetchInfluencers() {
+
+            const categories = getSelectedValues('influencer-cat-filter');
+            const contentTypes = getSelectedValues('influencer-content-type-filter');
+            const minPrice = $('#minPrice').val();
+            const maxPrice = $('#maxPrice').val();
+            const keyword = $('#searchKeyword').val();
+
+            $.ajax({
+                url: '/Influencers/SearchInfluencers',
+                type: 'GET',
+                traditional: true, // important for arrays
+                data: {
+                    categories: categories,
+                    contentTypes: contentTypes,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
+                    keyword: keyword,
+
+                },
+                success: function (response) {
+                    $('#influencerResults').html(response);
+                },
+                error: function () {
+                    alert('Failed to fetch Influencers.');
+                }
+            });
+        }
+
+        $('#searchButton').on('click', function () {
+
+            alert('hi')
+            fetchInfluencers(); // Triggers AJAX with page = 1
+        });
+
+
+
+
+
+    </script>
+
+
+
+}

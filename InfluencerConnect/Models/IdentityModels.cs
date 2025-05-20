@@ -14,7 +14,9 @@ namespace InfluencerConnect.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime JoinedOn { get; set; }
-        public bool IsInfluencer { get; set; }   
+        public bool IsInfluencer { get; set; }
+        public string ImageName { get; set; }
+        public string ImagePath { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -69,7 +69,7 @@ namespace InfluencerConnect.Controllers
 
             return PartialView();
         }
-        public PartialViewResult _CreatePatial_B(string content, string shortDescription, DateTime startDate, DateTime endDate, string longDescription, int? contentTypeId, int? audienceTypeId, int? categoryId)
+        public PartialViewResult _CreatePatial_B(string content, string shortDescription, DateTime startDate, DateTime endDate, string longDescription, int? contentTypeId, int? audienceTypeId, int? categoryId, int? budget)
         {
             var userId = User.Identity.GetUserId();
             var newCampaignMsg = new CampaignMessage()
@@ -81,6 +81,7 @@ namespace InfluencerConnect.Controllers
                 LongDiscription = longDescription,
                 ContentTypeId = (int)contentTypeId,
                 TargetAudienceId = (int)audienceTypeId,
+                Budget = (int)budget,
                 IsDeleted = false,
             };
 
@@ -152,6 +153,15 @@ namespace InfluencerConnect.Controllers
             }
         }
 
+        //[Authorize]
+        public ActionResult InfluencerSearch()
+        {
+
+
+
+            return View();
+        }
+
         public ActionResult Create2()
         {
             return View();
@@ -169,8 +179,11 @@ namespace InfluencerConnect.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(campaignMessage);
         }
+
+        
 
         // POST: CampaignMessages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

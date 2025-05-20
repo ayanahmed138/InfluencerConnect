@@ -1,0 +1,55 @@
+﻿@model List<InfluencerConnect.Models.InfluencerListViewModel>
+
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                <!-- Single Influencer -->
+                <div class="inflanar-influencer">
+                    <!-- Influencer Head-->
+                    <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                        <img src="@item.ImagePath" alt="#">
+                        <h4 class="inflanar-influencer__title">
+                            <a href="influencer-profile.html">@item.Name<span>@item.CategoryName</span></a>
+                        </h4>
+                    </div>
+                    <!-- Influencer Body -->
+                    <div class="inflanar-influencer__body">
+                        <div class="inflanar-influencer__follower">
+
+
+                            <div class="inflanar-influencer__follower--single in-right">
+                                <ul class="influencers-pinfo__ssocial-card list-none">
+                                    <li><a href="@item.YoutTubeLink"><img src="~/Content/Images/youtube.png"></a></li>
+                                    <li><a href="@item.TikTokLink"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                    <li><a href="@item.InstagramLink"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                </ul>
+                            </div>
+                            <div class="inflancer-hborder"></div>
+                            <div class="inflanar-influencer__follower--single">
+                                <span><a style="color: #FE2C55; font-size:1.5rem" href="~/Chat"><i class="fas fa-message"></i></a></span>
+                            </div>
+                        </div>
+                        <a class="inflanar-btn-full  mg-top-20" href="~/Influencers/details/@item.InfluencerId">View Profile</a>
+                    </div>
+                    <!-- End Influencer Body -->
+                </div>
+                <!-- End Single Influencer -->
+            </div>
+        }
+
+    </div>
+    <div class="row mg-top-50">
+        <div class="inflanar-pagination">
+            <ul class="inflanar-pagination__list list-none">
+                <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
+                <li><a href="#">01</a></li>
+                <li class="active"><a href="#">02</a></li>
+                <li><a href="#">03</a></li>
+                <li><a href="#">04</a></li>
+                <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+

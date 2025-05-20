@@ -51,21 +51,22 @@
                     $('.Partials').html(data);
                 }
             });
-           
+
 
             $(document).on('click', '#next1', function () {
                 var content = $('#content').val();
+                var budget = $('#budget').val();
                 var shortDescripion = $('#shortDescripion').val();
                 var startDate = $('#startDate').val();
                 var endDate = $('#endDate').val();
-                var longDescription = $('#endDate').val();
+                var longDescription = $('#longDescription').val();
                 var contentTypeId = $('#contentTypeId option:selected').val();
                 var audienceId = $('#targetAudienceId option:selected').val();
                 var categoryId = $('#categoryId option:selected').val();
-               
+
                 $.ajax({
                     url: '/CampaignMessages/_CreatePatial_B?content=' + content + '&shortDescription= ' + shortDescripion + '&startDate= ' + startDate + '&endDate= ' + endDate
-                        + '&longDescription=' + longDescription + '&contentTypeId=' + contentTypeId + '&audienceTypeId=' + audienceId + '&categoryId=' +categoryId,
+                        + '&longDescription=' + longDescription + '&contentTypeId=' + contentTypeId + '&audienceTypeId=' + audienceId + '&categoryId=' + categoryId + '&budget=' + budget,
                     dataType: 'html',
                     success: function (data) {
                         $('.Partials').html(data);
@@ -130,20 +131,20 @@
 
                     reader.onload = function (e) {
                         uploadBox.html(`
-                    <img src="${e.target.result}" alt="Uploaded Image">
-                    <button class="remove-icon">x</button>
-                `);
+                        <img src="${e.target.result}" alt="Uploaded Image">
+                        <button class="remove-icon">x</button>
+                    `);
 
                         uploadedImages.push(file); // Store file reference
 
                         // Add new upload box for more images
                         const timestamp = Date.now();
                         const newUploadBox = $(`
-                    <div class="upload-box">
-                        <label for="upload-input-${timestamp}">+</label>
-                        <input type="file" id="upload-input-${timestamp}" accept="image/*" hidden>
-                    </div>
-                `);
+                        <div class="upload-box">
+                            <label for="upload-input-${timestamp}">+</label>
+                            <input type="file" id="upload-input-${timestamp}" accept="image/*" hidden>
+                        </div>
+                    `);
                         $(".image-upload-container").append(newUploadBox);
                     };
 
@@ -180,7 +181,7 @@
 
                 // Append campaignMsgId
                 formData.append("campaignMsgId", parseInt(campaignMsgId) || 0);
-;
+                ;
 
                 // Append images to FormData
                 uploadedImages.forEach((file, index) => {
@@ -197,14 +198,15 @@
                         if (response.success) {
                             alert("Images uploaded successfully!");
                             uploadedImages = []; // Clear array
-                            debugger
+
                             // Reset image upload container
                             $(".image-upload-container").html(`
-                        <div class="upload-box">
-                            <label for="upload-input">+</label>
-                            <input type="file" id="upload-input" accept="image/*" hidden>
-                        </div>
-                    `);
+                            <div class="upload-box">
+                                <label for="upload-input">+</label>
+                                <input type="file" id="upload-input" accept="image/*" hidden>
+                            </div>`
+
+                            );
                         } else {
                             alert("Image upload failed!");
                         }
@@ -219,7 +221,7 @@
         });
     </script>
 
-    
+
 }
 <style>
     .image-upload-container {

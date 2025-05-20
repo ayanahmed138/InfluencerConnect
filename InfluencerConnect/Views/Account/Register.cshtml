@@ -6,11 +6,11 @@
 
 
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
     @Html.AntiForgeryToken()
-    
+
     <!-- Sign In -->
     <section class="inflanar-signin pd-top-120 pd-btm-120">
         <div class="container">
@@ -94,15 +94,22 @@
                                                                 <input class="ecom-wc__form-input" type="text" name="MaxCharge" placeholder="Maximum Charge" required="required">
                                                             </div>
                                                         </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>About Me</label>
+                                                                <textarea class="ecom-wc__form-input" name="AboutMe" id="aboutMe" placeholder="Describe yourself as an influencer — your niche, style, and what brands or audiences you connect with. "></textarea>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-lg-6 col-md-6 col-12">
                                                                     <div class="form-group inflanar-form-input mg-top-20">
                                                                         <label>Content Type</label>
-                                                                        <select class="property-sidebar__group inflanar-border" multiple>
-                                                                            <option data-display="Reels">ManHattan</option>
-                                                                            <option value="2">Shorts</option>
-                                                                            <option value="3">Stories</option>
+                                                                        <select name="ContentTypeIds" class="property-sidebar__group inflanar-border" multiple>
+                                                                            @foreach (var contentType in ViewBag.ContentType as SelectList)
+                                                                            {
+                                                                                <option value="@contentType.Value">@contentType.Text</option>
+                                                                            }
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -116,11 +123,21 @@
                                                                 <div class="col-12">
                                                                     <div class="form-group inflanar-form-input mg-top-20">
                                                                         <label>Category*</label>
-                                                                        <select class="property-sidebar__group inflanar-border">
-                                                                            <option data-display="Gaming">Gaming</option>
-                                                                            <option value="2">Tech</option>
-                                                                            <option value="3">Life Style</option>
+                                                                        <select name="CategoryId" class="property-sidebar__group inflanar-border">
+                                                                            @foreach (var category in ViewBag.Category as SelectList)
+                                                                            {
+                                                                                <option value="@category.Value">@category.Text</option>
+                                                                            }
                                                                         </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Profile Picture</label>
+                                                                        <input class="ecom-wc__form-input" type="file" name="ProfileImage" accept=".png, .jpg, .jpeg" required onchange="previewImage(event)">
+                                                                        <br>
+                                                                        <img id="imagePreview" style="max-width: 300px; margin-top: 10px; display: none;" />
+
                                                                     </div>
                                                                 </div>
 
@@ -156,82 +173,91 @@
                                         <!-- Single Tab Marketing Agent -->
                                         <div class="tab-pane fade" id="in-tab12" role="tabpanel">
                                             <div class="inflanar-signin__inner">
-                                               
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>First Name*</label>
-                                                                <input class="ecom-wc__form-input" type="text" name="FirstName" placeholder="First Name" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Last Name*</label>
-                                                                <input class="ecom-wc__form-input" type="text" name="LastName" placeholder="Last Name" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Email*</label>
-                                                                <input class="ecom-wc__form-input" type="email" name="Email" placeholder="Email Address" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Phone*</label>
-                                                                <input class="ecom-wc__form-input" type="text" name="PhoneNumber" placeholder="Phone Number" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Password*</label>
-                                                                <input class="ecom-wc__form-input" type="password" name="password" placeholder="Email Address" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Confirm Password*</label>
-                                                                <input class="ecom-wc__form-input" type="password" name="ConfirmPassword" placeholder="Phone Number" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Company Name*</label>
-                                                                <input class="ecom-wc__form-input" type="text" name="CompanyName" placeholder="Type Address" required="required">
-                                                                @Html.CheckBoxFor(m => m.IsInfluencer, new { @id = "IsInfluencer", @class = "singup-checkbox signup-form-input", @style = "display:none" })
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Proof of Employment/ Company letterhead*</label>
-                                                                <input class="ecom-wc__form-input" type="file" name="companyname" placeholder="" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group mg-top-20">
-                                                                <div class="inflanar-signin__check-inline">
-                                                                    <div class="inflanar-signin__checkbox">
-                                                                        <div class="inflanar-signin__checkbox--group">
-                                                                            <input class="inflanar-signin__form-check" id="checkbox2" name="checkbox2" type="checkbox">
-                                                                            <label for="checkbox2">Remember Me</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="inflanar-signin__forgot">
-                                                                        <a href="forgot-password.html" class="forgot-pass">Forgot Password?</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Login Button Group -->
-                                                            <div class="form-group mg-top-40">
-                                                                <button type="submit" class="inflanar-btn"><span>Create Account</span></button>
-                                                            </div>
-                                                            <div class="inflanar-signin__bottom mg-top-20">
-                                                                <p class="inflanar-signin__text">Dont’t have an aceount ?  <a href="sign-in.php">Login</a></p>
-                                                            </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>First Name*</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="FirstName" placeholder="First Name" required="required">
                                                         </div>
                                                     </div>
-                                                
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Last Name*</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="LastName" placeholder="Last Name" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Email*</label>
+                                                            <input class="ecom-wc__form-input" type="email" name="Email" placeholder="Email Address" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Phone*</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="PhoneNumber" placeholder="Phone Number" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Password*</label>
+                                                            <input class="ecom-wc__form-input" type="password" name="password" placeholder="Email Address" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Confirm Password*</label>
+                                                            <input class="ecom-wc__form-input" type="password" name="ConfirmPassword" placeholder="Phone Number" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Company Name*</label>
+                                                            <input class="ecom-wc__form-input" type="text" name="CompanyName" placeholder="Type Address" required="required">
+                                                            @Html.CheckBoxFor(m => m.IsInfluencer, new { @id = "IsInfluencer", @class = "singup-checkbox signup-form-input", @style = "display:none" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Proof of Employment/ Company letterhead*</label>
+                                                            <input class="ecom-wc__form-input" type="file" name="companyname" placeholder="" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group inflanar-form-input mg-top-20">
+                                                            <label>Profile Picture</label>
+                                                            <input class="ecom-wc__form-input" type="file" name="ProfileImage" accept=".png, .jpg, .jpeg" required onchange="previewImage(event)">
+                                                            <br>
+                                                            <img id="imagePreview" style="max-width: 300px; margin-top: 10px; display: none;" />
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group mg-top-20">
+                                                            <div class="inflanar-signin__check-inline">
+                                                                <div class="inflanar-signin__checkbox">
+                                                                    <div class="inflanar-signin__checkbox--group">
+                                                                        <input class="inflanar-signin__form-check" id="checkbox2" name="checkbox2" type="checkbox">
+                                                                        <label for="checkbox2">Remember Me</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="inflanar-signin__forgot">
+                                                                    <a href="forgot-password.html" class="forgot-pass">Forgot Password?</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Login Button Group -->
+                                                        <div class="form-group mg-top-40">
+                                                            <button type="submit" class="inflanar-btn"><span>Create Account</span></button>
+                                                        </div>
+                                                        <div class="inflanar-signin__bottom mg-top-20">
+                                                            <p class="inflanar-signin__text">Dont’t have an aceount ?  <a href="sign-in.php">Login</a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <!-- End Single Tab -->
@@ -252,7 +278,7 @@
     <!-- End Sign In -->
 
     <script>
-        
+
         // Get references to the tabs and hidden checkbox
         const influencerTab = document.getElementById("influencer-tab");
         const marketerTab = document.getElementById("marketer-tab");
@@ -266,6 +292,31 @@
         marketerTab.addEventListener("click", () => {
             isInfluencerCheckbox.checked = false; // Uncheck the checkbox when Marketer tab is active
         });
+
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const validTypes = ['image/jpeg', 'image/png'];
+
+                if (validTypes.includes(file.type)) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Only PNG and JPEG images are allowed.');
+                    input.value = ''; // Clear the invalid file
+                    preview.style.display = 'none';
+                }
+            }
+        }
     </script>
 
 

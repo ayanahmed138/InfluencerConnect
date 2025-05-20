@@ -11,6 +11,8 @@ namespace InfluencerConnect.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public CampaignViewHelper campaignViewHelper = new CampaignViewHelper();
+
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -40,6 +42,18 @@ namespace InfluencerConnect.Controllers
             return View();
         }
 
+
+        public PartialViewResult _TopCampaigns()
+        {
+            var allCampaigns = db.Campaigns.OrderByDescending(x=>x.CreatedOn).ToList().Take(25);
+            var campaingsToSend = new List<CampaignViewHelper>();
+            foreach (var campaign in allCampaigns)
+            {
+               campaingsToSend.Add(campaignViewHelper.ToCampaignViewModel(campaign));
+            }
+
+            return PartialView(campaingsToSend);
+        }
         public ActionResult InfluencerSearch() { 
         
 

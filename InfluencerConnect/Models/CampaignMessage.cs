@@ -18,6 +18,7 @@ namespace InfluencerConnect.Models
         public virtual TargetAudience TargetAudience { get; set; }
         public int ContentTypeId { get; set; }
         public virtual ContentType ContentType { get; set; }
+        public int Budget { get; set; }
 
 
     }

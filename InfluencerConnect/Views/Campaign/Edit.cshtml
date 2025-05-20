@@ -4,76 +4,78 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Campaign</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TargetAudienceId, "TargetAudienceId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TargetAudienceId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TargetAudienceId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CatagoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CatagoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CatagoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CampaignMessageId, "CampaignMessageId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CampaignMessageId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CampaignMessageId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDeleted)
-                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Create Campaign</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="/home">Home</a></li>
+                            <li class="active"><a href="/CampaignMessage/Create">Create Campaign</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+</section>
+<!-- End breadcrumbs -->
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="Partials">
+
 </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Campaign/_EditPartial_A?id=' + @ViewBag.Id,
+                dataType: 'html',
+                success: function (data) {
+                    $('.Partials').html(data);
+                }
+            });
+
+            $(document).on('click', '#next1', function () {
+                var content = $('#content').val();
+                var budget = $('#budget').val();
+                var shortDescripion = $('#shortDescripion').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                var longDescription = $('#longDescription').val();
+                var contentTypeId = $('#contentTypeId option:selected').val();
+                var audienceId = $('#targetAudienceId option:selected').val();
+                var categoryId = $('#categoryId option:selected').val();
+
+                $.ajax({
+                    url: '/Campaign/_EditPartial_B?content=' + content + '&shortDescription= ' + shortDescripion + '&startDate= ' + startDate + '&endDate= ' + endDate
+                        + '&longDescription=' + longDescription + '&contentTypeId=' + contentTypeId + '&audienceTypeId=' + audienceId + '&categoryId=' + categoryId + '&budget=' + budget '&id=' + @ViewBag.Id,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('.Partials').html(data);
+                    }
+                });
+            })
+
+        });
+
+
+    </script>
+
+
+}

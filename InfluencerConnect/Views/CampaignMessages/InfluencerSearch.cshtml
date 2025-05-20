@@ -1,0 +1,469 @@
+﻿
+@{
+    ViewBag.Title = "InfluencerSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Search Influencers to Collab</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active"><a href="services.html">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Features -->
+<section class="inflaner-inner-page pd-top-90 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 mg-top-30">
+                <div class="inflanar-service-sidebar">
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single">
+                        <h4 class="inflanar-service-sidebar__title m-0">Search</h4>
+                        <!-- Inflanar Search -->
+                        <div class="inflanar-search-form inflanar-search-form__service mg-top-10">
+                            <form class="inflanar-search-form__form" action="#">
+                                <input type="text" placeholder="Search">
+                                <button type="submit" class="inflanar-btn inflanar-btn--search"><img src="/Content/Images/in-search-white.svg"></button>
+                            </form>
+                        </div>
+                        <!-- End Inflanar Search -->
+                    </div>
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Category</h4>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat1" name="cat1" value="room">
+                                <label class="inflanar-form-label" for="cat1">Fashion <span>(12)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat2" name="cat2" value="room">
+                                <label class="inflanar-form-label" for="cat2">Sport & Fitness <span>(51)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat3" name="cat3" value="room">
+                                <label class="inflanar-form-label" for="cat3">Parenting <span>(10)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat4" name="cat4" value="room">
+                                <label class="inflanar-form-label" for="cat4">Life Style <span>(24)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat5" name="cat5" value="room">
+                                <label class="inflanar-form-label" for="cat5">Beauty <span>(31)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat6" name="cat6" value="room">
+                                <label class="inflanar-form-label" for="cat6">Vloggers <span>(25)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat7" name="cat7" value="room">
+                                <label class="inflanar-form-label" for="cat7">Photography <span>(11)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat8" name="cat8" value="room">
+                                <label class="inflanar-form-label" for="cat8">Travel <span>(22)</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-20">
+                        <h4 class="inflanar-service-sidebar__title">Price </h4>
+                        <div class="price-filter pd-top-20">
+                            <div class="price-filter-inner">
+                                <div class="price_slider_amount">
+                                    <div class="form-group inflanar-form-checkbox mg-top-15">
+                                        <input style="width: 100%; border: 1px solid #C1C1C1; height: 50px; padding: 0 25px; border-radius: 4px; display: flex; align-items: center; resize: none;" type="text" placeholder="Min Price" name="name" value="" />
+                                    </div>
+                                    <div class="form-group inflanar-form-checkbox mg-top-15">
+                                        <input style="width: 100%; border: 1px solid #C1C1C1; height: 50px; padding: 0 25px; border-radius: 4px; display: flex; align-items: center; resize: none;" type="text" placeholder="Max Price" name="name" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Content Type</h4>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat1" name="cat1" value="room">
+                                <label class="inflanar-form-label" for="cat1">Instagram Reels <span>(12)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat2" name="cat2" value="room">
+                                <label class="inflanar-form-label" for="cat2">Youtube Shorts <span>(51)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat3" name="cat3" value="room">
+                                <label class="inflanar-form-label" for="cat3">Podcasts <span>(10)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat4" name="cat4" value="room">
+                                <label class="inflanar-form-label" for="cat4">Instagram stories <span>(24)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat5" name="cat5" value="room">
+                                <label class="inflanar-form-label" for="cat5">Youtube Videos <span>(31)</span></label>
+                            </div>
+                            <div class="form-group inflanar-form-checkbox mg-top-15">
+                                <input type="checkbox" id="cat6" name="cat6" value="room">
+                                <label class="inflanar-form-label" for="cat6">TikTock <span>(25)</span></label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- End Single Sidebar -->
+
+                </div>
+            </div>
+            <div class="col-lg-9 col-12">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="~/Content/Images/in-agent3.png" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="influencer-profile.html">Goltulkjhan<span>Beauty</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="#"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="#"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+                                        <input type="checkbox" style="transform: scale(1.5)" name="name" value="" />
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="influencer-profile.html">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                </div>
+                <div class="row mg-top-50">
+                    <div class="inflanar-pagination">
+                        <ul class="inflanar-pagination__list list-none">
+                            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
+                            <li><a href="#">01</a></li>
+                            <li class="active"><a href="#">02</a></li>
+                            <li><a href="#">03</a></li>
+                            <li><a href="#">04</a></li>
+                            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Features -->

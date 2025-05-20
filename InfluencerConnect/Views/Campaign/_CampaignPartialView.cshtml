@@ -1,0 +1,66 @@
+﻿@model List<InfluencerConnect.Models.CampaignViewHelper>
+
+<div class="row">
+    @if (!Model.Any())
+    {
+        <div class="text-center text-muted p-4">
+            <h5>No campaigns found matching your filters.</h5>
+        </div>
+    }
+    else
+    {
+        foreach (var campaign in Model)
+        {
+
+            <div class="col-lg-4 col-md-6 col-12 mg-top-30">
+                <!--  Single property-->
+                <div class="inflanar-service">
+                    <!-- Property Head-->
+                    <div class="inflanar-service__head">
+                        <img src="@campaign.Images.FirstOrDefault()?.FilePath" alt="#">
+                        <div class="inflanar-service__wishlist active">
+
+                        </div>
+                    </div>
+                    <!-- Property Body-->
+                    <div class="inflanar-service__body">
+                        <div class="inflanar-service__top">
+                            <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">@campaign.Category</a>
+
+                        </div>
+                        <h3 class="inflanar-service__title"><a href="service-single.html">@campaign.Content</a></h3>
+                        <div class="inflanar-service__author">
+                            <div class="inflanar-service__author--info">
+                                <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">@campaign.AgentName</a>
+                            </div>
+                            <div class="inflanar-service__author--rating">
+                                <div class="inflanar-service__author--star">
+                                    <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-message"></i></a></span>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="~/Campaign/Details/@campaign.CampaignId">Details</a>
+                    </div>
+                </div>
+                <!-- End  <!--  Single property-->
+            </div>
+
+        }
+    }
+</div>
+<div class="row mg-top-50">
+    <div class="inflanar-pagination">
+        <ul class="inflanar-pagination__list list-none">
+            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
+            <li><a href="#">01</a></li>
+            <li class="active"><a href="#">02</a></li>
+            <li><a href="#">03</a></li>
+            <li><a href="#">04</a></li>
+            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
+        </ul>
+    </div>
+</div>
+

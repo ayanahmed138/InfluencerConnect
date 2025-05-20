@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace InfluencerConnect.Models
 {
@@ -86,6 +87,11 @@ namespace InfluencerConnect.Models
         public int MinCharge { get; set; }
         public int MaxCharge { get; set; }
         public string CompanyName { get; set; }
+        public int CategoryId { get; set; }
+        public List<int> ContentTypeIds { get; set; }
+        public HttpPostedFileBase ProfileImage { get; set; }
+        public int Limit { get; set; }
+        public string AboutMe { get; set; }
     }
 
     public class ResetPasswordViewModel

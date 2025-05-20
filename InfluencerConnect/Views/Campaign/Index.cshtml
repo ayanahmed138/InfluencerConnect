@@ -1,63 +1,128 @@
-﻿@model IEnumerable<InfluencerConnect.Models.Campaign>
+﻿@model List<InfluencerConnect.Models.CampaignViewHelper>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Campaigns";
 }
 
-<h2>Index</h2>
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">My Campaigns</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active"><a href="services.html">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Features -->
+<section class="inflaner-inner-page pd-top-90 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-12 mg-top-30">
+                <div class="inflanar-service-sidebar">
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single">
+                        <h4 class="inflanar-service-sidebar__title m-0">Search</h4>
+                        <!-- Inflanar Search -->
+                        <div class="inflanar-search-form inflanar-search-form__service mg-top-10">
+                            <div class="inflanar-search-form__form">
+                                <input type="text" id="searchKeyword" placeholder="Search">
+                                <button id="searchButton" class="inflanar-btn inflanar-btn--search"><img src="/Content/Images/in-search-white.svg"></button>
+                            </div>
+                        </div>
+                        <!-- End Inflanar Search -->
+                    </div>
+                    <!-- Single Sidebar -->
+                    <div class="inflanar-service-sidebar__single mg-top-50">
+                        <div class="inflanar-service-sidebar__checkboxd">
+                            <h4 class="inflanar-service-sidebar__title m-0">Select Category</h4>
+                            @foreach (var item in (List<InfluencerConnect.Models.CategoryCountViewModel>)ViewBag.CategoryCounts)
+                            {
+                                <div class="form-group inflanar-form-checkbox mg-top-15">
+                                    <input type="checkbox" class="category-filter" value="@item.CategoryId">
+                                    <label class="inflanar-form-label" for="cat1">@item.CategoryName <span>@item.Count</span></label>
+                                </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CampaignMessage.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TargetAudience.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CatagoryId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
-        <th></th>
-    </tr>
+                            }
+                        </div>
+                    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CampaignMessage.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TargetAudience.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CatagoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDeleted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+                </div>
+            </div>
+            <div class="col-lg-9 col-12" id="campaignResults">
+                @Html.Action("_CampaignPartialView", "Campaign")
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Features -->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+
+        function getSelectedValues(className) {
+            return $('.' + className + ':checked').map(function () {
+                return this.value;
+            }).get();
+        }
+
+        function fetchCampaigns() {
+            
+            const categories = getSelectedValues('category-filter');
+            const keyword = $('#searchKeyword').val();
+
+            $.ajax({
+                url: '/Campaign/SearchCampaigns',
+                type: 'GET',
+                traditional: true, // important for arrays
+                data: {
+                    categories: categories,
+                    
+                    keyword: keyword,
+                    
+                },
+                success: function (response) {
+                    $('#campaignResults').html(response);
+                },
+                error: function () {
+                    alert('Failed to fetch campaigns.');
+                }
+            });
+        }
+
+        $('#searchButton').on('click', function () {
+            
+            fetchCampaigns(); // Triggers AJAX with page = 1
+        });
+
+
+
+
+    </script>
+
+
+
 }
-
-</table>

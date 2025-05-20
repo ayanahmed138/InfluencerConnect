@@ -46,10 +46,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -173,7 +180,9 @@
     <Compile Include="Controllers\CampaignMessagesController.cs" />
     <Compile Include="Controllers\ChatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfluencersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MarketingAgentsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1209,6 +1218,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1280,6 +1291,23 @@
     <Content Include="Views\CampaignMessages\_CreatePatial_A.cshtml" />
     <Content Include="Views\CampaignMessages\_CreatePatial_B.cshtml" />
     <Content Include="Views\Campaign\MyCampaigns.cshtml" />
+    <Content Include="Views\CampaignMessages\InfluencerSearch.cshtml" />
+    <Content Include="Views\Influencers\Create.cshtml" />
+    <Content Include="Views\Influencers\Delete.cshtml" />
+    <Content Include="Views\Influencers\Details.cshtml" />
+    <Content Include="Views\Influencers\Edit.cshtml" />
+    <Content Include="Views\Influencers\Index.cshtml" />
+    <Content Include="Views\MarketingAgents\Create.cshtml" />
+    <Content Include="Views\MarketingAgents\Delete.cshtml" />
+    <Content Include="Views\MarketingAgents\Details.cshtml" />
+    <Content Include="Views\MarketingAgents\Edit.cshtml" />
+    <Content Include="Views\MarketingAgents\Index.cshtml" />
+    <Content Include="Views\Campaign\_EditPartial_A.cshtml" />
+    <Content Include="Views\Campaign\_EditPartial_B.cshtml" />
+    <Content Include="Views\Campaign\_RelatedCampaigns.cshtml" />
+    <Content Include="Views\Home\_TopCampaigns.cshtml" />
+    <Content Include="Views\Campaign\_CampaignPartialView.cshtml" />
+    <Content Include="Views\Influencers\_SearchInfluencer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
