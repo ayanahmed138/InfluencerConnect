@@ -90,7 +90,7 @@
         }
 
         function fetchCampaigns() {
-            
+
             const categories = getSelectedValues('category-filter');
             const keyword = $('#searchKeyword').val();
 
@@ -100,9 +100,9 @@
                 traditional: true, // important for arrays
                 data: {
                     categories: categories,
-                    
+
                     keyword: keyword,
-                    
+
                 },
                 success: function (response) {
                     $('#campaignResults').html(response);
@@ -114,11 +114,36 @@
         }
 
         $('#searchButton').on('click', function () {
-            
+
             fetchCampaigns(); // Triggers AJAX with page = 1
         });
 
+        $(document).ready(function () {
+            $(document).on('click', '.start-chat-btn', function (e) {
+                e.preventDefault(); // Stop <a> from navigating
 
+                var otherUserId = $(this).data('userid');
+
+                $.ajax({
+                    url: '/Chats/StartChat',  // your backend API to start/get chat
+                    type: 'POST',             // or 'POST' if you prefer
+                    data: { targetUserId: otherUserId },
+                    success: function (response) {
+                        // Assuming backend returns success status or similar
+                        if (response.success) {
+                            // Redirect to chat index page to load all chats
+                            window.location.href = '/Chats/Index';
+                        } else {
+                            alert("Failed to start chat.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error while starting chat.");
+                    }
+                });
+
+            });
+        });
 
 
     </script>

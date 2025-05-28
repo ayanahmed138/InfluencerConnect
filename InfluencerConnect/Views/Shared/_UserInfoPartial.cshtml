@@ -1,0 +1,13 @@
+﻿@model InfluencerConnect.Models.UserInfoViewModel
+ 
+
+<li>
+    <a class="hover-effect" href="#" style="border: 2px solid black; border-radius: 2rem; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+        @Model.FirstName  @Model.LastName
+        <img src="@Model.ImagePath" alt="Profile Image" class="w-10 h-10 rounded-full cursor-pointer" style="width: 40px; height: 40px; border-radius: 50%;">
+    </a>
+    <ul class="sub-menu">
+        <li><a href="Manage/ManageYourProfile">Manage Profile</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+</li>

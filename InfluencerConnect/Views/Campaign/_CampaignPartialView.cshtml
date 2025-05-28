@@ -17,7 +17,7 @@
                 <div class="inflanar-service">
                     <!-- Property Head-->
                     <div class="inflanar-service__head">
-                        <img src="@campaign.Images.FirstOrDefault()?.FilePath" alt="#">
+                        <img src="@((campaign.Images?.FirstOrDefault()?.FilePath) ?? "/images/default.jpg")" alt="#">
                         <div class="inflanar-service__wishlist active">
 
                         </div>
@@ -35,7 +35,7 @@
                             </div>
                             <div class="inflanar-service__author--rating">
                                 <div class="inflanar-service__author--star">
-                                    <span><a style="color: #FE2C55;" href="~/Chat"><i class="fas fa-message"></i></a></span>
+                                    <span><a style="color: #FE2C55;" class="start-chat-btn" data-userId="@campaign.CreatedBy"><i class="fas fa-message"></i></a></span>
 
                                 </div>
 

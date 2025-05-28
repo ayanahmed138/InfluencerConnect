@@ -155,7 +155,15 @@
             fetchInfluencers(); // Triggers AJAX with page = 1
         });
 
+        $(document).on('click', '.start-chat-btn', function () {
+            var receiverUserId = $(this).data('userid');
 
+            // Send to server via AJAX
+            $.post('/Chats/CreateOrOpenChat', { receiverUserId: receiverUserId }, function (chatId) {
+                // Redirect to chat page (or you could open modal/chat box)
+                window.location.href = '/Chats/Index?chatId=' + chatId;
+            });
+        });
 
 
 
