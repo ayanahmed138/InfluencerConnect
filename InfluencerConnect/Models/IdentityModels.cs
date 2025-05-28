@@ -41,8 +41,8 @@ namespace InfluencerConnect.Models
 
         }
         public DbSet<Category> Categories { get; set; }
-       // public DbSet<Chat> Chats { get; set; }
-       // public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Messages> Messages { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<CampaignMessage> CampaignMessages { get; set; }
         public DbSet<Influencer> Influencer { get; set; }
@@ -55,6 +55,6 @@ namespace InfluencerConnect.Models
         public DbSet<CampaignImages> CampaignImages { get; set; }
 
 
-        public System.Data.Entity.DbSet<InfluencerConnect.Models.Chat> Chats { get; set; }
+       
     }
 }

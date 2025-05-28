@@ -138,12 +138,12 @@
     <!-- End Header -->
 
 
-    
-        @RenderBody()
-        <hr />
+
+    @RenderBody()
+    <hr />
 
 
-    
+
     <!-- Footer -->
     @if (ViewBag.ShowFooter == null || ViewBag.ShowFooter == true)
     {
@@ -265,9 +265,15 @@
     <!-- Main JS -->
     <script src="~/Content/js/active.js"></script>
 
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
 </body>
 </html>
 
