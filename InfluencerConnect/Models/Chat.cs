@@ -11,7 +11,6 @@ namespace InfluencerConnect.Models
         public bool IsDeleted { get; set; }
         public string User1Id { get; set; }
         public string User2Id { get; set; }
-        public virtual ICollection<Messages> Messages { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public List<Messages> Messages { get; set; }
     }
 }

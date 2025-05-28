@@ -55,28 +55,6 @@ namespace InfluencerConnect.Controllers
             }
         }
 
-        [ChildActionOnly]
-        public ActionResult UserInfoPartial()
-        {
-            if (!User.Identity.IsAuthenticated)
-                return PartialView("_UserInfoPartial", null);
-
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.Find(userId);
-
-            if (user == null)
-                return PartialView("_UserInfoPartial", null);
-
-            var model = new UserInfoViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                ImagePath = user.ImagePath
-            };
-
-            return PartialView("_UserInfoPartial", model);
-        }
-
         //
         // GET: /Account/Login
         [AllowAnonymous]

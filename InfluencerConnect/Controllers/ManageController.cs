@@ -50,10 +50,8 @@ namespace InfluencerConnect.Controllers
             }
         }
 
-        [Authorize]
         public ActionResult ManageYourProfile()
         {
-
 
             return View();
         }

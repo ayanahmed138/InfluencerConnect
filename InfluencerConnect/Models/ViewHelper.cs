@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services.Description;
-using System.Web.UI;
 
 namespace InfluencerConnect.Models
 {
@@ -27,9 +26,9 @@ namespace InfluencerConnect.Models
 
         public CampaignViewHelper ToCampaignViewModel(Campaign campaign)
         {
-            var campaignMsg = db.CampaignMessages.Where(x => x.Id == campaign.Id).FirstOrDefault();
+            var campaignMsg = db.CampaignMessages.Where(x=>x.Id==campaign.Id).FirstOrDefault();
             var user = db.Users.Where(x => x.Id == campaign.CreatedBy).FirstOrDefault();
-
+           
             var campaignViewHelper = new CampaignViewHelper
             {
                 CampaignId = campaign.Id,
@@ -43,7 +42,7 @@ namespace InfluencerConnect.Models
                 Budget = campaignMsg.Budget,
                 TargetAudience = db.TargetAudience.Where(x => x.Id == campaignMsg.TargetAudienceId).Select(x => x.Name).FirstOrDefault(),
                 ContentType = db.TargetAudience.Where(x => x.Id == campaignMsg.TargetAudienceId).Select(x => x.Name).FirstOrDefault(),
-                Category = db.Categories.Where(x => x.Id == x.Id).Select(x => x.Name).FirstOrDefault(),
+                Category = db.Categories.Where(x=>x.Id==x.Id).Select(x=>x.Name).FirstOrDefault(),
                 Images = new List<CampaignImages>(),
                 AgentName = $"{user.FirstName} {user.LastName}",
 
@@ -92,7 +91,6 @@ namespace InfluencerConnect.Models
         public string TikTokLink { get; set; }
         public string InstagramLink { get; set; }
         public string ImagePath { get; set; }
-        public string UserId { get; set; }
 
 
         public InfluencerListViewModel ToInfluencerListViewModel(Influencer influencer)
@@ -102,12 +100,12 @@ namespace InfluencerConnect.Models
             {
                 InfluencerId = influencer.Id,
                 Name = influencer.Name,
-                CategoryName = db.Categories.Where(x => x.Id == influencer.CategoryId).Select(x => x.Name).FirstOrDefault(),
+                CategoryName = db.Categories.Where(x=>x.Id==influencer.CategoryId).Select(x=>x.Name).FirstOrDefault(),
                 YoutTubeLink = influencer.YoutubeLink,
                 TikTokLink = influencer.TikTokLink,
                 InstagramLink = influencer.InstagramLink,
-                ImagePath = db.Users.Where(x => x.Id == influencer.UserId).Select(x => x.ImagePath).FirstOrDefault(),
-                UserId = influencer.UserId,
+                ImagePath = db.Users.Where(x=>x.Id==influencer.UserId).Select(x=>x.ImagePath).FirstOrDefault(),
+
             };
 
             return influencerListViewModel;
@@ -122,59 +120,5 @@ namespace InfluencerConnect.Models
         public string ContentTypeName { get; set; }
         public int Count { get; set; }
     }
-
-    public class ChatsViewModel
-    {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        public int ChatId { get; set; }
-        public string LastMessage { get; set; }
-        public string CreatedOn { get; set; }
-        public string OtherUserName { get; set; }
-        public string OtherUserImg { get; set; }
-        public string OtherUserId { get; set; }
-
-
-
-        public ChatsViewModel toChatViewModel(Chat chat, string currentUserId)
-        {
-            var ChatMessages = db.Messages.Where(x => x.ChatId == chat.Id).ToList();
-            var otherUserId = (chat.User1Id == currentUserId) ? chat.User2Id : chat.User1Id;
-            var otherUser = db.Users.Find(otherUserId);
-            var chatsViewModel = new ChatsViewModel
-            {
-                ChatId = chat.Id,
-                CreatedOn = (ChatMessages.Count > 0) ? ChatMessages.LastOrDefault().CreatedOn.ToString("t") : "-",
-                LastMessage = "",
-                OtherUserId = otherUserId,
-                OtherUserName = $"{otherUser.FirstName} {otherUser.LastName}",
-                OtherUserImg = otherUser.ImagePath,
-            };
-
-            if (ChatMessages.Count > 0)
-            {
-
-                chatsViewModel.LastMessage = ChatMessages.LastOrDefault().Text;
-            }
-            else
-            {
-                chatsViewModel.LastMessage = "No Messages";
-            }
-
-
-
-            return chatsViewModel;
-        }
-
-
-    }
-
-    public class UserInfoViewModel
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ImagePath { get; set; }
-
-    }
-        
 
 }

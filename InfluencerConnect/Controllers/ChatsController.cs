@@ -7,77 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InfluencerConnect.Models;
-using Microsoft.AspNet.Identity;
 
 namespace InfluencerConnect.Controllers
 {
-    [Authorize]
     public class ChatsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ChatsViewModel chatsViewModel = new ChatsViewModel();
 
         // GET: Chats
         public ActionResult Index()
         {
-            var currentUserId = User.Identity.GetUserId();
-
-            ViewBag.UserImage = db.Users.Where(x => x.Id == currentUserId).FirstOrDefault().ImagePath;
-            var existingChat = db.Chats.Where(c => c.User1Id == currentUserId || c.User2Id == currentUserId).ToList();
-            var chatsToSend = new List<ChatsViewModel>();
-            if (existingChat.Any())
-            {
-                foreach (var chat in existingChat)
-                {
-                    chatsToSend.Add(chatsViewModel.toChatViewModel(chat, currentUserId));
-                }
-            }
-
-            ViewBag.ShowFooter = false;
-            return View(chatsToSend);
-        }
-
-        public JsonResult GetMessages(int chatId)
-        {
-            var currentUserId = User.Identity.GetUserId();
-
-            var messages = db.Messages
-                .Where(m => m.ChatId == chatId)
-                .OrderBy(m => m.CreatedOn)
-                .ToList() // switch from LINQ-to-Entities to LINQ-to-Objects
-                .Select(m => new {
-                    content = m.Text,
-                    timestamp = m.CreatedOn.ToString("dd MMM yyyy hh:mm tt"),
-                    isSender = m.SenderId == currentUserId
-                }).ToList();
-
-            return Json(messages, JsonRequestBehavior.AllowGet);
-        }
-
-
-        [HttpPost]
-        public JsonResult StartChat(string targetUserId)
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var existingChat = db.Chats.Where(c => c.User1Id == currentUserId || c.User2Id == currentUserId).ToList();
-            if(!existingChat.Any())
-            {
-                var newChat = new Chat()
-                {
-                    User1Id = currentUserId,
-                    User2Id = targetUserId,
-                    IsDeleted = false,
-                    CreatedOn = DateTime.Now,
-
-
-                };
-                db.Chats.Add(newChat); 
-                db.SaveChanges();
-            }
-
-
-
-            return Json(new { success = true });
+            ViewBag.ShowFooter=false;
+            return View(db.Chats.ToList());
         }
 
         // GET: Chats/Details/5
