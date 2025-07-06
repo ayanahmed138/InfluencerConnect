@@ -4,36 +4,233 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>CampaignMessage</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDeleted)
-                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Create Campaign</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="/home">Home</a></li>
+                            <li class="active"><a href="/CampaignMessage/Edit">Edit Campaign</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
+</section>
+<!-- End breadcrumbs -->
+
+<div class="Partials">
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            var campaignMsgId = @ViewBag.CampaignMsgId;
+            $.ajax({
+                url: '/CampaignMessages/_CreatePatial_A?campaignMsgId=' + campaignMsgId,
+                dataType: 'html',
+                success: function (data) {
+                    $('.Partials').html(data);
+                }
+            });
+
+            $(document).on('click', '#next1', function () {
+                var content = $('#content').val();
+                var budget = $('#budget').val();
+                var shortDescripion = $('#shortDescripion').val();
+                var startDate = $('#startDate').val();
+                var endDate = $('#endDate').val();
+                var longDescription = $('#longDescription').val();
+                var contentTypeId = $('#contentTypeId option:selected').val();
+                var audienceId = $('#targetAudienceId option:selected').val();
+                var categoryId = $('#categoryId option:selected').val();
+
+                $.ajax({
+                    url: '/CampaignMessages/_CreatePatial_B?content=' + content + '&shortDescription= ' + shortDescripion + '&startDate= ' + startDate + '&endDate= ' + endDate
+                        + '&longDescription=' + longDescription + '&contentTypeId=' + contentTypeId + '&audienceTypeId=' + audienceId + '&categoryId=' + categoryId + '&budget=' + budget + '&campaignMsgId=' + campaignMsgId,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('.Partials').html(data);
+                    }
+                });
+            })
+
+            const uploadContainer = $(document);
+            let uploadedImages = []; // Store selected files
+
+            // On click: trigger file selector
+            uploadContainer.on("click", ".upload-box", function () {
+                $(this).find("input[type='file']").trigger("click");
+            });
+
+            // On file selected
+            uploadContainer.on("change", "input[type='file']", function (event) {
+                if (event.target.files.length > 0) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                    const uploadBox = $(this).closest(".upload-box");
+
+                    reader.onload = function (e) {
+                        // Replace upload box with image preview
+                        uploadBox.html(`
+    <img src="${e.target.result}" alt="Uploaded Image">
+    <button type="button" class="remove-icon">x</button>
+`);
+
+                        // Track file
+                        file._customId = Date.now(); // Assign unique ID
+                        uploadBox.attr("data-id", file._customId);
+                        uploadedImages.push(file);
+
+                        // Add new empty box
+                        const timestamp = Date.now();
+                        const newUploadBox = $(`
+    <div class="upload-box">
+        <label for="upload-input-${timestamp}">+</label>
+        <input type="file" id="upload-input-${timestamp}" accept="image/*" hidden>
+    </div>
+`);
+                        $(".image-upload-container").append(newUploadBox);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Remove image from list & UI
+            uploadContainer.on("click", ".remove-icon", function () {
+                const parentBox = $(this).parent();
+                const fileId = parentBox.attr("data-id");
+
+                if (fileId) {
+                    uploadedImages = uploadedImages.filter(file => file._customId != fileId);
+                }
+
+                parentBox.remove();
+            });
+
+            // On "Next" button click
+            uploadContainer.on("click", "#next2", function (event) {
+                event.preventDefault();
+
+                if (uploadedImages.length === 0) {
+                    alert("Please select at least one image.");
+                    return;
+                }
+
+                let campaignMsgId = $("#campaignMsgId").val(); // Ensure this exists
+                let formData = new FormData();
+                formData.append("campaignMsgId", parseInt(campaignMsgId) || 0);
+
+                // Append selected files
+                uploadedImages.forEach((file, index) => {
+                    formData.append(`images[${index}]`, file);
+                });
+
+                $.ajax({
+                    url: "/CampaignMessages/UploadImages",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Images uploaded successfully!");
+                            uploadedImages = []; // Clear array
+
+                            // Reset image upload container
+                            $(".image-upload-container").html(`
+                <div class="upload-box">
+                    <label for="upload-input">+</label>
+                    <input type="file" id="upload-input" accept="image/*" hidden>
+                </div>`
+
+                            );
+                            window.location.href = "/";
+                        } else {
+                            alert("Image upload failed!");
+                        }
+                    },
+                    error: function () {
+                        alert("Error uploading images!");
+                    }
+                });
+            });
+
+        });
+
+    </script>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<style>
+    .image-upload-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .upload-box {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e0e0e0;
+        border: 2px dashed #bbb;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .upload-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .upload-box .remove-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff5e57;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+    .upload-label {
+        font-size: 24px;
+        color: #555;
+    }
+
+        .upload-label:hover {
+            color: #1778f2;
+        }
+</style>
+

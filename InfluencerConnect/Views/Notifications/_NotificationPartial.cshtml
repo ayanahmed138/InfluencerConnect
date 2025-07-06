@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<InfluencerConnect.Models.NotificationViewModel>
+<!-- Notification Dropdown -->
+<div id="notification-dropdown"
+     style="display: none; position: absolute; top: 100%; right: 0;
+width: 300px; background: white; border: 1px solid #ddd;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; z-index: 1000;">
+    <div style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">
+        Notifications
+    </div>
+    <ul id="notification-dropdown-list" style="list-style: none; margin: 0; padding: 0; max-height: 250px; overflow-y: auto;">
+        @if (Model.Any())
+        {
+            foreach (var notification in Model)
+            {
+                var isRead = notification.IsRead;
+                var backgroundColor = notification.IsRead
+                ? "background-color: white;"          // read
+                : "background-color: bisque;";
+                <li id="notification-@notification.Id" style="padding: 10px; border-bottom: 1px solid #f0f0f0; @backgroundColor">
+                    
+                    <a class="notification-tag" data-id="@notification.Id" href="@notification.Link">
+                        <p style="margin: 0; font-size: 0.9rem;">
+                            @notification.Message
+                        </p>
+                        <span style="font-size: 0.8rem; color: gray;">@notification.CreatedAgo</span>
+                    </a>
+                </li>
+            }
+        }
+        else
+        {
+            <li id="no-notifications" style="padding: 10px; border-bottom: 1px solid #f0f0f0;">
+               
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        No Notifications
+                    </p>
+                 
+                
+            </li>
+
+        }
+        <li style="padding: 10px; text-align: center;">
+            <a href="~/Notifications" style="text-decoration: none; font-size: 0.9rem; color: #007bff;">
+                View all notifications
+            </a>
+        </li>
+    </ul>
+</div>
+

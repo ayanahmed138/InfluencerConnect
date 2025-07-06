@@ -13,9 +13,9 @@ using Microsoft.AspNet.Identity;
 namespace InfluencerConnect.Controllers
 {
 
-    public class CampaignController : Controller
+    public class CampaignController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
         public CampaignViewHelper campaignViewHelper = new CampaignViewHelper();
 
 
@@ -36,66 +36,109 @@ namespace InfluencerConnect.Controllers
             return View();
         }
 
-        public PartialViewResult _CampaignPartialView()
+        public PartialViewResult _CampaignPartialView(int page = 1, int pageSize = 9)
         {
-            var campaigns = db.Campaigns.ToList();
-            var campaignsToSend = new List<CampaignViewHelper>();
+            var query = db.Campaigns
+                .Include(c => c.CampaignMessage)
+                .Where(x => x.IsDeleted == false && x.CampaignMessage.StartDate > DateTime.Now);
 
-            foreach (var campaign in campaigns)
-            {
-                campaignsToSend.Add(campaignViewHelper.ToCampaignViewModel(campaign));
-            }
+            var totalCount = query.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
+            var campaigns = query
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var campaignsToSend = campaigns
+                .Select(campaign => campaignViewHelper.ToCampaignViewModel(campaign))
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
             return PartialView(campaignsToSend);
         }
 
-        public ActionResult SearchCampaigns(List<int> categories, string keyword)
+
+        public ActionResult SearchCampaigns(List<int> categories, string keyword, int page = 1, int pageSize = 9)
         {
             var query = db.Campaigns
-                        .Include(c => c.CampaignMessage)
-                        .AsQueryable();
+                .Include(c => c.CampaignMessage)
+                .Where(c => !c.IsDeleted && c.CampaignMessage.StartDate > DateTime.Now);
 
             if (categories != null && categories.Any())
                 query = query.Where(c => categories.Contains(c.CatagoryId));
 
-
-
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.ToLower();
-                query = query.Where(c => c.CampaignMessage.Content.ToLower().Contains(keyword) ||
-                                         c.CampaignMessage.ShortDiscription.ToLower().Contains(keyword) ||
-                                         c.CampaignMessage.LongDiscription.ToLower().Contains(keyword));
-            }
-            var campaigns = query.ToList();
-            var campaignsToSend = new List<CampaignViewHelper>();
-
-            foreach (var campaign in campaigns)
-            {
-                campaignsToSend.Add(campaignViewHelper.ToCampaignViewModel(campaign));
+                query = query.Where(c =>
+                    c.CampaignMessage.Content.ToLower().Contains(keyword) ||
+                    c.CampaignMessage.ShortDiscription.ToLower().Contains(keyword) ||
+                    c.CampaignMessage.LongDiscription.ToLower().Contains(keyword));
             }
 
+            var totalCount = query.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
+            var pagedCampaigns = query
+                .OrderByDescending(c => c.CampaignMessage.StartDate)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var campaignsToSend = pagedCampaigns.Select(c => campaignViewHelper.ToCampaignViewModel(c)).ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
             return PartialView("_CampaignPartialView", campaignsToSend);
         }
 
 
 
-        [Authorize]
-        public ActionResult MyCampaigns()
+        [System.Web.Mvc.Authorize]
+        public ActionResult MyCampaigns(int page = 1)
         {
             var userId = User.Identity.GetUserId();
+            int pageSize = 9;
+
+            var allMyCampaigns = db.Campaigns
+                .Where(x => x.CreatedBy == userId)
+                .ToList();
+
+            var pagedCampaigns = allMyCampaigns
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
             var userCampaigns = new List<CampaignViewHelper>();
-            var myCampaigns = db.Campaigns.Where(x => x.CreatedBy == userId).ToList();
-            foreach (var myCampaign in myCampaigns)
+            foreach (var myCampaign in pagedCampaigns)
             {
                 userCampaigns.Add(campaignViewHelper.ToCampaignViewModel(myCampaign));
             }
 
+            var categoryCounts = db.Categories.ToList()
+                .Select(cat => new CategoryCountViewModel
+                {
+                    CategoryId = cat.Id,
+                    CategoryName = cat.Name,
+                    Count = allMyCampaigns.Count(c => c.CatagoryId == cat.Id)
+                })
+                .ToList();
+
+            ViewBag.CategoryCounts = categoryCounts;
+
+            int totalPages = (int)Math.Ceiling((double)allMyCampaigns.Count / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
             return View(userCampaigns);
         }
+
+
 
         public ActionResult Search()
         {
@@ -214,9 +257,18 @@ namespace InfluencerConnect.Controllers
 
         public PartialViewResult _RelatedCampaigns(int? campaignId)
         {
+            var campaign = db.Campaigns.Where(x=>x.CampaignMessageId== campaignId).FirstOrDefault();    
+            var relatedCampaigns = db.Campaigns.Where(x=>x.CatagoryId==campaign.CatagoryId && x.CampaignMessage.StartDate > DateTime.Now)
+                .OrderBy(x=>x.CampaignMessage.StartDate).Take(4).ToList();
 
+            var relatedCampaignsToSend = new List<CampaignViewHelper>();
+            foreach(var cam in relatedCampaigns)
+            {
+                relatedCampaignsToSend.Add(campaignViewHelper.ToCampaignViewModel(cam));
 
-            return PartialView();
+            }
+
+            return PartialView(relatedCampaignsToSend);
         }
 
         // GET: Campaign/Delete/5
@@ -232,6 +284,27 @@ namespace InfluencerConnect.Controllers
                 return HttpNotFound();
             }
             return View(campaign);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCampaign(int? id)
+        {
+            if(id!=null)
+            {
+                var campaign = db.Campaigns.Where(x => x.Id == (int)id).FirstOrDefault();
+                campaign.IsDeleted = true;
+                db.SaveChanges();
+
+                return Json(new { success = true });
+
+            }
+            else
+            {
+                return Json(new { success = false });
+
+            }
+
+
         }
 
         // POST: Campaign/Delete/5

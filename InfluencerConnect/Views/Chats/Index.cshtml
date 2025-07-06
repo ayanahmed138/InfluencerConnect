@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="flex-grow-1 input-group input-group-merge">
                                             <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                                            <input type="text" class="form-control chat-search-input" placeholder="Search...">
+                                            <input type="text" id="search-contact" class="form-control chat-search-input" placeholder="Search...">
                                         </div>
                                     </div>
 
@@ -54,7 +54,17 @@
                                         <li class="chat-contact-list-item chat-contact-list-item-title mt-0">
                                             <h5 class="text-primary mb-0">Chats</h5>
                                         </li>
-                                        @if (!Model.Any())
+
+                                        @if ((ViewBag.BlockMessaging != null && (bool)ViewBag.BlockMessaging))
+                                        {
+                                    <li class="chat-contact-list-item chat-list-item-0">
+                                        <h6 class="text-muted mb-0">Your Account have not been Aprooved</h6>
+                                    </li>
+                                        }
+                                        else
+                                        {
+
+                                        if (!Model.Any())
                                         {
                                             <li class="chat-contact-list-item chat-list-item-0">
                                                 <h6 class="text-muted mb-0">No Chats Found</h6>
@@ -67,7 +77,7 @@
                                             {
 
                                                 <li class="chat-contact-list-item mb-1">
-                                                    <a class="d-flex align-items-center" id="chat-item"
+                                                    <a class="d-flex align-items-center chat-item @(chat.ChatId == (int?)ViewBag.SelectedChatId ? "auto-open" : "")"
                                                        data-user-name="@chat.OtherUserName"
                                                        data-user-img="@chat.OtherUserImg"
                                                        data-chat-id="@chat.ChatId"
@@ -80,13 +90,15 @@
                                                                 <h6 class="chat-contact-name text-truncate m-0 fw-normal">@chat.OtherUserName</h6>
                                                                 <small class="text-muted">@chat.CreatedOn</small>
                                                             </div>
-                                                            <small id="last-message" class="chat-contact-status text-truncate">@chat.LastMessage</small>
+                                                            <small id="last-message-@chat.ChatId" class="chat-contact-status text-truncate">@chat.LastMessage</small>
                                                         </div>
                                                     </a>
                                                 </li>
                                             }
 
                                         }
+                                        }
+
                                     </ul>
                                     <!-- Contacts -->
 
@@ -116,20 +128,21 @@
                                     </div>
                                     <!-- Chat message form -->
                                     <div class="chat-history-footer shadow-xs">
-                                        <form class="form-send-message d-flex justify-content-between align-items-center ">
+                                        <div class="form-send-message d-flex justify-content-between align-items-center ">
                                             <input id="messageInput" class="form-control message-input border-0 me-4 shadow-none" placeholder="Type your message here...">
                                             <div class="message-actions d-flex align-items-center">
-                                                <i class="speech-to-text ti ti-microphone ti-md btn btn-sm btn-text-secondary btn-icon rounded-pill cursor-pointer text-heading"></i>
-                                                <label for="attach-doc" class="form-label mb-0">
-                                                    <i class="ti ti-paperclip ti-md cursor-pointer btn btn-sm btn-text-secondary btn-icon rounded-pill mx-1 text-heading"></i>
-                                                    <input type="file" id="attach-doc" hidden>
-                                                </label>
+                                                @if (ViewBag.IsInfluencer == true)
+                                                {
+                                                <button class="btn btn-outline-secondary" style="margin-right:1rem" id="generateInvoiceBtn" title="Send Invoice">
+                                                    <i class="fas fa-file-invoice-dollar"></i>
+                                                </button>
+                                                }
                                                 <button id="sendButton" class="btn btn-primary d-flex send-msg-btn">
                                                     <span class="align-middle d-md-inline-block d-none">Send</span>
                                                     <i class="ti ti-send ti-16px ms-md-2 ms-0"></i>
                                                 </button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +157,51 @@
                 <!-- Content wrapper -->
             </div>
             <!-- / Layout page -->
+        </div>
+    </div>
+</div>
+
+<!-- Invoice Modal -->
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="invoiceForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="invoiceModalLabel">Generate Invoice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Bank Account Title</label>
+                        <input type="text" class="form-control" id="bank-acc-title" name="BankAccountTitle" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Bank Account Number</label>
+                        <input type="text" class="form-control" id="bank-acc-no" name="BankAccountNumber" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" id="bank-name" name="BankName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Amount</label>
+                        <input type="number" step="0.01" id="amount" class="form-control" name="Amount" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="Description" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="send-invoice" class="btn btn-success">Send Invoice</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -175,12 +233,45 @@
 
 
         $(document).ready(function () {
+
+            // Connect to hub
+            var chat = $.connection.chatHub;
+            // Start the connection
+            $.connection.hub.start().done(function () {
+                console.log("Connected to SignalR hub!");
+            }).fail(function (err) {
+                console.error("Connection failed: " + err);
+            });
+
+           
+
+            $.connection.hub.disconnected(function () {
+                console.warn("Disconnected. Attempting reconnect...");
+                setTimeout(function () {
+                    $.connection.hub.start();
+                }, 3000); // retry in 3 seconds
+            });
+
+
+
+
             const senderUserImage = '@ViewBag.UserImage';
 
             let activateChatId = null;
+            let receiverUserId = null;
+            let currentChatId = null;
+            let chatId = null;
+
+            $(function () {
+                const autoOpen = $('.chat-item.auto-open');
+                if (autoOpen.length) {
+                    autoOpen.trigger('click');
+                }
+            });
 
             // When a chat is clicked
-            $('#chat-item').on('click', function (e) {
+            $('.chat-item').on('click', function (e) {
+
                 e.preventDefault();
 
                 // Remove active class from all items
@@ -189,12 +280,21 @@
                 // Add active class to the clicked item's parent <li>
                 $(this).closest('.chat-contact-list-item').addClass('active');
 
+
+
+
                 // Get user details
                 var userName = $(this).data('user-name');
                 var userImg = $(this).data('user-img');
-                var chatId = $(this).data('chat-id');
+                chatId = $(this).data('chat-id');
 
                 activeChatId = chatId;
+
+                currentChatId = chatId;
+                receiverUserId = $(this).data('other-userid');
+                chat.server.updateActiveChat(chatId);
+
+
 
                 // Update header
                 $('#chatUserName').text(userName);
@@ -246,15 +346,15 @@
             });
 
 
-            // Connect to hub
-            var chat = $.connection.chatHub;
+
 
 
 
 
             // Receive message from the server
             chat.client.ReceiveMessage = function (senderId, message, timestamp, isSender, chatId) {
-                    $('#last-message').text(message);
+
+                    $('#last-message-' + chatId).text(message);
                 if (chatId == activeChatId) {
                     let userImg = $('#chatUserImage').attr('src');
 
@@ -289,24 +389,19 @@
                 }
             };
 
-            // Start the connection
-            $.connection.hub.start().done(function () {
-                console.log("Connected to SignalR hub!");
-            }).fail(function (err) {
-                console.error("Connection failed: " + err);
-            });
+
 
 
             $('#sendButton').click(function (e) {
                 e.preventDefault();
                 var message = $('#messageInput').val().trim();
-                $('#last-message').text(message);
+                $('#last-message-' + chatId).text(message);
                 if (message === '') return;
 
-                var receiverUserId = $('#chat-item').data('other-userid');  // other user ID
-                var chatId = $('#chat-item').data('chat-id');          // current chat session ID
+                //var receiverUserId = $('.chat-item').data('other-userid');  // other user ID
+                //var chatId = $('.chat-item').data('chat-id');          // current chat session ID
 
-
+                chatId = currentChatId;
 
                 if (!receiverUserId || !chatId) {
                     alert('Please select a chat first.');
@@ -319,6 +414,103 @@
                     console.error('Send failed: ' + err);
                 });
             });
+
+            $(document).on('click', '#generateInvoiceBtn', function () {
+                
+                $('#invoiceModal').modal('show');
+
+            });
+
+            $(document).on('click', '#send-invoice', function () {
+
+                const data = {
+                    BankAccountTitle: $('#bank-acc-title').val(),
+                    BankAccountNumber: $('#bank-acc-no').val(),
+                    BankName: $('#bank-name').val(),
+                    Amount: $('#amount').val(),
+                    Description: $('#description').val(),
+                    ChatId: currentChatId // pass this from your page
+                };
+
+
+                $.ajax({
+                    url: '/Invoices/GenerateAndSend',
+                    type: 'POST',
+                    data: data,
+                    success: function (res) {
+                        if (res.success) {
+                          
+                            $('#invoiceModal').modal('hide');
+                            
+                            const message = res.messageHtml;
+                            const timestamp = res.timestamp;
+                            const isSender = true;
+                            const userImg = $('#chatUserImage').attr('src');
+
+                            var msgHtml = `
+<li class="chat-message ${isSender ? 'chat-message-right' : ''}">
+  <div class="d-flex overflow-hidden">
+    ${isSender ? '' : `
+    <div class="user-avatar flex-shrink-0 me-4">
+      <div class="avatar avatar-sm">
+        <img src="${userImg}" class="rounded-circle" alt="Avatar">
+      </div>
+    </div>`}
+    <div class="chat-message-wrapper flex-grow-1">
+      <div class="chat-message-text ${isSender ? 'sender' : 'reciever'}">
+        <p style="${isSender ? 'color: white;' : ''}" class="mb-0">${message}</p>
+      </div>
+      <div class="${isSender ? 'text-end' : ''} text-muted mt-1">
+        <small>${timestamp}</small>
+      </div>
+    </div>
+    ${isSender ? `
+    <div class="user-avatar flex-shrink-0 ms-4">
+      <div class="avatar avatar-sm">
+        <img src="${senderUserImage}" class="rounded-circle" alt="Avatar">
+      </div>
+    </div>` : ''}
+  </div>
+</li>`;
+                            $('#last-message-' + chatId).text("Invoice Sent");
+                            $('.chat-history').append(msgHtml);
+                            $('.chat-history-body').scrollTop($('.chat-history-body')[0].scrollHeight);
+                            alert("Invoice sent!");
+
+                        } else {
+                            alert("Failed to generate invoice.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error sending invoice.");
+                    }
+                });
+
+            });
+
+            $('#messageInput').keydown(function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // prevent new line
+                    $('#sendButton').click(); // trigger the click function
+                }
+            });
+
+            $(document).on('change', '#search-contact', function () {
+
+                var keyword = $('#search-contact').val();
+                $.ajax({
+                    url: '/Chats/FindChats?keyword=' + keyword,
+                    type: 'GET',
+                    success: function (chats) {
+
+
+                    }
+
+
+                });
+
+            });
+
         });
 
 

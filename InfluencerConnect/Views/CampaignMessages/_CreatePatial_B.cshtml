@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<InfluencerConnect.Models.CampaignImages>
 <section class="inflanar-signin pd-top-120 pd-btm-120">
     <div class="container">
         <div class="row">
@@ -28,10 +28,28 @@
                                                             <label><h3>Images</h3></label>
                                                             <input type="text" hidden id="campaignMsgId" value="@ViewBag.CampaignMsgId" />
                                                             <div class="image-upload-container">
-                                                                <div class="upload-box">
-                                                                    <label for="upload-input" class="upload-label">+</label>
-                                                                    <input type="file" id="upload-input" accept="image/*" hidden>
-                                                                </div>
+                                                                @if (Model != null)
+                                                                {
+                                                                    foreach (var image in Model)
+                                                                    {
+                                                                        <div class="upload-box">
+                                                                            <img src="@image.FilePath" alt="@image.FileName">
+                                                                            <button type="button" class="remove-icon">x</button>
+                                                                        </div>
+                                                                    }
+                                                                    <div class="upload-box">
+                                                                        <label for="upload-input" class="upload-label">+</label>
+                                                                        <input type="file" id="upload-input" accept="image/*" hidden>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="upload-box">
+                                                                        <label for="upload-input" class="upload-label">+</label>
+                                                                        <input type="file" id="upload-input" accept="image/*" hidden>
+                                                                    </div>
+
+                                                                }
                                                             </div>
                                                         </div>
 

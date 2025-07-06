@@ -106,9 +106,12 @@
                                                                     <div class="form-group inflanar-form-input mg-top-20">
                                                                         <label>Content Type</label>
                                                                         <select name="ContentTypeIds" class="property-sidebar__group inflanar-border" multiple>
-                                                                            @foreach (var contentType in ViewBag.ContentType as SelectList)
+                                                                            @if (ViewBag.ContentType is SelectList contentTypeList)
                                                                             {
-                                                                                <option value="@contentType.Value">@contentType.Text</option>
+                                                                                foreach (var contentType in contentTypeList)
+                                                                                {
+                                                                                    <option value="@contentType.Value">@contentType.Text</option>
+                                                                                }
                                                                             }
                                                                         </select>
                                                                     </div>
@@ -124,10 +127,14 @@
                                                                     <div class="form-group inflanar-form-input mg-top-20">
                                                                         <label>Category*</label>
                                                                         <select name="CategoryId" class="property-sidebar__group inflanar-border">
-                                                                            @foreach (var category in ViewBag.Category as SelectList)
+                                                                            @if (ViewBag.Category is SelectList categotyList)
                                                                             {
-                                                                                <option value="@category.Value">@category.Text</option>
+                                                                                foreach (var category in categotyList)
+                                                                                {
+                                                                                   <option value="@category.Value">@category.Text</option>
+                                                                                }
                                                                             }
+                                                                            
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -222,15 +229,15 @@
                                                     <div class="col-12">
                                                         <div class="form-group inflanar-form-input mg-top-20">
                                                             <label>Proof of Employment/ Company letterhead*</label>
-                                                            <input class="ecom-wc__form-input" type="file" name="companyname" placeholder="" required="required">
+                                                            <input class="ecom-wc__form-input" type="file" name="CompanyLetterHead" placeholder="Enter Your Proof of Employment" required="required" accept=".pdf">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group inflanar-form-input mg-top-20">
                                                             <label>Profile Picture</label>
-                                                            <input class="ecom-wc__form-input" type="file" name="ProfileImage" accept=".png, .jpg, .jpeg" required onchange="previewImage(event)">
+                                                            <input class="ecom-wc__form-input" type="file" name="ProfileImage" accept=".png, .jpg, .jpeg" required onchange="previewImageAgent(event)">
                                                             <br>
-                                                            <img id="imagePreview" style="max-width: 300px; margin-top: 10px; display: none;" />
+                                                            <img id="imagePreviewAgent" style="max-width: 300px; margin-top: 10px; display: none;" />
 
                                                         </div>
                                                     </div>
@@ -317,6 +324,31 @@
                 }
             }
         }
+        function previewImageAgent(event) {
+            
+            const input = event.target;
+            const preview = document.getElementById('imagePreviewAgent');
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const validTypes = ['image/jpeg', 'image/png'];
+
+                if (validTypes.includes(file.type)) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Only PNG and JPEG images are allowed.');
+                    input.value = ''; // Clear the invalid file
+                    preview.style.display = 'none';
+                }
+            }
+        }
     </script>
 
 
@@ -348,5 +380,26 @@
             // Trigger the click event to set the initial state
             $("#IsInfluencer").trigger('click');
         });
+
+
+        // Disable all inputs in marketer tab initially
+        toggleInputs($('#in-tab12'), true);
+
+        // When a tab is shown (Bootstrap tab event)
+        $('a[data-bs-toggle="list"]').on('shown.bs.tab', function (e) {
+            const targetId = $(e.target).attr('href'); // e.g., #in-tab11 or #in-tab12
+
+            // Disable inputs in all tab panes
+            $('.tab-pane').each(function () {
+                toggleInputs($(this), true);
+            });
+
+            // Enable inputs in the active tab pane
+            toggleInputs($(targetId), false);
+        });
+
+        function toggleInputs($container, shouldDisable) {
+            $container.find('input, select, textarea, button').prop('disabled', shouldDisable);
+        }
     </script>
 }

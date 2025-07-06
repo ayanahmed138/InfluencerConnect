@@ -12,10 +12,11 @@
             <div class="col-12">
                 <div class="inflanar-breadcrumb__inner">
                     <div class="inflanar-breadcrumb__content">
-                        <h2 class="inflanar-breadcrumb__title m-0">My Campaigns</h2>
+                        <h2 class="inflanar-breadcrumb__title m-0">Campaigns</h2>
                         <ul class="inflanar-breadcrumb__menu list-none">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="services.html">Services</a></li>
+                            <li><a href="~/Home">Home</a></li>
+                            <li class="active"><a href="/Campaign">Campaign</a></li>
+
                         </ul>
                     </div>
                     <div class="inflanar-breadcrumb__img">
@@ -68,8 +69,9 @@
                 </div>
             </div>
             <div class="col-lg-9 col-12" id="campaignResults">
-                @Html.Action("_CampaignPartialView", "Campaign")
+                @Html.Action("_CampaignPartialView", "Campaign", new { page = 1 })
             </div>
+
         </div>
     </div>
 </section>
@@ -81,7 +83,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-
+            
 
         function getSelectedValues(className) {
             return $('.' + className + ':checked').map(function () {
@@ -89,20 +91,18 @@
             }).get();
         }
 
-        function fetchCampaigns() {
-
+        function fetchCampaigns(page = 1) {
             const categories = getSelectedValues('category-filter');
             const keyword = $('#searchKeyword').val();
 
             $.ajax({
                 url: '/Campaign/SearchCampaigns',
                 type: 'GET',
-                traditional: true, // important for arrays
+                traditional: true,
                 data: {
                     categories: categories,
-
                     keyword: keyword,
-
+                    page: page
                 },
                 success: function (response) {
                     $('#campaignResults').html(response);
@@ -112,6 +112,17 @@
                 }
             });
         }
+
+        // Listen to pagination click
+        $(document).on('click', '.page-link', function (e) {
+            e.preventDefault();
+            const page = $(this).data('page');
+
+            if (page > 0) {
+                fetchCampaigns(page);
+            }
+        });
+
 
         $('#searchButton').on('click', function () {
 
@@ -132,7 +143,7 @@
                         // Assuming backend returns success status or similar
                         if (response.success) {
                             // Redirect to chat index page to load all chats
-                            window.location.href = '/Chats/Index';
+                            window.location.href = '/Chats/Index?chatId=' + response.chatId;;
                         } else {
                             alert("Failed to start chat.");
                         }

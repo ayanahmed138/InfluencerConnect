@@ -1,0 +1,68 @@
+﻿@model IEnumerable<InfluencerConnect.Models.MarketingAgents>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UserId)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Company)</th>
+            <th>@Html.DisplayNameFor(model => model.CompanyLetterName)</th>
+            <th>Company Letter</th>
+            <th>@Html.DisplayNameFor(model => model.ContactInfo)</th>
+            <th>@Html.DisplayNameFor(model => model.IsDeleted)</th>
+            <th>@Html.DisplayNameFor(model => model.IsApproved)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Company)</td>
+                <td>@Html.DisplayFor(modelItem => item.CompanyLetterName)</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.CompanyLetterPath))
+                    {
+                        <a class="btn btn-sm btn-info" href="@Url.Content(item.CompanyLetterPath)" target="_blank">View</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Not uploaded</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.ContactInfo)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsDeleted)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsApproved)</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        @using (Html.BeginForm("Approve", "MarketingAgents", FormMethod.Post, new { @class = "d-inline" }))
+                        {
+                            @Html.Hidden("id", item.Id)
+                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                        }
+
+                        @using (Html.BeginForm("Reject", "MarketingAgents", FormMethod.Post, new { @class = "d-inline ms-1" }))
+                        {
+                            @Html.Hidden("id", item.Id)
+                            <button type="submit" class="btn btn-warning btn-sm">Reject</button>
+                        }
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm ms-1" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

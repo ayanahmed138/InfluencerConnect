@@ -8,11 +8,11 @@ namespace InfluencerConnect.Models
     public class Notification
     {
         public int Id { get; set; }
-        public int CampaignMsgId { get; set; }
-        public int InfluencerId { get; set; }
-        public string text { get; set; }
-        public string title { get; set; }
-        public bool? isAccepted { get; set; }
-        public bool isDeleted { get; set; }
+        public string UserId { get; set; }
+        public string Message { get; set; }
+        public string Link { get; set; }
+        public bool IsRead { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

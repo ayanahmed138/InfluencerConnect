@@ -50,9 +50,11 @@ namespace InfluencerConnect.Models
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<InfluencerContentType> InfluencerContentType { get; set; }
         public DbSet<TargetAudience> TargetAudience { get; set; }
-        //public DbSet<Transactions> Transactions { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<ContentType> ContentType { get; set; }
         public DbSet<CampaignImages> CampaignImages { get; set; }
+        public DbSet<Invitation> Invitation { get; set; }
+        
 
 
        

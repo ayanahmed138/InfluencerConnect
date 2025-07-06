@@ -1,63 +1,68 @@
-﻿@model IEnumerable<InfluencerConnect.Models.Notification>
+﻿@model IEnumerable<InfluencerConnect.Models.NotificationViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Notifications";
 }
 
-<h2>Index</h2>
+<!-- Breadcrumbs -->
+<section class="inflanar-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <!-- Breadcrumb-Content -->
+            <div class="col-12">
+                <div class="inflanar-breadcrumb__inner">
+                    <div class="inflanar-breadcrumb__content">
+                        <h2 class="inflanar-breadcrumb__title m-0">Notifications</h2>
+                        <ul class="inflanar-breadcrumb__menu list-none">
+                            <li><a href="/home">Home</a></li>
+                            <li class="active"><a href="/Notifications">Notifications</a></li>
+                        </ul>
+                    </div>
+                    <div class="inflanar-breadcrumb__img">
+                        <div class="inflanar-breadcrumb__thumb">
+                            <img src="/Content/Images/in-bread-thumb.png">
+                        </div>
+                        <div class="inflanar-breadcrumb__group">
+                            <img src="/Content/Images/in-social-group.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End breadcrumbs -->
+<!-- Notifications List Wrapper -->
+<div class="container py-5">
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No notifications yet.</div>
+    }
+    else
+    {
+        <div class="bg-white shadow rounded-lg p-4">
+            <ul class="space-y-3 list-none p-0 m-0">
+                @foreach (var notification in Model)
+                {
+                    var backgroundColor = notification.IsRead
+                    ? "background-color: white;"          // read
+                    : "background-color: bisque;";
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CampaignMsgId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InfluencerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isAccepted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isDeleted)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CampaignMsgId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InfluencerId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isAccepted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isDeleted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+                    <li class="p-4 border rounded-lg" style="@backgroundColor">
+                        <a href="@notification.Link" class="d-flex justify-content-between align-items-center text-dark text-decoration-none">
+                            <div>
+                                <p class="mb-1 font-weight-semibold">@notification.Message</p>
+                                <small class="text-muted">@notification.CreatedAgo</small>
+                            </div>
+                            @if (!notification.IsRead)
+                            {
+                                <span class="ml-3 d-inline-block rounded-circle bg-danger" style="width: 8px; height: 8px;"></span>
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
 }
-
-</table>

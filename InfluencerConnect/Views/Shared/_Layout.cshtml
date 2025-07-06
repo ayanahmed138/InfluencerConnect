@@ -108,7 +108,7 @@
                                             <ul class="nav-menu menu navigation list-none">
                                                 <li><a href="~/Home">Dashboard</a></li>
                                                 <li><a href="~/Home">Home</a></li>
-                                                <li><a href="~/Influencers">Search</a></li>
+                                                <li><a href="~/Influencers">Influencer</a></li>
                                                 <li><a href="~/Chats">Messages</a></li>
                                                 <li class="menu-item-has-children">
                                                     <a href="~/campaign">Campaign</a>
@@ -279,26 +279,102 @@
 
 <script>
 
-    // Toggle notification modal visibility
-    const notificationBell = document.getElementById('notification-bell');
-    const notificationModal = document.getElementById('notification-modal');
+    //// Toggle notification modal visibility
+    //const notificationBell = document.getElementById('notification-bell');
+    //const notificationModal = document.getElementById('notification-modal');
 
-    notificationBell.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        notificationModal.classList.toggle('hidden'); // Toggle hidden class
-    });
+    //notificationBell.addEventListener('click', (e) => {
+    //    e.preventDefault(); // Prevent default anchor behavior
+    //    notificationModal.classList.toggle('hidden'); // Toggle hidden class
+    //});
 
-    // Click outside the modal to close it
-    window.addEventListener('click', (e) => {
-        if (e.target === notificationModal) {
-            notificationModal.classList.add('hidden'); // Close the modal if clicked outside
-        }
-    });
+    //// Click outside the modal to close it
+    //window.addEventListener('click', (e) => {
+    //    if (e.target === notificationModal) {
+    //        notificationModal.classList.add('hidden'); // Close the modal if clicked outside
+    //    }
+    //});
     function toggleNotifications() {
         const dropdown = document.getElementById("notification-dropdown");
         dropdown.style.display = dropdown.style.display === "none" || dropdown.style.display === ""
             ? "block"
             : "none";
     }
+
+
+    
+    const notifConnection = $.hubConnection();
+    const notifProxy = notifConnection.createHubProxy('notificationHub');
+
+    notifProxy.on("ReceiveNotification", function (message, link) {
+        
+        console.log("🔔 Notification Received:", message);
+
+        // Update badge (you can add class or increment count here)
+        $("#notification-badge").show();
+
+        // Append to dropdown (if you have one)
+        $("#notification-dropdown-list").prepend(`
+            <li style="padding: 10px; border-bottom: 1px solid #f0f0f0; background-color:bisque">
+    <a class="notification-tag" href="${link}">
+        <p style="margin: 0; font-size: 0.9rem;">
+            ${message}
+        </p>
+        <span style="font-size: 0.8rem; color: gray;">Just Now</span>
+    </a>
+</li>
+        `);
+        $("#no-notifications").hide();
+    });
+
+    notifConnection.start().done(function () {
+        console.log("✅ NotificationHub connected");
+    }).fail(function () {
+        console.error("❌ NotificationHub connection failed");
+    });
+
+    function markNotificationAsRead(notificationId, callback) {
+        $.ajax({
+            url: '/Notifications/MarkAsRead',
+            type: 'POST',
+            data: { notificationId: notificationId },
+            success: function (response) {
+                if (response.success) {
+
+                    console.log("Notification marked as read.");
+                    $('#notification-' + notificationId).css('background-color', 'white');
+                    
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                } else {
+                    console.warn("Failed to mark notification as read.");
+                    if (typeof callback === 'function') {
+                        callback(); // still redirect
+                    }
+                }
+            },
+            error: function () {
+                console.error("AJAX error while marking as read.");
+                if (typeof callback === 'function') {
+                    callback(); // still redirect
+                }
+            }
+        });
+    }
+
+
+    $(document).on('click', '.notification-tag', function (e) {
+        e.preventDefault(); // prevent immediate redirect
+
+        var notificationId = $(this).data('id');
+        var targetUrl = $(this).attr('href');
+
+        markNotificationAsRead(notificationId, function () {
+            // Only redirect after marking is done (or failed)
+            window.location.href = targetUrl;
+        });
+    });
+
 
 </script>

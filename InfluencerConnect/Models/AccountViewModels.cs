@@ -90,6 +90,7 @@ namespace InfluencerConnect.Models
         public int CategoryId { get; set; }
         public List<int> ContentTypeIds { get; set; }
         public HttpPostedFileBase ProfileImage { get; set; }
+        public HttpPostedFileBase CompanyLetterHead { get; set; }
         public int Limit { get; set; }
         public string AboutMe { get; set; }
     }

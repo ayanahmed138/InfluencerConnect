@@ -1,4 +1,5 @@
-﻿<!-- Breadcrumbs -->
+﻿@model InfluencerConnect.Models.UserViewModel
+<!-- Breadcrumbs -->
 <section class="inflanar-breadcrumb">
     <div class="container">
         <div class="row">
@@ -6,10 +7,10 @@
             <div class="col-12">
                 <div class="inflanar-breadcrumb__inner">
                     <div class="inflanar-breadcrumb__content">
-                        <h2 class="inflanar-breadcrumb__title m-0">User Dashboard</h2>
+                        <h2 class="inflanar-breadcrumb__title m-0">Manage Your Profile</h2>
                         <ul class="inflanar-breadcrumb__menu list-none">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="dashboard.html">User Dashboard</a></li>
+                            <li><a href="~/home">Home</a></li>
+                            <li class="active"><a href="~/manage/ManageYourProfile">Manage Your Profile</a></li>
                         </ul>
                     </div>
                     <div class="inflanar-breadcrumb__img">
@@ -36,13 +37,20 @@
                         <!-- Auhtor Info -->
                         <div class="inflanar-psidebar__author">
                             <div class="inflanar-psidebar__athumb">
-                                <img src="/Content/Images/in-pauthor.png">
+                                <img src="@Model.ImagePath" id="profilePic">
                                 <div class="inflanar-psidebar__aedit">
-                                    <label for="file-input"><span class="inflanar-psidebar__aupload"><i class="fas fa-pencil"></i></label>
-                                    <input class="d-none" id="file-input" type="file">
+                                    <label for="profile-pic-input"><span class="inflanar-psidebar__aupload"><i class="fas fa-pencil"></i></span></label>
+                                    <input class="d-none" id="profile-pic-input" type="file" accept="image/*">
                                 </div>
                             </div>
-                            <h4 class="inflanar-psidebar__atitle">Martan Jhon <span>Influencer</span></h4>
+                            @if (ViewBag.IsInfluencer)
+                            {
+                                <h4 class="inflanar-psidebar__atitle"> @Model.FirstName @Model.LastName <span>Influencer</span></h4>
+                            }
+                            else
+                            {
+                                <h4 class="inflanar-psidebar__atitle">@Model.FirstName @Model.LastName <span>Marketing Agent</span></h4>
+                            }
                         </div>
                         <!-- Tab Navigation -->
                         <ul class="nav nav-pills flex-column inflanar-psidebar__list">
@@ -83,113 +91,128 @@
                     <div class="tab-content inflanar-supports">
 
                         <div class="tab-pane fade show active" id="manage-profile">
-                            <form action="#">
+                            
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group inflanar-form-input mg-top-20">
                                             <label>First Name*</label>
-                                            <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="First Name" required="required">
+                                            <input class="ecom-wc__form-input" id="first-name" value="@Model.FirstName" type="text" name="FirstName" placeholder="First Name" required="required">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group inflanar-form-input mg-top-20">
                                             <label>Last Name*</label>
-                                            <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Last Name" required="required">
+                                            <input class="ecom-wc__form-input" id="last-name" value="@Model.LastName" type="text" name="LastName" placeholder="Last Name" required="required">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 ol-12">
                                         <div class="form-group inflanar-form-input mg-top-20">
                                             <label>Email*</label>
-                                            <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Email Address" required="required">
+                                            <input class="ecom-wc__form-input" value="@Model.Email" type="text" name="Email" placeholder="Email Address" required="required" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-12">
+                                    <div class="col-lg-6 ol-12">
                                         <div class="form-group inflanar-form-input mg-top-20">
-                                            <label>Phone*</label>
-                                            <div class=" form-group__input--select">
-                                                <button class="flag-label dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src="/Content/Images/in-bd-flag.png">+880
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">+550</a></li>
-                                                    <li><a class="dropdown-item" href="#">+990</a></li>
-                                                    <li><a class="dropdown-item" href="#">+660</a></li>
-                                                </ul>
-                                                <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Phone Number" required="required">
+                                            <label>PhoneNumber</label>
+                                            <input class="ecom-wc__form-input" id="phone-number" value="@Model.PhoneNumber" type="text" name="PhoneNumber" placeholder="Phone Number" required="required">
+                                        </div>
+                                    </div>
+
+                                    @if (ViewBag.IsInfluencer)
+                                    {
+                                        <div class=" col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>About Me</label>
+                                                <textarea class="ecom-wc__form-input" name="AboutMe" id="about-me" placeholder="Describe yourself as an influencer — your niche, style, and what brands or audiences you connect with. ">@Model.AboutMe</textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group inflanar-form-input mg-top-20">
-                                            <label>Country*</label>
-                                            <select class="property-sidebar__group inflanar-border">
-                                                <option data-display="United Kingdom">United Kingdom</option>
-                                                <option value="2">Bangladesh</option>
-                                                <option value="3">United Sates</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-12">
-                                                <div class="form-group inflanar-form-input mg-top-20">
-                                                    <label>Town/City*</label>
-                                                    <select class="property-sidebar__group inflanar-border">
-                                                        <option data-display="United Kingdom">ManHattan</option>
-                                                        <option value="2">Birmingham</option>
-                                                        <option value="3">Bradford</option>
-                                                    </select>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                        <label>Min Charge</label>
+                                                        <input class="inflanar-signin__form-input" id="min-charge" value="@Model.MinCharge" placeholder="Minimum charge" type="text" name="MinCharge" required="required">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-12">
-                                                <div class="form-group inflanar-form-input mg-top-20">
-                                                    <label>Postcode*</label>
-                                                    <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Postcoe/Zip" required="required">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                        <label>Max Charge</label>
+                                                        <input class="inflanar-signin__form-input" id="max-charge" value="@Model.MaxCharge" placeholder="Maximum Charge" type="text" name="MaxCharge" required="required">
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group inflanar-form-input mg-top-20">
-                                            <label>Address*</label>
-                                            <input class="ecom-wc__form-input" type="text" name="f_name" placeholder="Type Address" required="required">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-12">
-                                                <div class="form-group inflanar-form-input mg-top-20">
-                                                    <label>Password*</label>
-                                                    <input class="inflanar-signin__form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" id="password-field" type="password" name="password" maxlength="8" required="required">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                        <label>Category*</label>
+                                                        <select id="category-id" class="property-sidebar__group inflanar-border">
+                                                            @foreach (var category in ViewBag.Category as SelectList)
+                                                            {
+                                                                <option value="@category.Value" @(category.Selected ? "selected" : "")>@category.Text</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-12">
-                                                <div class="form-group inflanar-form-input mg-top-20">
-                                                    <label>Confirm Password*</label>
-                                                    <input class="inflanar-signin__form-input" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" id="password-field" type="password" name="password" maxlength="8" required="required">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mg-top-20">
-                                            <div class="inflanar-signin__check-inline">
-                                                <div class="inflanar-signin__checkbox">
-                                                    <h4 class="inflanar-signin__tsmall">Terms and Conditions</h4>
-                                                    <div class="inflanar-signin__checkbox--group">
-                                                        <input class="inflanar-signin__form-check" id="checkbox" name="checkbox" type="checkbox">
-                                                        <label for="checkbox">I agree with the  <a href="terms-condition.html" class="forgot-pass">Terms and Conditions</a></label>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                        <label>Limit</label>
+                                                        <input class="ecom-wc__form-input" id="limit" value="@Model.Limit" type="text" name="Limit" placeholder="Limit" required="required">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>Content Type</label>
+                                                <select id="content-type-id" name="SelectedContentTypeIds" class="property-sidebar__group inflanar-border" multiple>
+                                                    @foreach (var type in Model.AllContentTypes)
+                                                    {
+                                                        <option value="@type.Value" @(Model.SelectedContentTypeIds.Contains(int.Parse(type.Value)) ? "selected" : "")>
+                                                            @type.Text
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>Instagram Link</label>
+                                                <input class="ecom-wc__form-input" id="instagram-link" type="text" name="InstagramLink" value="@Model.InstagramLink" placeholder="Instagram Profile Link" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>YouTube Link</label>
+                                                <input class="ecom-wc__form-input" id="youtube-link" value="@Model.YoutTubeLink" type="text" name="YoutubeLink" placeholder="YouTube Link" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>TikTok Link</label>
+                                                <input class="ecom-wc__form-input" id="tiktok-link" value="@Model.TikTokLink" type="text" name="TikTOkLink" placeholder="TikTok Link" required="required">
+                                            </div>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                <label>Company Name</label>
+                                                <input class="ecom-wc__form-input" id="company-name" type="text" value="@Model.CompanyName" name="CompanyName" placeholder="Company Name" required="required">
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                                 <!-- Submit Button -->
                                 <div class="form-group mg-top-40">
-                                    <button type="submit" class="inflanar-btn"><span>Update Profile</span></button>
+                                    <button id="update-profile" class="inflanar-btn"><span>Update Profile</span></button>
                                 </div>
-                            </form>
+                            
                         </div>
                         <div class="tab-pane fade" id="change-password">
                             <form action="#">
@@ -234,5 +257,90 @@
     </div>
 </section>
 
+
 <!-- Add Bootstrap 5 JavaScript at the end of the body -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#profile-pic-input').on('change', function (e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#profilePic').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            $('#update-profile').on('click', function () {
+                alert('hi')
+                
+
+                var formData = new FormData();
+
+                formData.append("IsInfluencer", @ViewBag.IsInfluencer.ToString().ToLower());
+                formData.append("FirstName", $('#first-name').val());
+                formData.append("LastName", $('#last-name').val());
+                formData.append("PhoneNumber", $('#phone-number').val());
+                formData.append("AboutMe", $('#about-me').val());
+                formData.append("MaxCharge", $('#max-charge').val());
+                formData.append("MinCharge", $('#min-charge').val());
+                formData.append("Limit", $('#limit').val());
+                formData.append("CategoryId", $('#category-id').val());
+
+            // ContentType is a multiple select
+                $('#content-type-id').val().forEach(function (id) {
+                    formData.append("SelectedContentTypeIds", id); // matches model binder if it's a list
+                });
+
+                formData.append("InstagramLink", $('#instagram-link').val());
+                formData.append("TiktokLink", $('#tiktok-link').val());
+                formData.append("YouTubeLink", $('#youtube-link').val());
+                formData.append("CompanyName", $('#company-name').val());
+
+                // Add image file
+                var file = $('#profile-pic-input')[0].files[0];
+                if (file) {
+                    formData.append("ProfileImage", file); // name must match your C# parameter
+                }
+
+                $.ajax({
+                    url: '/Manage/UpdateProfile', // your controller endpoint
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert('bye');
+                        location.reload();
+                },
+                    error: function (err) {
+                        alert("Error updating profile.");
+                        console.error(err);
+                }
+                });
+            });
+
+
+
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

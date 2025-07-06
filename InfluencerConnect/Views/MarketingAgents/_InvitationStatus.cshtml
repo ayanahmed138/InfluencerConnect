@@ -1,0 +1,68 @@
+﻿@model IEnumerable<InfluencerConnect.Models.MarketingAgentInvitationViewModel>
+
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row g-6">
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Invitations Status</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Campaign Name</th>
+                                <th>Influencer Name</th>
+                                <th>Status</th>
+                                <th>Date Sent</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @if (Model != null)
+                            {
+                                foreach (var invite in Model)
+                                {
+                                    <tr>
+                                        <td>@invite.CampaignTitle</td>
+                                        <td>@invite.InfluencerName</td>
+                                        @if (invite.IsAccepted == true)
+                                        {
+                                            <td><span class="badge bg-label-primary me-1">Accepted</span></td>
+                                        }
+                                        else if (invite.IsAccepted = false && invite.IsDeleted == true)
+                                        {
+                                            <td><span class="badge bg-label-primary me-1">Rejected</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-label-primary me-1">Pending</span></td>
+                                        }
+
+                                        <td>@invite.CreatedOn.ToString("dd MMM yyyy")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">
+                                        You have not sent any Invitations.
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->
+        </div>
+
+
+
+    </div>
+</div>
+

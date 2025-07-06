@@ -32996,7 +32996,7 @@ html:not([dir=rtl]) .menu-toggle::after {
       overflow:auto;
   }
 .layout-container {
-    min-height: 100vh
+    /*min-height: 100vh*/
 }
 
 
@@ -33005,7 +33005,7 @@ html:not([dir=rtl]) .menu-toggle::after {
     display: flex;
     flex: 1 1 auto;
     align-items: stretch;
-    height: 45rem;
+    /*height: 45rem;*/
     
 }
 

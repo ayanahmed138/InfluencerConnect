@@ -12,17 +12,28 @@ using Microsoft.AspNet.Identity;
 namespace InfluencerConnect.Controllers
 {
     [Authorize]
-    public class ChatsController : Controller
+    public class ChatsController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
         public ChatsViewModel chatsViewModel = new ChatsViewModel();
 
         // GET: Chats
-        public ActionResult Index()
+        public ActionResult Index(int? chatId)
         {
             var currentUserId = User.Identity.GetUserId();
+            var user = db.Users.Where(x => x.Id == currentUserId).FirstOrDefault();
+            var agent = db.MarketingAgents.Where(x => x.UserId == currentUserId).FirstOrDefault();
+            if(agent!=null)
+            {
+                if (!agent.IsApproved)
+                {
+                    ViewBag.BlockMessaging = true;
+                }
+            }
 
-            ViewBag.UserImage = db.Users.Where(x => x.Id == currentUserId).FirstOrDefault().ImagePath;
+            ViewBag.IsInfluencer = user.IsInfluencer;
+            ViewBag.UserImage = user.ImagePath;
+            ViewBag.SelectedChatId = chatId;
             var existingChat = db.Chats.Where(c => c.User1Id == currentUserId || c.User2Id == currentUserId).ToList();
             var chatsToSend = new List<ChatsViewModel>();
             if (existingChat.Any())
@@ -55,12 +66,15 @@ namespace InfluencerConnect.Controllers
         }
 
 
+        //For StartChat button
+
         [HttpPost]
         public JsonResult StartChat(string targetUserId)
         {
             var currentUserId = User.Identity.GetUserId();
-            var existingChat = db.Chats.Where(c => c.User1Id == currentUserId || c.User2Id == currentUserId).ToList();
-            if(!existingChat.Any())
+            var existingChat = db.Chats.FirstOrDefault(c => (c.User1Id == currentUserId && c.User2Id == targetUserId) ||
+            (c.User1Id == targetUserId && c.User2Id == currentUserId) );
+            if (existingChat==null)
             {
                 var newChat = new Chat()
                 {
@@ -73,13 +87,49 @@ namespace InfluencerConnect.Controllers
                 };
                 db.Chats.Add(newChat); 
                 db.SaveChanges();
+                return Json(new { success = true });
+            }
+            else
+            {
+
+
+            return Json(new { success = true, chatId = existingChat.Id });
             }
 
 
 
-            return Json(new { success = true });
         }
 
+
+        public ActionResult StartChatfronNotification(string targetUserId)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var existingChat = db.Chats.FirstOrDefault(c => (c.User1Id == currentUserId && c.User2Id == targetUserId) ||
+            (c.User1Id == targetUserId && c.User2Id == currentUserId));
+            if (existingChat == null)
+            {
+                var newChat = new Chat()
+                {
+                    User1Id = currentUserId,
+                    User2Id = targetUserId,
+                    IsDeleted = false,
+                    CreatedOn = DateTime.Now,
+
+
+                };
+                db.Chats.Add(newChat);
+                db.SaveChanges();
+                existingChat = newChat;
+            }
+
+
+
+            return RedirectToAction("Index", "Chats", new { chatId = existingChat.Id });
+
+
+
+
+        }
         // GET: Chats/Details/5
         public ActionResult Details(int? id)
         {

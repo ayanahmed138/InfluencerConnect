@@ -1,0 +1,49 @@
+﻿
+@model IEnumerable<InfluencerConnect.Models.InvitationViewModel>
+<!-- Layout wrapper -->
+<div class="card">
+    <h5 class="card-header">Campaign Invitations</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Campaign Title</th>
+                    <th>Agent Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Budget</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var invite in Model)
+                    {
+                        <tr>
+                            <td><a href="/CampaignMessages/GoToCampaignDetailsFromMsg?campaignMsgId=@invite.CampaignMsgId">@invite.CampaignTitle</a></td>
+                            <td>@invite.AgentName</td>
+                            <td>@invite.StartDate.ToString("dd MMM yyyy")</td>
+                            <td>@invite.EndDate.ToString("dd MMM yyyy")</td>
+                            <td><span class="badge bg-label-primary me-1">@invite.Budget</span></td>
+                            <td>
+                                <button type="submit" class="btn btn-sm btn-success invite-btn" data-id="@invite.InvitationId" data-action="accept">Accept</button>
+                                <button type="submit" class="btn btn-sm btn-danger invite-btn" data-id="@invite.InvitationId" data-action="reject">Decline</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            You currently have no pending invitations.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<!--/ Basic Bootstrap Table -->

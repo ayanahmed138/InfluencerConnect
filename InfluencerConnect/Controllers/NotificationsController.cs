@@ -6,20 +6,102 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using InfluencerConnect.Models;
+using Microsoft.AspNet.Identity;
 
 namespace InfluencerConnect.Controllers
 {
-    public class NotificationsController : Controller
+    public class NotificationsController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize]
         // GET: Notifications
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            var currentUserId = User.Identity.GetUserId();
+
+            if (currentUserId != null)
+            {
+                var notifications = db.Notifications
+                .Where(n => n.UserId == currentUserId && n.IsDeleted == false)
+                .OrderByDescending(n => n.CreatedOn)
+
+                .ToList()
+                .Select(n => new NotificationViewModel
+                {
+                    Id = n.Id,
+                    Message = n.Message,
+                    Link = n.Link,
+                    IsRead = n.IsRead,
+                    CreatedAgo = GetTimeAgo(n.CreatedOn)
+                }).ToList();
+
+                return View(notifications);
+            }
+                return View();
         }
 
+
+        public PartialViewResult _NotificationPartial()
+        {
+            var currentUserId = User.Identity.GetUserId();
+
+            if (currentUserId != null)
+            {
+                var notifications = db.Notifications
+                .Where(n => n.UserId == currentUserId && n.IsDeleted==false)
+                .OrderByDescending(n => n.CreatedOn)
+                .Take(10)
+                .ToList()
+                .Select(n => new NotificationViewModel
+                {
+                Id = n.Id,
+                Message = n.Message,
+                Link = n.Link,
+                IsRead = n.IsRead,
+                CreatedAgo = GetTimeAgo(n.CreatedOn)
+                }).ToList();
+                return PartialView(notifications);
+            }
+            else
+            {
+                return PartialView();
+            }
+        }
+
+        public string GetTimeAgo(DateTime dateTime)
+        {
+            var timeSpan = DateTime.Now - dateTime;
+
+            if (timeSpan.TotalMinutes < 1)
+                return "Just now";
+            if (timeSpan.TotalMinutes < 60)
+                return $"{(int)timeSpan.TotalMinutes} minutes ago";
+            if (timeSpan.TotalHours < 24)
+                return $"{(int)timeSpan.TotalHours} hours ago";
+            if (timeSpan.TotalDays < 7)
+                return $"{(int)timeSpan.TotalDays} days ago";
+
+            return dateTime.ToString("dd MMM yyyy");
+        }
+
+        [HttpPost]
+        
+        public JsonResult MarkAsRead(int notificationId)
+        {
+            var notification = db.Notifications.Find(notificationId);
+
+            if (notification != null)
+            {
+                notification.IsRead = true;
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false, message = "Notification not found." });
+        }
         // GET: Notifications/Details/5
         public ActionResult Details(int? id)
         {

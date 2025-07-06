@@ -1,0 +1,86 @@
+﻿@model IEnumerable<InfluencerConnect.Models.CampaignViewHelper>
+<section class="pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section TItle -->
+                <div class="inflanar-section__head  mg-btm-10">
+                    <div class="inflanar-section__slide">
+                        <h2 class="inflanar-section__title inflanar-section__title--medium " data-aos="fade-in" data-aos-delay="400">Related Services</h2>
+                        <div class="inflanar-section__border"></div>
+                        <div class="inflanar-controls">
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Testimonial Slider -->
+                <div class="swiper mySwiper inflanar-slider-related loading">
+                    <div class="swiper-wrapper mg-top-30">
+                        @if (Model != null)
+                        {
+                            foreach(var campaign in Model) {
+
+
+                            <div class="swiper-slide mg-btm-30">
+                                <div class="inflanar-service">
+                                    <!-- Property Head-->
+                                    <div class="inflanar-service__head">
+                                        @{
+                                            if (campaign.Images.Count>0)
+                                            {
+                                                var firstImage = campaign.Images.FirstOrDefault();
+                                                <img src="@firstImage.FilePath" alt="Campaign Image" />
+                                            }
+                                            else
+                                            {
+                                                <img src="/Content/Images/IClogo.png" alt="Campaign Image" />
+                                            }
+                                        }
+                                        
+
+                                        <div class="inflanar-service__wishlist active">
+
+                                        </div>
+                                    </div>
+                                    <!-- Property Body-->
+                                    <div class="inflanar-service__body">
+                                        <div class="inflanar-service__top">
+                                            <a href="influencers.html" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">@campaign.Category</a>
+
+                                        </div>
+                                        <h3 class="inflanar-service__title"><a href="service-single.html">@campaign.Content</a></h3>
+                                        <div class="inflanar-service__author">
+                                            <div class="inflanar-service__author--info">
+                                                <a href="#"><img src="@campaign.AgentProfilePic">@campaign.AgentName</a>
+                                            </div>
+                                            <div class="inflanar-service__author--rating">
+                                                <div class="inflanar-service__author--star">
+                                                    <span><a style="color: #FE2C55;" href="/Chats/StartChatfronNotification?targetUserId=@campaign.CreatedBy"><i class="fas fa-message"></i></a></span>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="~/Campaign/Details/@campaign.CampaignId">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        }
+                    </div>
+                </div>
+                <!-- End Testimonial Slider -->
+                <!-- Slider Pagination -->
+                <div class="swiper-pagination swiper-pagination__service--related mg-top-10"></div>
+            </div>
+        </div>
+    </div>
+</section>
+

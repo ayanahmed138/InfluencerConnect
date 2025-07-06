@@ -8,13 +8,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InfluencerConnect.Models;
+using InfluencerConnect.SignalR.Hubs;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
 
 namespace InfluencerConnect.Controllers
 {
-    public class CampaignMessagesController : Controller
+    public class CampaignMessagesController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: CampaignMessages
         public ActionResult Index()
@@ -38,6 +41,8 @@ namespace InfluencerConnect.Controllers
         }
 
         // GET: CampaignMessages/Create
+
+        [System.Web.Mvc.Authorize(Roles = "Admin, User")]
         public ActionResult Create()
         {
             return View();
@@ -60,48 +65,90 @@ namespace InfluencerConnect.Controllers
             return View(campaignMessage);
         }
 
-        public PartialViewResult _CreatePatial_A()
+        public PartialViewResult _CreatePatial_A(int? campaignMsgId)
         {
-           
-            ViewBag.Category = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.TargetAudience = new SelectList(db.TargetAudience, "Id", "Name");
-            ViewBag.ContentType = new SelectList(db.ContentType, "Id", "Name");
+            var currentUserId = User.Identity.GetUserId();
+            var agent = db.MarketingAgents.Where(x => x.UserId == currentUserId).FirstOrDefault();
+
+            if(agent!=null)
+            {
+                ViewBag.IsApproved = agent.IsApproved;
+            }
+
+            if (campaignMsgId != null)
+            {
+                var campaign = db.Campaigns.Where(x => x.CampaignMessageId == (int)campaignMsgId).FirstOrDefault();
+
+                ViewBag.Category = new SelectList(db.Categories, "Id", "Name", campaign.CatagoryId);
+                ViewBag.TargetAudience = new SelectList(db.TargetAudience, "Id", "Name", campaign.CampaignMessage.TargetAudienceId);
+                ViewBag.ContentType = new SelectList(db.ContentType, "Id", "Name", campaign.CampaignMessage.ContentTypeId);
+
+                return PartialView(db.CampaignMessages.Where(x => x.Id == (int)campaignMsgId).FirstOrDefault());
+            }
+            else
+            {
+                ViewBag.Category = new SelectList(db.Categories, "Id", "Name");
+                ViewBag.TargetAudience = new SelectList(db.TargetAudience, "Id", "Name");
+                ViewBag.ContentType = new SelectList(db.ContentType, "Id", "Name");
+            }
+
 
             return PartialView();
         }
-        public PartialViewResult _CreatePatial_B(string content, string shortDescription, DateTime startDate, DateTime endDate, string longDescription, int? contentTypeId, int? audienceTypeId, int? categoryId, int? budget)
+        public PartialViewResult _CreatePatial_B(string content, string shortDescription, DateTime startDate, DateTime endDate, string longDescription, int? contentTypeId, int? audienceTypeId, int? categoryId, int? budget, int? campaignMsgId)
         {
             var userId = User.Identity.GetUserId();
-            var newCampaignMsg = new CampaignMessage()
+            if (campaignMsgId != null)
             {
-                Content = content,
-                ShortDiscription = shortDescription,
-                StartDate = startDate,
-                EndDate = endDate,
-                LongDiscription = longDescription,
-                ContentTypeId = (int)contentTypeId,
-                TargetAudienceId = (int)audienceTypeId,
-                Budget = (int)budget,
-                IsDeleted = false,
-            };
+                var campaignMsg = db.CampaignMessages.Where(x => x.Id == (int)campaignMsgId).FirstOrDefault();
+                campaignMsg.Content = content;
+                campaignMsg.ShortDiscription = shortDescription;
+                campaignMsg.StartDate = startDate;
+                campaignMsg.EndDate = endDate;
+                campaignMsg.LongDiscription = longDescription;
+                campaignMsg.ContentTypeId = (int)contentTypeId;
+                campaignMsg.TargetAudienceId = (int)audienceTypeId;
+                campaignMsg.Budget = (int)budget;
+                var campaign = db.Campaigns.Where(x => x.CampaignMessageId == (int)campaignMsgId).FirstOrDefault();
+                campaign.CatagoryId = (int)categoryId;
+                db.SaveChanges();
+                var campaignImages = db.CampaignImages.Where(x => x.CampaignMsgId == (int)campaignMsgId).ToList();
+                ViewBag.CampaignMsgId = campaignMsg.Id;
+                return PartialView(campaignImages);
 
-            db.CampaignMessages.Add(newCampaignMsg);
-            db.SaveChanges();
-
-            var newCampaign = new Campaign()
+            }
+            else
             {
-                CreatedBy = userId,
-                CreatedOn = DateTime.Now,
-                CatagoryId = (int)categoryId,
-                IsPrivate = false,
-                IsDeleted = false,
-                CampaignMessageId = newCampaignMsg.Id,
-            };
+                var newCampaignMsg = new CampaignMessage()
+                {
+                    Content = content,
+                    ShortDiscription = shortDescription,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    LongDiscription = longDescription,
+                    ContentTypeId = (int)contentTypeId,
+                    TargetAudienceId = (int)audienceTypeId,
+                    Budget = (int)budget,
+                    IsDeleted = false,
+                };
 
-            ViewBag.CampaignMsgId = newCampaignMsg.Id;
+                db.CampaignMessages.Add(newCampaignMsg);
+                db.SaveChanges();
+                var newCampaign = new Campaign()
+                {
+                    CreatedBy = userId,
+                    CreatedOn = DateTime.Now,
+                    CatagoryId = (int)categoryId,
+                    IsPrivate = false,
+                    IsDeleted = false,
+                    CampaignMessageId = newCampaignMsg.Id,
+                };
 
-            db.Campaigns.Add(newCampaign);
-            db.SaveChanges();
+                ViewBag.CampaignMsgId = newCampaignMsg.Id;
+
+                db.Campaigns.Add(newCampaign);
+                db.SaveChanges();
+            }
 
             return PartialView();
         }
@@ -117,6 +164,20 @@ namespace InfluencerConnect.Controllers
                     Directory.CreateDirectory(uploadPath);
                 }
 
+                var existingImages = db.CampaignImages.Where(img => img.CampaignMsgId == campaignMsgId).ToList();
+
+                foreach (var image in existingImages)
+                {
+                    var fullPath = Server.MapPath(image.FilePath);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath); // Delete from disk
+                    }
+
+                    db.CampaignImages.Remove(image); // Delete from DB
+                }
+
+                db.SaveChanges(); // Save the deletion changes first
                 List<object> savedFiles = new List<object>();
 
                 foreach (string fileKey in Request.Files)
@@ -153,19 +214,106 @@ namespace InfluencerConnect.Controllers
             }
         }
 
-        //[Authorize]
-        public ActionResult InfluencerSearch()
+
+        
+        public ActionResult InfluencerSearch(int? campaignMsgId)
         {
+            var campaign = db.Campaigns.Where(x => x.CampaignMessageId == (int)campaignMsgId).FirstOrDefault();
 
 
-
-            return View();
+            return View("Index", "Influencers");
         }
 
-        public ActionResult Create2()
+        public ActionResult GoToCampaignDetailsFromMsg(int? campaignMsgId)
         {
-            return View();
+            var campaign = db.Campaigns.FirstOrDefault(c => c.CampaignMessageId == campaignMsgId);
+            if (campaign != null)
+            {
+                return RedirectToAction("Details", "Campaign", new { id = campaign.Id });
+            }
+
+            return HttpNotFound(); // or redirect to error page
+
         }
+
+        
+        [HttpPost]
+        public JsonResult InviteInfluencers(int? campaignMsgId, List<string> InfluencerIds)
+        {
+            if (campaignMsgId != null && InfluencerIds.Count > 0)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var failedInvites = new List<string>();
+
+                foreach (string influencerUserId in InfluencerIds)
+                {
+                    // Get influencer from DB
+                    var influencer = db.Influencer.FirstOrDefault(i => i.UserId == influencerUserId);
+                    if (influencer == null) continue;
+
+                    // Count existing non-deleted invitations
+                    int currentInviteCount = db.Invitation.Count(inv =>
+                        inv.InfluencerId == influencerUserId && !inv.IsDeleted);
+
+                    // Check limit
+                    if (currentInviteCount >= influencer.Limit)
+                    {
+                        failedInvites.Add(influencer.Name ?? influencerUserId);
+                        continue;
+                    }
+
+                    // Optional: skip duplicate invites for same campaign
+                    bool alreadyInvited = db.Invitation.Any(x =>
+                        x.CampaignMsgId == campaignMsgId && x.InfluencerId == influencerUserId && !x.IsDeleted);
+
+                    if (alreadyInvited) continue;
+
+                    // Create new invitation
+                    var newInvitation = new Invitation
+                    {
+                        CampaignMsgId = (int)campaignMsgId,
+                        InfluencerId = influencerUserId,
+                        AgentId = currentUserId,
+                        IsAccepted = false,
+                        IsDeleted = false,
+                        CreateOn = DateTime.Now
+                    };
+
+                    db.Invitation.Add(newInvitation);
+
+                    var newNotification = new Notification()
+                    {
+                        Link = "/CampaignMessages/GoToCampaignDetailsFromMsg?campaignMsgId=" + (int)campaignMsgId,
+                        Message = "New campaign invitation. Click to view",
+                        CreatedOn = DateTime.Now,
+                        UserId = influencerUserId,
+                        IsDeleted = false,
+                        IsRead = false,
+                    };
+
+                    db.Notifications.Add(newNotification);
+
+                    var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                    context.Clients.User(influencerUserId)
+                        .ReceiveNotification("New campaign invitation. Click to view", "/CampaignMessages/GoToCampaignDetailsFromMsg?campaignMsgId=" + (int)campaignMsgId);
+
+                }
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    success = true,
+                    failed = failedInvites.Count > 0 ? failedInvites : null
+                });
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+
 
         // GET: CampaignMessages/Edit/5
         public ActionResult Edit(int? id)
@@ -175,15 +323,17 @@ namespace InfluencerConnect.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CampaignMessage campaignMessage = db.CampaignMessages.Find(id);
+
             if (campaignMessage == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.CampaignMsgId = campaignMessage.Id;
 
             return View(campaignMessage);
         }
 
-        
+
 
         // POST: CampaignMessages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

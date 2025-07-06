@@ -11,6 +11,8 @@ namespace InfluencerConnect.Models
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Company { get; set; }
+        public string CompanyLetterName { get; set; }
+        public string CompanyLetterPath { get; set; }
         public string ContactInfo { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsApproved { get; set; }

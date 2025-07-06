@@ -13,25 +13,27 @@
                     <!-- Service Thumb -->
                     <div id="campaignImageCarousel" class="carousel slide inflanar-sdetail__thumb" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="~/Content/images/in-service-detail.jpg" class="d-block w-100" alt="Image 1">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/Content/images/in-service-detail-2.jpg" class="d-block w-100" alt="Image 2">
-                            </div>
-
-
-
+                            @for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                var image = Model.Images[i];
+                                var isActive = i == 0 ? "active" : "";
+                                <div class="carousel-item @isActive">
+                                    <img src="@image.FilePath" class="d-block w-100" alt="@image.FileName">
+                                </div>
+                            }
                         </div>
+
                         <button class="carousel-control-prev" type="button" data-bs-target="#campaignImageCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
+
                         <button class="carousel-control-next" type="button" data-bs-target="#campaignImageCarousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
+
 
                     <!-- Service Content -->
                     <div class="inflanar-sdetail__content">
@@ -115,34 +117,68 @@
                     <div class="inflanar-influencer">
                         <!-- Influencer Head-->
                         <div class="inflanar-influencer__head">
-                            <img src="~/Content/images/in-agent1.png" alt="#">
+                            <img src="@Model.AgentProfilePic" alt="#">
                             <h4 class="inflanar-influencer__title">
-                                <a href="agent-detail.html">Nawyantong<span>Life Style</span></a>
+                                <a href="agent-detail.html">@Model.AgentName<span>Marteting Agent</span></a>
                             </h4>
                         </div>
                         <!-- Influencer Body -->
                         <div class="inflanar-influencer__body">
-                            <div class="inflanar-influencer__follower">
-                                <div class="inflanar-influencer__follower--single">
-                                    <b>1250K</b><span>Followers</span>
-                                </div>
-                                <div class="inflancer-hborder"></div>
-                                <div class="inflanar-influencer__follower--single in-right">
-                                    <b>60K</b><span>Following</span>
-                                </div>
-                            </div>
-                            <a class="inflanar-btn-full inflanar-btn-full--v3  mg-top-20" href="#">View Profile</a>
+
+                            <a class="inflanar-btn-full inflanar-btn-full--v3  mg-top-20" id="start-chat-btn" data-userId="@Model.CreatedBy">Chat</a>
                         </div>
                         <!-- End Influencer Body -->
                     </div>
                     <!-- End Single Influencer-->
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 <!-- End Features -->
 
-@Html.Partial("_RelatedCampaigns")
+@Html.Action("_RelatedCampaigns", new { campaignId = Model.CampaignId });
 
 @*@{Html.RenderAction("_RelatedCampaigns", new { campaignId = Model.CampaignId });}*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#start-chat-btn', function (e) {
+                e.preventDefault(); // Stop <a> from navigating
+
+                var otherUserId = $(this).data('userid');
+
+                $.ajax({
+                    url: '/Chats/StartChat',  // your backend API to start/get chat
+                    type: 'POST',             // or 'POST' if you prefer
+                    data: { targetUserId: otherUserId },
+                    success: function (response) {
+                        // Assuming backend returns success status or similar
+                        if (response.success) {
+                            // Redirect to chat index page to load all chats
+                            window.location.href = '/Chats/Index';
+                        } else {
+                            alert("Failed to start chat.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error while starting chat.");
+                    }
+                });
+
+            });
+        });  
+
+
+    </script>
+
+
+}
+
+
+

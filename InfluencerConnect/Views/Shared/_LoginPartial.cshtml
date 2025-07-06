@@ -16,42 +16,14 @@
                    onclick="toggleNotifications()">
                     <i style="font-size: 1.3rem;" class="fas fa-bell"></i>
                     <span id="notification-badge"
-                          style="background: red; color: white; font-size: 0.8rem;
-                     border-radius: 50%; padding: 2px 6px;
-                     position: absolute; top: 0; right: 0; transform: translate(50%, -50%);
-display: none;">
-                        3 <!-- Example notification count -->
+                          style="position: absolute; top: -2px; right: 15px; width: 10px; height: 10px;
+             background-color: red; border-radius: 50%; z-index: 10;
+             border: 1.6px solid white;
+             display: @(ViewBag.UnreadCount > 0 ? "inline-block" : "none");">
                     </span>
                 </a>
 
-                <!-- Notification Dropdown -->
-                <div id="notification-dropdown"
-                     style="display: none; position: absolute; top: 100%; right: 0;
-                width: 300px; background: white; border: 1px solid #ddd;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; z-index: 1000;">
-                    <div style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">
-                        Notifications
-                    </div>
-                    <ul style="list-style: none; margin: 0; padding: 0; max-height: 250px; overflow-y: auto;">
-                        <li style="padding: 10px; border-bottom: 1px solid #f0f0f0;">
-                            <p style="margin: 0; font-size: 0.9rem;">
-                                <strong>Influencer A</strong> accepted your campaign invitation.
-                            </p>
-                            <span style="font-size: 0.8rem; color: gray;">2 hours ago</span>
-                        </li>
-                        <li style="padding: 10px; border-bottom: 1px solid #f0f0f0;">
-                            <p style="margin: 0; font-size: 0.9rem;">
-                                <strong>Influencer B</strong> completed their assigned task.
-                            </p>
-                            <span style="font-size: 0.8rem; color: gray;">1 day ago</span>
-                        </li>
-                        <li style="padding: 10px; text-align: center;">
-                            <a href="#" style="text-decoration: none; font-size: 0.9rem; color: #007bff;">
-                                View all notifications
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                @{Html.RenderAction("_NotificationPartial", "Notifications");}
             </li>
 
 

@@ -1,0 +1,93 @@
+﻿
+@model IEnumerable<InfluencerConnect.Models.MyCampaignViewModel>
+<!-- Basic Bootstrap Table -->
+<div class="card" style="max-height:100vh">
+    <h5 class="card-header">My Campaigns</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                    <th>Budget</th>
+                    <th>Timeline</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Users</th>
+                    <th>Visliblity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @if (Model != null)
+                {
+                    foreach (var campain in Model)
+                    {
+                        <tr>
+                            <td>@campain.CampaignTitle</td>
+                            <td>@campain.Budget</td>
+                            <td>@campain.StartDate.ToString("dd MMM yyyy") - @campain.EndDate.ToString("dd MMM yyyy")</td>
+                            <td>@campain.Category</td>
+                            @if (campain.StartDate < DateTime.Now && campain.EndDate > DateTime.Now)
+                            {
+                                <td><span class="badge bg-label-primary me-1">Active</span></td>
+                            }
+                            else if (campain.StartDate > DateTime.Now)
+                            {
+                                <td><span class="badge bg-label-primary me-1">Upcoming</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge bg-label-primary me-1">Completed</span></td>
+                            }
+
+                            @if (campain.Influencers != null)
+                            {
+                                <td>
+                                    <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
+                                        @foreach (var influencer in campain.Influencers)
+                                        {
+                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="@influencer.InfluencerName">
+                                                <img src="@influencer.ImagePath" alt="Avatar" onclick="window.location.href='/Chats/StartChatfronNotification?targetUserId=@influencer.InfluencerId'" class="rounded-circle">
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (campain.Visiblity == false)
+                            {
+                                <td>Public</td>
+                            }
+                            else
+                            {
+                                <td>Private</td>
+
+                            }
+
+                            <td>
+                                <button class="btn btn-sm btn-success" onclick="window.location.href='~/CampaignMessages/Edit/@campain.CampaignMsgId'">Edit</button>
+                                <button class="btn btn-sm btn-dark" onclick="window.location.href='/CampaignMessages/GoToCampaignDetailsFromMsg?campaignMsgId=@campain.CampaignMsgId'">View</button>
+                                <button class="btn btn-sm btn-danger campaign-delete-btn" data-campaignid="@campain.CampaignMsgId">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">
+                            You currently have no campaigns.
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--/ Basic Bootstrap Table -->

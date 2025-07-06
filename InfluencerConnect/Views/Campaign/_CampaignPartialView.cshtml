@@ -17,7 +17,17 @@
                 <div class="inflanar-service">
                     <!-- Property Head-->
                     <div class="inflanar-service__head">
-                        <img src="@((campaign.Images?.FirstOrDefault()?.FilePath) ?? "/images/default.jpg")" alt="#">
+                        @{
+                            if (campaign.Images.Count > 0)
+                            {
+                                var firstImage = campaign.Images.FirstOrDefault();
+                                <img src="@firstImage.FilePath" alt="Campaign Image" />
+                            }
+                            else
+                            {
+                                <img src="/Content/Images/IClogo.png" alt="Campaign Image" />
+                            }
+                        }
                         <div class="inflanar-service__wishlist active">
 
                         </div>
@@ -31,7 +41,7 @@
                         <h3 class="inflanar-service__title"><a href="service-single.html">@campaign.Content</a></h3>
                         <div class="inflanar-service__author">
                             <div class="inflanar-service__author--info">
-                                <a href="influencer-profile.html"><img src="~/Content/Images/in-author1.png">@campaign.AgentName</a>
+                                <a href="influencer-profile.html"><img src="@campaign.AgentProfilePic">@campaign.AgentName</a>
                             </div>
                             <div class="inflanar-service__author--rating">
                                 <div class="inflanar-service__author--star">
@@ -52,15 +62,29 @@
     }
 </div>
 <div class="row mg-top-50">
-    <div class="inflanar-pagination">
-        <ul class="inflanar-pagination__list list-none">
-            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
-            <li><a href="#">01</a></li>
-            <li class="active"><a href="#">02</a></li>
-            <li><a href="#">03</a></li>
-            <li><a href="#">04</a></li>
-            <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
-        </ul>
-    </div>
+    @if (ViewBag.TotalPages > 1)
+    {
+        int currentPage = ViewBag.CurrentPage;
+
+        <div class="inflanar-pagination">
+            <ul class="inflanar-pagination__list list-none">
+
+                <li class="inflanar-pagination__button">
+                    <a href="#" class="page-link" data-page="@(currentPage - 1)" @(currentPage == 1 ? "disabled" : "")><i class="fas fa-angle-left"></i></a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="@(i == currentPage ? "active" : "")">
+                        <a href="#" class="page-link" data-page="@i">@i.ToString("D2")</a>
+                    </li>
+                }
+
+                <li class="inflanar-pagination__button">
+                    <a href="#" class="page-link" data-page="@(currentPage + 1)" @(currentPage == ViewBag.TotalPages ? "disabled" : "")><i class="fas fa-angle-right"></i></a>
+                </li>
+            </ul>
+        </div>
+    }
 </div>
 

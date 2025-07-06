@@ -7,12 +7,17 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using InfluencerConnect.Models;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.Ajax.Utilities;
 
 namespace InfluencerConnect.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
+        //private ApplicationDbContext db = new ApplicationDbContext();
+        public UserViewModel userViewModel = new UserViewModel();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -32,9 +37,9 @@ namespace InfluencerConnect.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -54,10 +59,129 @@ namespace InfluencerConnect.Controllers
         public ActionResult ManageYourProfile()
         {
 
+            var currentUserId = User.Identity.GetUserId();
+            var user = db.Users.Where(x => x.Id == currentUserId).FirstOrDefault();
+            bool IsInfluencer = user.IsInfluencer;
+            ViewBag.IsInfluencer = IsInfluencer;
+            var userInfo = new UserViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ImagePath = user.ImagePath,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
 
-            return View();
+            };
+
+            if (IsInfluencer)
+            {
+                var influencer = db.Influencer.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                userInfo.AboutMe = influencer.AboutMe;
+                userInfo.CategoryId = influencer.CategoryId;
+                userInfo.MinCharge = influencer.MinCharge;
+                userInfo.MaxCharge = influencer.MaxCharge;
+                userInfo.TikTokLink = influencer.TikTokLink;
+                userInfo.YoutTubeLink = influencer.YoutubeLink;
+                userInfo.InstagramLink = influencer.InstagramLink;
+                userInfo.Limit = influencer.Limit;
+                var allTypes = db.ContentType.Select(ct => new SelectListItem
+                {
+                    Value = ct.Id.ToString(),
+                    Text = ct.Name
+                }).ToList();
+                var selectedTypeIds = db.InfluencerContentType.Where(x => x.InfluencerId == currentUserId)
+                .Select(x => x.ContentTypeId).ToList();
+                userInfo.AllContentTypes = allTypes;
+                userInfo.SelectedContentTypeIds = selectedTypeIds;
+
+            }
+            else
+            {
+                var marketingAgent = db.MarketingAgents.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                userInfo.CompanyName = marketingAgent.Company;
+            }
+
+
+
+            ViewBag.Category = new SelectList(db.Categories, "Id", "Name", userInfo.CategoryId);
+            ViewBag.ContentType = new SelectList(db.ContentType, "Id", "Name");
+
+
+
+            return View(userInfo);
         }
-        //
+
+        [HttpPost]
+        public ActionResult UpdateProfile(UserViewModel model, HttpPostedFileBase ProfileImage)
+        
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var currentUser = db.Users.Where(x => x.Id == currentUserId).FirstOrDefault();
+                // Save profile changes and image if present
+                if (ProfileImage != null && ProfileImage.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(ProfileImage.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads/ProfilePics/"), fileName);
+                    ProfileImage.SaveAs(path);
+
+                    model.ImagePath = "/Uploads/ProfilePics/" + fileName;
+                    currentUser.ImageName = fileName;
+                    currentUser.ImagePath = model.ImagePath;
+                }
+
+                    currentUser.PhoneNumber = model.PhoneNumber;
+                    currentUser.FirstName = model.FirstName;
+                    currentUser.LastName = model.LastName;
+                    
+                    if(currentUser.IsInfluencer)
+                    {
+                        var influencer = db.Influencer.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                        influencer.Name = model.FirstName + model.LastName;
+                        influencer.AboutMe = model.AboutMe;
+                        influencer.ContactInfo = model.PhoneNumber;
+                        influencer.MaxCharge = model.MaxCharge;
+                        influencer.MinCharge = model.MinCharge;
+                        influencer.Limit = model.Limit;
+                        influencer.InstagramLink = model.InstagramLink;
+                        influencer.TikTokLink = model.TikTokLink;
+                        influencer.YoutubeLink = model.YoutTubeLink;
+                        influencer.CategoryId = model.CategoryId;
+
+                        var existingInfluencerContentTypes = db.InfluencerContentType.Where(x => x.InfluencerId == currentUserId).ToList();
+                        db.InfluencerContentType.RemoveRange(existingInfluencerContentTypes);
+
+                        if (model.SelectedContentTypeIds != null && model.SelectedContentTypeIds.Any())
+                        {
+                            var influencerContentTypes = model.SelectedContentTypeIds
+                            .Select(ctId => new InfluencerContentType
+                            {
+                                InfluencerId = currentUserId,  // Use the saved influencer's ID
+                                ContentTypeId = ctId
+                            }).ToList();
+
+                            db.InfluencerContentType.AddRange(influencerContentTypes);
+                        }
+                        
+                    }
+                    else
+                    {
+                        var marketingAgent = db.MarketingAgents.Where(x => x.UserId == currentUserId).FirstOrDefault();
+                        marketingAgent.Name = model.FirstName + model.LastName;
+                        marketingAgent.ContactInfo = model.PhoneNumber;
+                        marketingAgent.Company = model.CompanyName;
+                    }
+                    
+                    db.SaveChanges();
+
+               
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors) });
+        }
+
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -340,7 +464,7 @@ namespace InfluencerConnect.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -391,6 +515,6 @@ namespace InfluencerConnect.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

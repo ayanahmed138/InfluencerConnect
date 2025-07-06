@@ -1,0 +1,65 @@
+﻿@model List<InfluencerConnect.Models.InfluencerListViewModel>
+<!-- Influencers -->
+<section class="pd-top-120 pd-btm-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section TItle -->
+                <div class="inflanar-section__head inflanar-section__center mg-btm-20">
+                    <span class="inflanar-section__badge inflanar-primary-color m-0" data-aos="fade-in" data-aos-delay="300">
+                        <span>Top Influencer</span> <img src="~/Content/Images/in-section-vector.svg">
+                    </span>
+                    <h2 class="inflanar-section__title" data-aos="fade-in" data-aos-delay="400">Talented Influencer Member</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model != null)
+            {
+                foreach (var influencer in Model)
+                {
+                    <div class="col-lg-3 col-md-6 col-12 mg-top-30" data-aos="fade-up" data-aos-delay="800">
+                        <!-- Single Influencer -->
+                        <div class="inflanar-influencer">
+                            <!-- Influencer Head-->
+                            <div class="inflanar-influencer__head inflanar-influencer__head--v3">
+                                <img src="@influencer.ImagePath" alt="#">
+                                <h4 class="inflanar-influencer__title">
+                                    <a href="/Influencers/Details/@influencer.InfluencerId">@influencer.Name<span>@influencer.CategoryName</span></a>
+                                </h4>
+                            </div>
+                            <!-- Influencer Body -->
+                            <div class="inflanar-influencer__body">
+                                <div class="inflanar-influencer__follower">
+
+
+                                    <div class="inflanar-influencer__follower--single in-right">
+                                        <ul class="influencers-pinfo__ssocial-card list-none">
+                                            <li><a href="@influencer.YoutTubeLink"><img src="~/Content/Images/youtube.png"></a></li>
+                                            <li><a href="@influencer.TikTokLink"><img src="~/Content/Images/in-social2.svg"></a></li>
+                                            <li><a href="@influencer.InstagramLink"><img src="~/Content/Images/in-social4.svg"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="inflancer-hborder"></div>
+                                    <div class="inflanar-influencer__follower--single">
+
+                                    </div>
+                                </div>
+                                <a class="inflanar-btn-full  mg-top-20" href="/Influencers/Details/@influencer.InfluencerId">View Profile</a>
+                            </div>
+                            <!-- End Influencer Body -->
+                            <!-- End Influencer Body -->
+                        </div>
+                        <!-- End Single Influencer -->
+                    </div>
+                }
+            }
+        </div>
+        <div class="row mg-top-40" data-aos="fade-up" data-aos-delay="600">
+            <div class="col-12 d-flex justify-content-center">
+                <a href="/Influencers" class="inflanar-btn inflanar-btn__big"><span>View All</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Influencers -->

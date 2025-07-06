@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Web.UI;
 
@@ -24,6 +25,8 @@ namespace InfluencerConnect.Models
         public string Category { get; set; }
         public int Budget { get; set; }
         public string AgentName { get; set; }
+        public string AgentProfilePic { get; set; }
+        public int CampaignMsgId { get; set; }
 
         public CampaignViewHelper ToCampaignViewModel(Campaign campaign)
         {
@@ -42,15 +45,18 @@ namespace InfluencerConnect.Models
                 LongDiscription = campaignMsg.LongDiscription,
                 Budget = campaignMsg.Budget,
                 TargetAudience = db.TargetAudience.Where(x => x.Id == campaignMsg.TargetAudienceId).Select(x => x.Name).FirstOrDefault(),
-                ContentType = db.TargetAudience.Where(x => x.Id == campaignMsg.TargetAudienceId).Select(x => x.Name).FirstOrDefault(),
-                Category = db.Categories.Where(x => x.Id == x.Id).Select(x => x.Name).FirstOrDefault(),
+                ContentType = db.ContentType.Where(x => x.Id == campaignMsg.ContentTypeId).Select(x => x.Name).FirstOrDefault(),
+                Category = db.Categories.Where(x => x.Id == campaign.CatagoryId).Select(x => x.Name).FirstOrDefault(),
                 Images = new List<CampaignImages>(),
                 AgentName = $"{user.FirstName} {user.LastName}",
+                AgentProfilePic = user.ImagePath,
+                CampaignMsgId = campaignMsg.Id,
+                
 
 
 
             };
-            var campaignImages = db.CampaignImages.Where(x => x.CampaignMsgId == campaign.Id).ToList();
+            var campaignImages = db.CampaignImages.Where(x => x.CampaignMsgId == campaign.CampaignMessageId).ToList();
 
             foreach (var image in campaignImages)
             {
@@ -176,5 +182,187 @@ namespace InfluencerConnect.Models
 
     }
         
+    public class UserViewModel
+    {
+        public bool IsInfluencer { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string AboutMe { get; set; }
+        public string PhoneNumber { get; set; }
+        public int CategoryId { get; set; }
+        public int MinCharge { get; set; }
+        public int MaxCharge { get; set; }
+        public int Limit { get; set; }
+        public string YoutTubeLink { get; set; }
+        public string TikTokLink { get; set; }
+        public string InstagramLink { get; set; }
+        public string ImagePath { get; set; }
+        public string CompanyName { get; set; }
+        public List<int> SelectedContentTypeIds { get; set; } = new List<int>();
+        public List<SelectListItem> AllContentTypes { get; set; } = new List<SelectListItem>();
+
+    }
+
+    public class NotificationViewModel
+    {
+        public int Id { get; set; }
+        public string Message { get; set; }
+        public string Link { get; set; }
+        public bool IsRead { get; set; }
+        public string CreatedAgo { get; set; }
+    }
+
+    public class InvitationViewModel
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public int InvitationId { get; set; }
+        public int CampaignMsgId { get; set; }
+        public string AgentName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int Budget { get; set; }
+        public string CampaignTitle { get; set; }
+
+        public InvitationViewModel ToInvitationViewModel(Invitation invitation)
+        {
+            var invitationViewModel = new InvitationViewModel()
+            {
+                InvitationId = invitation.Id,
+                CampaignMsgId = invitation.CampaignMsgId,
+                AgentName = db.MarketingAgents.Where(x => x.UserId == invitation.AgentId).FirstOrDefault().Name,
+                StartDate = invitation.CampaignMessage.StartDate,
+                EndDate = invitation.CampaignMessage.EndDate,
+                Budget = invitation.CampaignMessage.Budget,
+                CampaignTitle = invitation.CampaignMessage.Content,
+
+            };
+
+            return invitationViewModel;
+        }
+
+    }
+
+    public class InfluencerCampaignsViewModel
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public string AgentId { get; set; }
+        public string AgentName { get; set; }
+        public string CampaignTitle { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int CampaignMsgId { get; set; }
+
+        public InfluencerCampaignsViewModel ToInfluencerCampaignViewModel(Invitation invite)
+        {
+            var influencerCampaignViewModel = new InfluencerCampaignsViewModel()
+            {
+                AgentId = invite.AgentId,
+                CampaignTitle = invite.CampaignMessage.Content,
+                StartDate = invite.CampaignMessage.StartDate,
+                EndDate = invite.CampaignMessage.EndDate,
+                CampaignMsgId = invite.CampaignMsgId,
+                AgentName = db.MarketingAgents.Where(x => x.UserId == invite.AgentId).FirstOrDefault().Name,
+            };
+
+
+            return influencerCampaignViewModel;
+        }
+
+
+    }
+
+    public class MyCampaignViewModel
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public string CampaignTitle { get; set; }
+        public int Budget { get; set; }
+        public List<InfluencerChatViewModel> Influencers { get; set; } = new List<InfluencerChatViewModel>();
+        public int CampaignMsgId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool Visiblity { get; set; }
+        public string Category { get; set; }
+        public int CampaignId { get; set; }
+
+
+    }
+
+    public class InfluencerChatViewModel
+    {
+        public string InfluencerId { get; set; }
+        public string InfluencerName { get; set; }
+        public string ImagePath { get; set; }
+
+    }
+
+    public class MarketingAgentInvitationViewModel
+    {
+        public int InvitationId { get; set; }
+        public string InfluencerName { get; set; }
+        public string CampaignTitle { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime CreatedOn { get; set; }
+       
+    }
+
+    public class InfluencerViewModel
+    {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public int InfluencerId { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public string TiktokLink { get; set; }
+        public string YouTubeLink { get; set; }
+        public string InstagramLink { get; set; }
+        public string AboutMe { get; set; }
+        public string PhoneNo { get; set; }
+        public List<ContentType> ContentType { get; set; } = new List<ContentType>();
+        public DateTime JoinedOn { get; set; }
+        public string Email { get; set; }
+        public int ActiveCampagins { get; set; }
+        public int CompletedCampaigns { get; set; }
+        public int AllCampagins { get; set; }
+        public string ProfilePic { get; set; }
+        public string Category { get; set; }
+
+        public InfluencerViewModel ToInfluencerViewModel(Influencer influencer)
+        {
+            var user = db.Users.Where(x => x.Id == influencer.UserId).FirstOrDefault();
+            var invitations = db.Invitation.Where(x => x.InfluencerId == influencer.UserId && x.IsDeleted == false && x.IsAccepted ==true).ToList();
+            
+            var contentTypes = db.InfluencerContentType.Where(x => x.InfluencerId == influencer.UserId).Select(x => x.ContentType).ToList();
+
+            var influencerViewModel = new InfluencerViewModel()
+            {
+                InfluencerId = influencer.Id,
+                UserId = influencer.UserId,
+                Name = influencer.Name,
+                TiktokLink = influencer.TikTokLink,
+                YouTubeLink = influencer.YoutubeLink,
+                InstagramLink = influencer.InstagramLink,
+                AboutMe = influencer.AboutMe,
+                JoinedOn = user.JoinedOn,
+                PhoneNo = influencer.ContactInfo,
+                Email = user.Email,
+                ProfilePic = user.ImagePath,
+                Category = db.Categories.Where(x => x.Id == influencer.CategoryId).FirstOrDefault().Name,
+                AllCampagins = invitations.Count,
+                ActiveCampagins = invitations.Where(x=>x.CampaignMessage.StartDate<DateTime.Now && x.CampaignMessage.EndDate>DateTime.Now).Count(),
+                CompletedCampaigns = invitations.Where(x=>x.CampaignMessage.EndDate < DateTime.Now).Count(),
+                ContentType = contentTypes,
+
+
+
+            };
+
+            return influencerViewModel;
+        }
+
+    }
 
 }

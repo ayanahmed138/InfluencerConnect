@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace InfluencerConnect.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
         public CampaignViewHelper campaignViewHelper = new CampaignViewHelper();
-
+        public InfluencerListViewModel influencerListViewHelper = new InfluencerListViewModel();
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -45,7 +45,7 @@ namespace InfluencerConnect.Controllers
 
         public PartialViewResult _TopCampaigns()
         {
-            var allCampaigns = db.Campaigns.OrderByDescending(x=>x.CreatedOn).ToList().Take(25);
+            var allCampaigns = db.Campaigns.OrderByDescending(x=>x.CreatedOn).ToList().Take(8);
             var campaingsToSend = new List<CampaignViewHelper>();
             foreach (var campaign in allCampaigns)
             {
@@ -54,24 +54,29 @@ namespace InfluencerConnect.Controllers
 
             return PartialView(campaingsToSend);
         }
-        public ActionResult InfluencerSearch() { 
-        
 
-
-            return View();
-        }
-        
-       public PartialViewResult _InfluencerDashboard()
+        public PartialViewResult _InfluencerCategories()
         {
 
             return PartialView();
         }
-        public PartialViewResult _MarketingAgentDashboard()
+       public PartialViewResult _TopInfluencers()
         {
+            var influencers = db.Influencer.Where(x => x.IsDeleted == false).OrderBy(x => Guid.NewGuid()).Take(4).ToList();
+            var influencersToSend = new List<InfluencerListViewModel>();
 
-            return PartialView();
+            foreach(var influecer in influencers)
+            {
+                influencersToSend.Add(influencerListViewHelper.ToInfluencerListViewModel(influecer));
+
+            }
+
+            return PartialView(influencersToSend);
         }
+        
 
+              
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<InfluencerConnect.Models.CampaignViewHelper>
+<div class="col-xl-9 col-lg-8 col-12 mg-top-30">
+    <h2 class="influencers__ptitle">Past Worked on Campaigns</h2>
+    <div class="row">
+        
+        @if (Model.Count() > 0)
+        {
+            foreach (var campaign in Model)
+            {
+                <div class="col-xl-4 col-lg-6 col-md-6 col-12 mg-top-30" data-aos="fade-in" data-aos-delay="400">
+                    <!-- Single property-->
+                    <div class="inflanar-service">
+                        <!-- Property Head-->
+                        <div class="inflanar-service__head">
+                            @{
+                                if (campaign.Images.Count > 0)
+                                {
+                                    var firstImage = campaign.Images.FirstOrDefault();
+                                    <img src="@firstImage.FilePath" alt="Campaign Image" />
+                                }
+                                else
+                                {
+                                    <img src="/Content/Images/IClogo.png" alt="Campaign Image" />
+                                }
+                            }
+
+
+                        </div>
+                        <!-- Property Body-->
+                        <div class="inflanar-service__body">
+                            <div class="inflanar-service__top">
+                                <a href="#" class="inflanar-service__cat"><img src="~/Content/Images/in-cat-label.svg">@campaign.Category</a>
+
+                            </div>
+                            <h3 class="inflanar-service__title"><a href="/Campaign/Details/@campaign.CampaignId">@campaign.Content</a></h3>
+                            <div class="inflanar-service__author">
+                                <div class="inflanar-service__author--info">
+                                    <a href="#"><img src="@campaign.AgentProfilePic">@campaign.AgentName</a>
+                                </div>
+
+                            </div>
+                            <a class="inflanar-btn-full inflanar-btn-full--v2 mg-top-20" href="/Campaign/Details/@campaign.CampaignId">Details</a>
+                        </div>
+                    </div>
+                    <!-- End Single property-->
+                </div>
+            }
+        }
+
+        else
+        {
+            <div class="text-center text-muted p-4">
+                <h5>No Past Campagins</h5>
+            </div>
+        }
+    </div>
+</div>

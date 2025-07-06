@@ -1,4 +1,5 @@
-﻿
+﻿@model InfluencerConnect.Models.CampaignMessage
+
 <section class="inflanar-signin pd-top-120 pd-btm-120">
     <div class="container">
         <div class="row">
@@ -16,104 +17,234 @@
 
                                 </div>
                                 <!-- End Login header -->
-
-                                <div class="tab-content" id="nav-tabContent">
-                                    <!-- Single Tab Influencer -->
-                                    <div class="tab-pane fade active show" id="in-tab11" role="tabpanel">
-                                        <div class="inflanar-signin__inner">
-                                            
-                                            <div class="row">
-                                                <div class=" col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>Content</label>
-                                                        <input class="ecom-wc__form-input" id="content" type="text" name="Content" placeholder="content (header)">
-                                                    </div>
-                                                </div>
-                                                <div class=" col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>TagLine</label>
-                                                        <input class="ecom-wc__form-input" type="text" id="shortDescripion" name="ShortDescripion" placeholder="Tag Line (short description)">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>Start Date</label>
-                                                        <input class="ecom-wc__form-input" id="startDate" type="date" name="StartDate">
-                                                    </div>
-                                                </div>
-                                                <div class=" col-lg-6 col-md-6 col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>End Date</label>
-                                                        <input class="ecom-wc__form-input" type="date" id="endDate" name="EndDate" placeholder="Password">
-                                                    </div>
-                                                </div>
-                                                <div class=" col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>TagLine</label>
-                                                        <input class="ecom-wc__form-input" type="text" id="budget" name="Budget" placeholder="Budget for your Campaign">
-                                                    </div>
-                                                </div>
-                                                <div class=" col-12">
-                                                    <div class="form-group inflanar-form-input mg-top-20">
-                                                        <label>Long Description</label>
-                                                        <textarea class="ecom-wc__form-input" name="LongDescription" id="longDescription" placeholder="Give some detail explaination about your campaign"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-12">
+                                @if (ViewBag.IsApproved == true)
+                                {
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <!-- Single Tab Influencer -->
+                                        <div class="tab-pane fade active show" id="in-tab11" role="tabpanel">
+                                            <div class="inflanar-signin__inner">
+                                                <div class="row">
+                                                    @if (Model != null)
+                                                    {
+                                                        <div class=" col-12">
                                                             <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Content Type</label>
-                                                                <select class="property-sidebar__group inflanar-border" id="contentTypeId">
-                                                                    @foreach (var contentType in ViewBag.ContentType as SelectList)
-                                                                    {
-                                                                        <option value="@contentType.Value">@contentType.Text</option>
-                                                                    }
-                                                                </select>
+                                                                <label>Content</label>
+                                                                <input class="ecom-wc__form-input" id="content" value="@Model.Content" type="text" name="Content" placeholder="content (header)">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>TagLine</label>
+                                                                <input class="ecom-wc__form-input" value="@Model.ShortDiscription" type="text" id="shortDescripion" name="ShortDescripion" placeholder="Tag Line (short description)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Start Date</label>
+                                                                <input class="ecom-wc__form-input" value="@Model.StartDate.ToString("yyyy-MM-dd")" id="startDate" type="date" name="StartDate">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-lg-6 col-md-6 col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>End Date</label>
+                                                                <input class="ecom-wc__form-input" value="@Model.EndDate.ToString("yyyy-MM-dd")" type="date" id="endDate" name="EndDate" placeholder="Password">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Budget</label>
+                                                                <input class="ecom-wc__form-input" value="@Model.Budget" type="text" id="budget" name="Budget" placeholder="Budget for your Campaign">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Long Description</label>
+                                                                <textarea class="ecom-wc__form-input" name="LongDescription" id="longDescription" placeholder="Give some detail explaination about your campaign">@Model.LongDiscription</textarea>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Category</label>
-                                                                <select class="property-sidebar__group inflanar-border" id="categoryId">
-                                                                    @foreach (var category in ViewBag.Category as SelectList)
-                                                                    {
-                                                                        <option value="@category.Value">@category.Text</option>
-                                                                    }
-                                                                </select>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Content Type</label>
+                                                                        @if (ViewBag.ContentType != null)
+                                                                        {
+                                                                            <select class="property-sidebar__group inflanar-border" id="contentTypeId">
+                                                                                @foreach (var contentType in ViewBag.ContentType as SelectList)
+                                                                                {
+
+                                                                                    <option value="@contentType.Value" @(contentType.Selected ? "selected" : "")>
+                                                                                        @contentType.Text
+                                                                                    </option>
+                                                                                }
+                                                                            </select>
+
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Category</label>
+                                                                        @if (ViewBag.Category != null)
+                                                                        {
+                                                                            <select class="property-sidebar__group inflanar-border" id="categoryId">
+                                                                                @foreach (var category in ViewBag.Category as SelectList)
+                                                                                {
+                                                                                    <option value="@category.Value" @(category.Selected ? "selected" : "")>
+                                                                                        @category.Text
+                                                                                    </option>
+                                                                                }
+                                                                            </select>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Target Audience</label>
+                                                                        @if (ViewBag.TargetAudience != null)
+                                                                        {
+                                                                            <select class="property-sidebar__group inflanar-border" id="targetAudienceId">
+                                                                                @foreach (var audience in ViewBag.TargetAudience as SelectList)
+                                                                                {
+                                                                                    <option value="@audience.Value" @(audience.Selected ? "selected" : "")>
+                                                                                        @audience.Text
+                                                                                    </option>
+                                                                                }
+
+                                                                            </select>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
+
+                                                            <!-- Login Button Group -->
+                                                            <div class="form-group mg-top-40">
+                                                                <button id="next1" class="inflanar-btn"><span>Next</span></button>
+                                                            </div>
+
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class=" col-12">
                                                             <div class="form-group inflanar-form-input mg-top-20">
-                                                                <label>Target Audience</label>
-                                                                <select class="property-sidebar__group inflanar-border" id="targetAudienceId">
-                                                                    @foreach (var audience in ViewBag.TargetAudience as SelectList)
-                                                                    {
-                                                                        <option value="@audience.Value">@audience.Text</option>
-                                                                    }
-                                                                </select>
+                                                                <label>Content</label>
+                                                                <input class="ecom-wc__form-input" id="content" type="text" name="Content" placeholder="content (header)">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>TagLine</label>
+                                                                <input class="ecom-wc__form-input" type="text" id="shortDescripion" name="ShortDescripion" placeholder="Tag Line (short description)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Start Date</label>
+                                                                <input class="ecom-wc__form-input" id="startDate" type="date" name="StartDate">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-lg-6 col-md-6 col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>End Date</label>
+                                                                <input class="ecom-wc__form-input" type="date" id="endDate" name="EndDate" placeholder="Password">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Budget</label>
+                                                                <input class="ecom-wc__form-input" type="text" id="budget" name="Budget" placeholder="Budget for your Campaign">
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-12">
+                                                            <div class="form-group inflanar-form-input mg-top-20">
+                                                                <label>Long Description</label>
+                                                                <textarea class="ecom-wc__form-input" name="LongDescription" id="longDescription" placeholder="Give some detail explaination about your campaign"></textarea>
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Content Type</label>
 
-                                                    <!-- Login Button Group -->
-                                                    <div class="form-group mg-top-40">
-                                                        <button id="next1" class="inflanar-btn"><span>Next</span></button>
-                                                    </div>
+                                                                        <select class="property-sidebar__group inflanar-border" id="contentTypeId">
+                                                                            @foreach (var contentType in ViewBag.ContentType as SelectList)
+                                                                            {
+                                                                                <option value="@contentType.Value">@contentType.Text</option>
+                                                                            }
+                                                                        </select>
 
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Category</label>
+
+
+                                                                        <select class="property-sidebar__group inflanar-border" id="categoryId">
+                                                                            @foreach (var category in ViewBag.Category as SelectList)
+                                                                            {
+                                                                                <option value="@category.Value">@category.Text</option>
+                                                                            }
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group inflanar-form-input mg-top-20">
+                                                                        <label>Target Audience</label>
+
+
+                                                                        <select class="property-sidebar__group inflanar-border" id="targetAudienceId">
+                                                                            @foreach (var audience in ViewBag.TargetAudience as SelectList)
+                                                                            {
+                                                                                <option value="@audience.Value">@audience.Text</option>
+                                                                            }
+
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+
+                                                            <!-- Login Button Group -->
+                                                            <div class="form-group mg-top-40">
+                                                                <button id="next1" class="inflanar-btn"><span>Next</span></button>
+                                                            </div>
+
+                                                        </div>
+                                                    }
                                                 </div>
+
                                             </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <!-- End Single Tab -->
 
-                                </div>
+                                        </div>
+                                        <!-- End Single Tab -->
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning text-center p-4">
+                                        <h5>Your account has not been approved yet.</h5>
+                                        <p>Please wait for admin approval before creating a campaign.</p>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                         <div class="col-lg-6 col-12 d-none d-lg-block">
@@ -125,8 +256,5 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </section>

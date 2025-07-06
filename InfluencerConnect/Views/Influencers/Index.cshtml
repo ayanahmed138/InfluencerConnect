@@ -10,13 +10,15 @@
     <div class="container">
         <div class="row">
             <!-- Breadcrumb-Content -->
+            <input type="hidden" id="influencer-mode" value="@ViewBag.mode" />
+            <input type="hidden" id="campaign-msg-id" value="@ViewBag.campaignMsgId" />
             <div class="col-12">
                 <div class="inflanar-breadcrumb__inner">
                     <div class="inflanar-breadcrumb__content">
                         <h2 class="inflanar-breadcrumb__title m-0">Search Influencers to Collab</h2>
                         <ul class="inflanar-breadcrumb__menu list-none">
                             <li><a href="~/home">Home</a></li>
-                            <li class="active"><a href="">Influencers</a></li>
+                            <li class="active"><a href="/Influencers">Influencers</a></li>
                         </ul>
                     </div>
                     <div class="inflanar-breadcrumb__img">
@@ -101,7 +103,8 @@
                 </div>
             </div>
             <div class="col-lg-9 col-12" id="influencerResults">
-                @Html.Action("_SearchInfluencer", "Influencers")
+                @Html.Action("_SearchInfluencer", "Influencers", new { page = 1 })
+
             </div>
         </div>
     </div>
@@ -112,62 +115,143 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+<script>
 
-        
+
+
         function getSelectedValues(className) {
             return $('.' + className + ':checked').map(function () {
                 return this.value;
             }).get();
+    }
+
+        function fetchInfluencers(page = 1) {
+    let categories = [];
+    let contentTypes = [];
+    const mode = $('#influencer-mode').val();
+
+    if ("@ViewBag.mode" == "Invite") {
+        categories = [@Convert.ToInt32(ViewBag.categoryId)];
+        contentTypes = [@Convert.ToInt32(ViewBag.contentTypeId)];
+
+        $(`.influencer-cat-filter[value='${categories[0]}']`).prop('checked', true);
+        $(`.influencer-content-type-filter[value='${contentTypes[0]}']`).prop('checked', true);
+    } else {
+        categories = getSelectedValues('influencer-cat-filter');
+        contentTypes = getSelectedValues('influencer-content-type-filter');
+    }
+
+    const minPrice = $('#minPrice').val();
+    const maxPrice = $('#maxPrice').val();
+    const keyword = $('#searchKeyword').val();
+
+    $.ajax({
+        url: '/Influencers/SearchInfluencers',
+        type: 'GET',
+        traditional: true,
+        data: {
+            categories: categories,
+            contentTypes: contentTypes,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            keyword: keyword,
+            mode: mode,
+            page: page
+        },
+        success: function (response) {
+            $('#influencerResults').html(response);
+        },
+        error: function () {
+            alert('Failed to fetch Influencers.');
         }
-        function fetchInfluencers() {
+    });
+    }
 
-            const categories = getSelectedValues('influencer-cat-filter');
-            const contentTypes = getSelectedValues('influencer-content-type-filter');
-            const minPrice = $('#minPrice').val();
-            const maxPrice = $('#maxPrice').val();
-            const keyword = $('#searchKeyword').val();
+    $(document).on('click', '.influencer-page-link', function (e) {
+        e.preventDefault();
+        const page = $(this).data('page');
 
-            $.ajax({
-                url: '/Influencers/SearchInfluencers',
-                type: 'GET',
-                traditional: true, // important for arrays
-                data: {
-                    categories: categories,
-                    contentTypes: contentTypes,
-                    minPrice: minPrice,
-                    maxPrice: maxPrice,
-                    keyword: keyword,
-
-                },
-                success: function (response) {
-                    $('#influencerResults').html(response);
-                },
-                error: function () {
-                    alert('Failed to fetch Influencers.');
-                }
-            });
+        if (page > 0) {
+            fetchInfluencers(page);
         }
+    });
+
+
 
         $('#searchButton').on('click', function () {
 
-            alert('hi')
             fetchInfluencers(); // Triggers AJAX with page = 1
         });
 
-        $(document).on('click', '.start-chat-btn', function () {
-            var receiverUserId = $(this).data('userid');
+        if ("@ViewBag.mode"== "Invite")
+        {
+            //alert('Invite');
+            fetchInfluencers();
+        }
 
-            // Send to server via AJAX
-            $.post('/Chats/CreateOrOpenChat', { receiverUserId: receiverUserId }, function (chatId) {
-                // Redirect to chat page (or you could open modal/chat box)
-                window.location.href = '/Chats/Index?chatId=' + chatId;
-            });
+    $(document).on('click', '.start-chat-btn', function (e) {
+        e.preventDefault(); // Stop <a> from navigating
+
+        var otherUserId = $(this).data('userid');
+
+        $.ajax({
+            url: '/Chats/StartChat',  // your backend API to start/get chat
+            type: 'POST',             // or 'POST' if you prefer
+            data: { targetUserId: otherUserId },
+            success: function (response) {
+                // Assuming backend returns success status or similar
+                if (response.success) {
+                    // Redirect to chat index page to load all chats
+                    window.location.href = '/Chats/Index?chatId=' + response.chatId;;
+                } else {
+                    alert("Failed to start chat.");
+                }
+            },
+            error: function () {
+                alert("Error while starting chat.");
+            }
         });
 
+    });
+
+    $(document).on('change', '.influencer-checkbox', function () {
+
+        if ($('.influencer-checkbox:checked').length > 0) {
+            $('#invite-influencers').show();
+        } else {
+            $('#invite-influencers').hide();
+        }
+
+    });
+
+    $(document).on('click', '#invite-influencers', function () {
+        const InfluencerIds = getSelectedValues('influencer-checkbox');
+        const campaignMsgId = $('#campaign-msg-id').val();
 
 
-    </script>
+        $.ajax({
+            url: '/CampaignMessages/InviteInfluencers',
+            type: 'POST',
+            traditional: true, // important for arrays
+            data: {
+                campaignMsgId: campaignMsgId,
+                InfluencerIds: InfluencerIds,
+
+
+            },
+            success: function (response) {
+                window.location.href = "/Home"
+            },
+            error: function () {
+                alert('Failed to invite Influencers.');
+            }
+        });
+
+    });
+
+
+
+</script>
 
 
 

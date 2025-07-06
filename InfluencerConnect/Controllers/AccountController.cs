@@ -11,15 +11,17 @@ using Microsoft.Owin.Security;
 using InfluencerConnect.Models;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Management;
 
 namespace InfluencerConnect.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -77,6 +79,25 @@ namespace InfluencerConnect.Controllers
             return PartialView("_UserInfoPartial", model);
         }
 
+        //public ActionResult AssignUserRoles()
+        //{
+        //    var context = new ApplicationDbContext();
+        //    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+        //    foreach (var user in context.Users.ToList())
+        //    {
+        //        // Skip if already in "Admin" role
+        //        if (userManager.IsInRole(user.Id, "Admin"))
+        //            continue;
+
+        //        // Add "User" role if not already assigned
+        //        if (!userManager.IsInRole(user.Id, "User"))
+        //            userManager.AddToRole(user.Id, "User");
+        //    }
+
+        //    return Content("Roles assigned to existing users.");
+        //}
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -104,6 +125,14 @@ namespace InfluencerConnect.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = UserManager.FindByEmail(model.Email);
+
+                    // Check if user is in "Admin" role
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                    {
+                        return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
+                        // or your actual Admin landing page
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -167,6 +196,7 @@ namespace InfluencerConnect.Controllers
             ViewBag.Category = new SelectList(db.Categories, "Id", "Name");
             ViewBag.ContentType = new SelectList(db.ContentType, "Id", "Name");
             return View();
+            
         }
 
         //
@@ -180,6 +210,10 @@ namespace InfluencerConnect.Controllers
             {
                 string uniqueFileName = null;
                 string imagePath = null;
+                string filePath = null;
+                string uniqueCompanyFileName = null;
+
+                // Handle Profile Image Upload
                 if (model.ProfileImage != null && model.ProfileImage.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(model.ProfileImage.FileName).ToLower();
@@ -192,8 +226,9 @@ namespace InfluencerConnect.Controllers
                     model.ProfileImage.SaveAs(fullPath);
 
                     imagePath = "/UserImages/" + uniqueFileName;
-
                 }
+
+                // Create user instance
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -205,63 +240,89 @@ namespace InfluencerConnect.Controllers
                     ImageName = uniqueFileName,
                     ImagePath = imagePath,
                 };
-                if (model.IsInfluencer)
-                {
-                    user.IsInfluencer = true;
-                    var newInfluencer = new Influencer()
-                    {
-                        UserId = user.Id,
-                        Name = model.FirstName + " " + model.LastName,
-                        ContactInfo = model.PhoneNumber,
-                        IsDeleted = false,
-                        CategoryId = model.CategoryId,
-                        MinCharge = model.MinCharge,
-                        MaxCharge = model.MaxCharge,
-                        Limit = model.Limit,
-                        AboutMe = model.AboutMe,
-                    };
 
-                    if (model.ContentTypeIds != null && model.ContentTypeIds.Any())
-                    {
-                        var influencerContentTypes = model.ContentTypeIds
-                            .Select(ctId => new InfluencerContentType
-                            {
-                                InfluencerId = user.Id,  // Use the saved influencer's ID
-                                ContentTypeId = ctId
-                            }).ToList();
-
-                        db.InfluencerContentType.AddRange(influencerContentTypes);
-                    }
-                    db.Influencer.Add(newInfluencer);
-                }
-                else
-                {
-                    var newAgent = new MarketingAgents()
-                    {
-                        UserId = user.Id,
-                        Name = model.FirstName + " " + model.LastName,
-                        ContactInfo = model.PhoneNumber,
-                        IsDeleted = false,
-                        Company = model.CompanyName,
-
-                    };
-                    db.MarketingAgents.Add(newAgent);
-                }
-                db.SaveChanges();
-
+                // Create the user in ASP.NET Identity
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "User");
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    if (model.IsInfluencer)
+                    {
+                        user.IsInfluencer = true;
 
-                    return RedirectToAction("Register2");
+                        var newInfluencer = new Influencer()
+                        {
+                            UserId = user.Id,
+                            Name = model.FirstName + " " + model.LastName,
+                            ContactInfo = model.PhoneNumber,
+                            IsDeleted = false,
+                            CategoryId = model.CategoryId,
+                            MinCharge = model.MinCharge,
+                            MaxCharge = model.MaxCharge,
+                            Limit = model.Limit,
+                            AboutMe = model.AboutMe,
+                        };
+
+                        db.Influencer.Add(newInfluencer);
+
+                        if (model.ContentTypeIds != null && model.ContentTypeIds.Any())
+                        {
+                            var influencerContentTypes = model.ContentTypeIds
+                                .Select(ctId => new InfluencerContentType
+                                {
+                                    InfluencerId = user.Id,
+                                    ContentTypeId = ctId
+                                }).ToList();
+
+                            db.InfluencerContentType.AddRange(influencerContentTypes);
+                        }
+                    }
+                    else
+                    {
+                        // Handle Company Letter Upload
+                        if (model.CompanyLetterHead != null && model.CompanyLetterHead.ContentLength > 0)
+                        {
+                            string extension = Path.GetExtension(model.CompanyLetterHead.FileName).ToLower();
+                            string uploadsFolder = Server.MapPath("~/AgentCompanyLetters");
+                            if (!Directory.Exists(uploadsFolder))
+                                Directory.CreateDirectory(uploadsFolder);
+
+                            uniqueCompanyFileName = Guid.NewGuid().ToString() + extension;
+                            string fullPath = Path.Combine(uploadsFolder, uniqueCompanyFileName);
+                            model.CompanyLetterHead.SaveAs(fullPath);
+
+                            filePath = "/AgentCompanyLetters/" + uniqueCompanyFileName;
+                        }
+
+                        var newAgent = new MarketingAgents()
+                        {
+                            UserId = user.Id,
+                            Name = model.FirstName + " " + model.LastName,
+                            ContactInfo = model.PhoneNumber,
+                            IsDeleted = false,
+                            Company = model.CompanyName,
+                            IsApproved = false,
+                            CompanyLetterName = uniqueCompanyFileName,
+                            CompanyLetterPath = filePath,
+                        };
+
+                        db.MarketingAgents.Add(newAgent);
+                    }
+
+                    db.SaveChanges();
+
+                    if (model.IsInfluencer)
+                    {
+                        return RedirectToAction("Register2");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+
                 AddErrors(result);
             }
 
@@ -269,62 +330,28 @@ namespace InfluencerConnect.Controllers
             return View(model);
         }
 
+
         //Register 2
-        [AllowAnonymous]
+        
         public ActionResult Register2()
         {
-            // var currentUserId = User.Identity.GetUserId();
-            //var user = db.Users.Where(x=>x.Id== currentUserId).FirstOrDefault();
-            ViewBag.ContentType = db.ContentType.Where(x => !x.IsDeleted).ToList();
-            // if (user.IsInfluencer)
             ViewBag.IsInfluencer = true;
-            // else
-            //ViewBag.IsInfluencer = false;
-
-
+            
             return View();
         }
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult InfluencerRegister2(List<int> ContentType, int minCharge, int maxCharge, int limit)
+
+        public JsonResult SaveSocials(string instagramLink, string tiktokLink, string youtubeLink)
         {
             var currentUserId = User.Identity.GetUserId();
-            if (ContentType != null && ContentType.Count > 0)
-            {
+            var influencer = db.Influencer.Where(x => x.UserId == currentUserId).FirstOrDefault();
+            influencer.InstagramLink = instagramLink;
+            influencer.TikTokLink = tiktokLink;
+            influencer.YoutubeLink = youtubeLink;
 
-                foreach (int contentType in ContentType)
-                {
-                    var influencerContentType = new InfluencerContentType()
-                    {
-                        InfluencerId = currentUserId,
-                        ContentTypeId = contentType,
-                        IsDeleted = false,
+            db.SaveChanges();
 
-                    };
-
-                    db.InfluencerContentType.Add(influencerContentType);
-
-                }
-
-                var influencer = db.Influencer.Where(x => x.UserId == currentUserId).FirstOrDefault();
-                influencer.MinCharge = minCharge;
-                influencer.MaxCharge = maxCharge;
-                influencer.Limit = limit;
-                db.SaveChanges();
-                return RedirectToAction("Register3");
-            }
-
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Register3()
-        {
-
-
-            return View();
-        }
-
+            return Json(new { success = true});
+        }     
 
 
         //

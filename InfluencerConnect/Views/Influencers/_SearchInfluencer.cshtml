@@ -1,8 +1,14 @@
 ﻿@model List<InfluencerConnect.Models.InfluencerListViewModel>
 
+@{
+    var mode = ViewData["mode"] as string ?? "Browse";
+}
 
-    <div class="row">
-        @foreach (var item in Model)
+
+<div class="row">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
         {
             <div class="col-lg-4 col-md-6 col-12 mg-top-30">
                 <!-- Single Influencer -->
@@ -28,7 +34,15 @@
                             </div>
                             <div class="inflancer-hborder"></div>
                             <div class="inflanar-influencer__follower--single">
-                                <span><button id="start-chat-btn" data-userid="@item.UserId" style="color: #FE2C55; font-size: 1.5rem; background:transparent; border: none; line-height: 0;" ><i class="fas fa-message"></i></button></span>
+                                @if (mode == "Browse")
+                                {
+                                    <span><button id="start-chat-btn" data-userid="@item.UserId" style="color: #FE2C55; font-size: 1.5rem; background:transparent; border: none; line-height: 0;"><i class="fas fa-message"></i></button></span>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="influencer-checkbox" style="transform: scale(1.5)" value="@item.UserId" />
+
+                                }
                             </div>
                         </div>
                         <a class="inflanar-btn-full  mg-top-20" href="~/Influencers/details/@item.InfluencerId">View Profile</a>
@@ -38,18 +52,42 @@
                 <!-- End Single Influencer -->
             </div>
         }
+    }
+    else
+    {
+        <div class="text-center text-muted p-4">
+            <h5>No Influencers found matching your filters.</h5>
+        </div>
+    }
 
-    </div>
-    <div class="row mg-top-50">
-        <div class="inflanar-pagination">
-            <ul class="inflanar-pagination__list list-none">
-                <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-left"></i></a></li>
-                <li><a href="#">01</a></li>
-                <li class="active"><a href="#">02</a></li>
-                <li><a href="#">03</a></li>
-                <li><a href="#">04</a></li>
-                <li class="inflanar-pagination__button"><a href="#"><i class="fas fa-angle-right"></i></a></li>
-            </ul>
+</div>
+<div class="row mg-top-50">
+    <div class="inflanar-pagination">
+        <ul class="inflanar-pagination__list list-none">
+            @if (ViewBag.TotalPages > 1)
+            {
+                int currentPage = ViewBag.CurrentPage;
+
+                <li class="inflanar-pagination__button">
+                    <a href="#" class="influencer-page-link" data-page="@(currentPage - 1)" @(currentPage == 1 ? "disabled" : "")><i class="fas fa-angle-left"></i></a>
+                </li>
+
+                for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="@(i == currentPage ? "active" : "")">
+                        <a href="#" class="influencer-page-link" data-page="@i">@i.ToString("D2")</a>
+                    </li>
+                }
+
+                <li class="inflanar-pagination__button">
+                    <a href="#" class="influencer-page-link" data-page="@(currentPage + 1)" @(currentPage == ViewBag.TotalPages ? "disabled" : "")><i class="fas fa-angle-right"></i></a>
+                </li>
+            }
+        </ul>
+        <div class="form-group mg-top-40 text-end">
+            <button id="invite-influencers" class="inflanar-btn" style="display:none"> Invite</button>
         </div>
     </div>
+</div>
+
 
